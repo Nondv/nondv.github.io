@@ -1,0 +1,27 @@
+.content figure {
+  text-align: left; /* HACK: bulma centers it */
+}
+
+.has-margin-left-5 {
+  margin-left: 1.25rem;
+}
+
+#navbar {
+  margin-bottom: 1.25rem;
+}
+
+#footer {
+  margin-top: 1.25rem;
+}
+
+#footer img {
+  vertical-align: middle;
+}
+
+.highlighter-rouge {
+  color: black;
+}
+
+.post-image {
+  max-height: 400px;
+}
