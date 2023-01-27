@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {%- if jekyll.environment == 'production' -%}
+      {%- include google-analytics.html -%}
+    {%- endif -%}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include seo.html %}
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <!-- Syntax highlight  -->
+    <link rel="stylesheet" href="/css/syntax-highlight/perldoc.css">
+    <!-- Custom shit and hacks -->
+    <link rel="stylesheet" href="/css/other.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>{{ page.title }}</title>
+  </head>
+  <body>
+    {% include header.html %}
+
+    <div class="container">
+      {{ content }}
+    </div>
+
+    {% include footer.html %}
+  </body>
+</html>

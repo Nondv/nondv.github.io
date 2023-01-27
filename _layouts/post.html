@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<div class="title is-1 mt-4">{{page.title}}</div>
+{% include share-buttons.html %}
+
+{%- if page.img -%}
+  <img class='post-image' src='{{page.img}}' alt='Post image' />
+{%- endif -%}
+
+<article class="content">
+  {{content}}
+</article>
+{% include share-buttons.html %}
+
+{% include comments.html %}
