@@ -40,7 +40,7 @@ defaults:
     values:
       layout: 'post'
       is_post: true
-      permalink: '/blog/:categories/:title:output_ext'
+      permalink: '/blog/:slugified_categories/:title:output_ext'
 exclude:
   - README.md
 # Exclude from processing.
