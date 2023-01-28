@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+  <head><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-162786325-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-162786325-2');
+</script>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<meta itemprop="description" name="description" content="Everyday tips & tricks I use in git" />
+<meta property="og:title" content="How I use git" />
+<meta property='og:site_name' content='Dmitry Non' />
+<meta property="og:url" content="https://nondv.wtf/blog/productivity/how-i-use-git.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2023-01-27" />
+  
+  <meta property="og:image" content="/img/posts/git-logo.svg" />
+  <meta property="article:tag" content="git" />
+  <meta property="article:tag" content="bash" />
+  
+<meta name="theme-color" content="#4A4A4A"/>
+<link rel="apple-touch-icon" href="/img/icon-black.png" />
+
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <!-- Syntax highlight  -->
+    <link rel="stylesheet" href="/css/syntax-highlight/perldoc.css">
+    <!-- Custom shit and hacks -->
+    <link rel="stylesheet" href="/css/other.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>How I use git</title>
+  </head>
+  <body>
+    <header class="has-background-light">
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column is-narrow">
+        <a href="/">
+          <figure id="photo" class="image is-128x128">
+            <img class="is-rounded" src="/img/photo.jpg" />
+          </figure>
+        </a>
+      </div>
+      <div class="column">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <div class="title is-size-2">Dmitry Non</div>
+            <div class="subtitle is-size-4">Software Engineer</div>
+          </div>
+          <div class="column is-narrow">
+            <a href="mailto:mail@nondv.io">
+              <span class="icon">
+                <i class="far fa-envelope"></i>
+              </span>
+              mail@nondv.io
+            </a>
+            <a class="is-block" target="_blank" href="https://www.linkedin.com/in/nondv/">
+              <span class="icon">
+                <i class="fab fa-linkedin"></i>
+              </span>
+              Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://github.com/Nondv">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              @Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://medium.com/@nondv">
+              <span class="icon">
+                <i class="fab fa-medium"></i>
+              </span>
+              @nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://weird-programming.dev">
+              <span class="icon">
+                <i class="fas fa-external-link-alt"></i>
+              </span>
+              weird-programming.dev
+            </a>
+            <a class="is-block" href="/blog.html">
+              <span class="icon">
+                <i class="fas fa-external-link-alt"></i>
+              </span>
+              nondv.wtf/blog
+            </a>
+            <div>London, UK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+    <div class="container">
+      <div class="title is-1 mt-4">How I use git</div>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fproductivity%2Fhow-i-use-git.html&text=How+I+use+git" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fproductivity%2Fhow-i-use-git.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fproductivity%2Fhow-i-use-git.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+<div class="mb-4">
+    <img class='post-image' src='/img/posts/git-logo.svg' alt='Post image' />
+  </div><article class="content">
+  <p>This is a loose translation of my <a href="https://habr.com/en/post/336708/">post</a> from
+2017 + minor edits.</p>
+
+<!--more-->
+
+<p><a id="org7774e9e"></a></p>
+
+<h1 id="intro">Intro</h1>
+
+<p>I had to learn git basics at my first job (back in 2014). Since then I thought
+that in order to be a proficient git user you only need a few commands:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">git add &lt;path&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git commit</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git checkout &lt;path/branch&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git checkout -b &lt;new branch&gt;</code></li>
+</ul>
+
+<p>And additionally:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">git push/pull</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git merge &lt;branch&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git rebase master</code> (huh? you guys can rebase on other branches too? :O)</li>
+</ul>
+
+<p>For the most part, I’m still thinking that but an old dog always learns new
+tricks (eventually).</p>
+
+<p><strong>Generally speaking, it’s useful to know about git foundations. It’s worth
+learning what a commit is, what a branch is, what a tag is, etc.</strong></p>
+
+<p><a id="orgec49899"></a></p>
+
+<h1 id="some-handy-settings">Some handy settings</h1>
+
+<p><a id="orgd6db37a"></a></p>
+
+<h2 id="auto-completion">Auto completion</h2>
+
+<p>I was surprised to find out that not everyone has it enabled. <a href="https://letmegooglethat.com/?q=git+completion">Here you go</a>.</p>
+
+<p><a id="org6e370de"></a></p>
+
+<h2 id="adding-current-branch-to-your-bash-prompt">Adding current branch to your bash prompt</h2>
+
+<p>Add this code to your <code class="language-plaintext highlighter-rouge">.bashrc</code>. I’ve been using it since starting that first job of mine.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function </span>git-current-branch <span class="o">{</span>
+    git branch <span class="nt">--no-color</span> 2&gt; /dev/null | <span class="nb">grep</span> <span class="se">\*</span> | colrm 1 2
+<span class="o">}</span>
+
+<span class="k">function </span>set_prompt_line <span class="o">{</span>
+    <span class="nb">local        </span><span class="nv">BLUE</span><span class="o">=</span><span class="s2">"</span><span class="se">\[\0</span><span class="s2">33[0;34m</span><span class="se">\]</span><span class="s2">"</span>
+
+    <span class="c"># OPTIONAL - if you want to use any of these other colors:</span>
+    <span class="nb">local         </span><span class="nv">RED</span><span class="o">=</span><span class="s2">"</span><span class="se">\[\0</span><span class="s2">33[0;31m</span><span class="se">\]</span><span class="s2">"</span>
+    <span class="nb">local   </span><span class="nv">LIGHT_RED</span><span class="o">=</span><span class="s2">"</span><span class="se">\[\0</span><span class="s2">33[1;31m</span><span class="se">\]</span><span class="s2">"</span>
+    <span class="nb">local       </span><span class="nv">GREEN</span><span class="o">=</span><span class="s2">"</span><span class="se">\[\0</span><span class="s2">33[0;32m</span><span class="se">\]</span><span class="s2">"</span>
+    <span class="nb">local </span><span class="nv">LIGHT_GREEN</span><span class="o">=</span><span class="s2">"</span><span class="se">\[\0</span><span class="s2">33[1;32m</span><span class="se">\]</span><span class="s2">"</span>
+    <span class="nb">local       </span><span class="nv">WHITE</span><span class="o">=</span><span class="s2">"</span><span class="se">\[\0</span><span class="s2">33[1;37m</span><span class="se">\]</span><span class="s2">"</span>
+    <span class="nb">local  </span><span class="nv">LIGHT_GRAY</span><span class="o">=</span><span class="s2">"</span><span class="se">\[\0</span><span class="s2">33[0;37m</span><span class="se">\]</span><span class="s2">"</span>
+    <span class="c"># END OPTIONAL</span>
+    <span class="nb">local     </span><span class="nv">DEFAULT</span><span class="o">=</span><span class="s2">"</span><span class="se">\[\0</span><span class="s2">33[0m</span><span class="se">\]</span><span class="s2">"</span>
+    <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">"</span><span class="nv">$BLUE</span><span class="se">\w</span><span class="s2"> </span><span class="nv">$LIGHT_RED</span><span class="s2">[</span><span class="se">\$</span><span class="s2">(git-current-branch)]</span><span class="nv">$DEFAULT</span><span class="s2"> </span><span class="se">\$</span><span class="s2"> "</span>
+<span class="o">}</span>
+
+set_prompt_line
+</code></pre></div></div>
+
+<p>Pro tip: your prompt configuration is stored in the variable <code class="language-plaintext highlighter-rouge">PS1</code>. Have fun.</p>
+
+<p><a id="org2320109"></a></p>
+
+<h2 id="aliases">Aliases</h2>
+
+<p>Git has its own aliases but I don’t like them.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#</span>
+<span class="c"># Git</span>
+<span class="c">#</span>
+<span class="nb">alias </span><span class="nv">gst</span><span class="o">=</span><span class="s1">'git status'</span>
+<span class="nb">alias </span><span class="nv">glog</span><span class="o">=</span><span class="s1">'git log'</span>
+<span class="nb">alias </span><span class="nv">gcheck</span><span class="o">=</span><span class="s1">'git checkout'</span>
+<span class="nb">alias </span><span class="nv">gamend</span><span class="o">=</span><span class="s1">'git commit --amend'</span>
+__git_complete gcheck _git_checkout
+<span class="nb">alias </span><span class="nv">gcom</span><span class="o">=</span><span class="s1">'git commit'</span>
+__git_complete gcom _git_commit
+<span class="nb">alias </span><span class="nv">gdiff</span><span class="o">=</span><span class="s1">'git diff'</span>
+__git_complete gdiff _git_diff
+<span class="nb">alias </span><span class="nv">gadd</span><span class="o">=</span><span class="s1">'git add'</span>
+__git_complete gadd _git_add
+</code></pre></div></div>
+
+<p>Note: <code class="language-plaintext highlighter-rouge">__git_complete</code> enables completion for an alias.</p>
+
+<p><a id="org73ac64a"></a></p>
+
+<h2 id="edit-commit-messages-in-your-favourite-text-editor">Edit commit messages in your favourite text editor</h2>
+
+<p>Let’s start with a scary story based on real events:</p>
+
+<blockquote>
+  <p>Once upon a time, a young inexperienced programmer wanted to commit his code but git opened vim!</p>
+</blockquote>
+
+<p>Yep, it’s my true story. After a few hours I managed to close it and since then I committed exclusively via <code class="language-plaintext highlighter-rouge">git commit -m</code> with one-line messages.</p>
+
+<p>Git, similar to some other programs (e.g. crontab) check the <code class="language-plaintext highlighter-rouge">EDITOR</code> variable. Add this to your bash config (~/.bashrc):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">EDITOR</span><span class="o">=</span>&lt;your editor<span class="s1">'s executable&gt;
+</span></code></pre></div></div>
+
+<p>For me it’s <code class="language-plaintext highlighter-rouge">emacsclient</code>. Before that, it was <code class="language-plaintext highlighter-rouge">subl</code> (Sublime Text). I haven’t checked but I’m assuming it’s important that the command locks the terminal until the text file’s closed.</p>
+
+<p><a id="org333fede"></a></p>
+
+<h1 id="tips--tricks">Tips &amp; Tricks</h1>
+
+<p><a id="orgcc30f4b"></a></p>
+
+<h2 id="switch-branch-without-losing-your-uncommited-changes">Switch branch without losing your uncommited changes</h2>
+
+<p>Sometimes you can just switch the branch but sometimes you’ll get conflicts. I know two ways around them:</p>
+
+<ol>
+  <li>Create a temporary commit</li>
+  <li><code class="language-plaintext highlighter-rouge">git stash</code>, switch branch, …, switch back, <code class="language-plaintext highlighter-rouge">git stash pop</code></li>
+</ol>
+
+<p>The former is more reliable. The latter is more convenient (IMHO).</p>
+
+<p><a id="org29b18a4"></a></p>
+
+<h2 id="show-the-changes-ive-made">Show the changes I’ve made</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff
+</code></pre></div></div>
+
+<p>This command shows your changes relative to the current commit + stage (this is important). Note: new files aren’t included.</p>
+
+<p><a id="orgfd0002e"></a></p>
+
+<h2 id="show-the-changes-in-the-stage">Show the changes in the stage</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff <span class="nt">--cached</span>
+</code></pre></div></div>
+
+<p>Note: this <em>does</em> show new files.</p>
+
+<p><a id="orge2ef1ec"></a></p>
+
+<h2 id="delete-untracked-files">Delete untracked files</h2>
+
+<p>I.e. files that aren’t committed to the repo</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clean <span class="nt">-df</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-d</code> — also deletes directories</li>
+  <li><code class="language-plaintext highlighter-rouge">-f</code> — required flag. Without it, git won’t do anything.</li>
+</ul>
+
+<p><a id="org694bc89"></a></p>
+
+<h2 id="cancel-last-commit">Cancel last commit</h2>
+
+<p>I’ve got a bash alias for that:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias </span>git-uncommit<span class="o">=</span><span class="s1">'git reset --soft HEAD~
+</span></code></pre></div></div>
+
+<p>У меня на это дело есть alias в баше:</p>
+
+<p>Explanation:</p>
+
+<p><code class="language-plaintext highlighter-rouge">git reset --soft &lt;commit/branch/tag&gt;</code> sets the branch to the specified commit but doesn’t checkout the code. The difference is kept in the stage.</p>
+
+<p><code class="language-plaintext highlighter-rouge">HEAD~&lt;N&gt;</code> points to N commits before the current one. <code class="language-plaintext highlighter-rouge">HEAD~</code> is equivalent to <code class="language-plaintext highlighter-rouge">HEAD~1</code>.</p>
+
+<p>Basically, the whole command just sets the branch to the previous commit and saves the difference in the stage.</p>
+
+<p><a id="org67ac5b9"></a></p>
+
+<h2 id="join-multiple-commits">Join multiple commits</h2>
+
+<p>When I work on my own branch, sometimes I create a few commits that make no sense in isolation (I do that to commit as much as possible without losing my train of thought). So it makes sense to join them before publishing the branch.</p>
+
+<p>Solution: interactive <code class="language-plaintext highlighter-rouge">rebase</code>!</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase <span class="nt">-i</span> master
+</code></pre></div></div>
+
+<p>This will open your text editor with a list of commits. You can:</p>
+
+<ul>
+  <li>Reorder them (pretty useful)</li>
+  <li>“Squash” them - joining multiple commits into one</li>
+  <li>Edit them - git will stop during rebase so you can make changes with <code class="language-plaintext highlighter-rouge">--amend</code></li>
+  <li>Changing the commit message - you can do that during edit too.</li>
+  <li>Exclude commit from the branch completely.</li>
+</ul>
+
+<p>For this particular case, all we need to do is to place commits we want to join one after another and mark them with <code class="language-plaintext highlighter-rouge">squash</code>.</p>
+
+<p>Usually I use interactive rebase every time I’m done working with on feature to see which commits I wanna join, which commits I want to rearrange (for aesthetic reasons), which commits I want to edit. This helps to keep versioning at a higher quality.</p>
+
+<p><a id="org7de6610"></a></p>
+
+<h2 id="add-something-to-a-previous-commit">Add something to a previous commit</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add &lt;forgotten changes&gt;
+git commit <span class="nt">--amend</span>
+</code></pre></div></div>
+
+<p>See also:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">--amend</span> <span class="nt">--no-edit</span> <span class="c"># keeping the message without changes</span>
+git commit <span class="nt">--amend</span> <span class="nt">-m</span> <span class="s1">'my commit message'</span> <span class="c"># this one's obvious</span>
+</code></pre></div></div>
+
+<p><a id="orgdd47dda"></a></p>
+
+<h2 id="add-changes-to-an-older-commit-when-its-too-late-for---amend">Add changes to an older commit (when it’s too late for <code class="language-plaintext highlighter-rouge">--amend</code>)</h2>
+
+<p>Use case:</p>
+
+<p>3 commits ago I’ve made a typo and I don’t want anyone to see a dedicated commit fixing that (because it creates useless noise and is generally embarrassing).</p>
+
+<p>Solution:</p>
+
+<p>Interactive rebase!</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase <span class="nt">-i</span> HEAD~3
+</code></pre></div></div>
+
+<p>Usually in a situation like that (happens to me a lot) I commit the fix with <code class="language-plaintext highlighter-rouge">[to_squash]</code> in the message. After that whenever I’m ready to use interactive rebase, it’ll be easy to identify commits that need joining.</p>
+
+<p><a id="orgf50a834"></a></p>
+
+<h2 id="commit-only-a-part-of-a-file-changes">Commit only a part of a file changes</h2>
+
+<p>It’s best to keep commits simple. It’s quite common to see a huge diff that includes a new feature along with a bunch of related (or even unrelated) changes like refactoring. How on earth are we supposed to read those diffs? It’d be much better if refactoring was committed separately.</p>
+
+<p>For example, consider this code:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sqare</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="n">sqare</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Let’s say I want to add a new feature: printing <code class="language-plaintext highlighter-rouge">2*n</code>. Easy-peasy! And while I’m at it, I fix the naming typo.</p>
+
+<p>The result:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">double</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">+</span> <span class="n">x</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="n">square</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">double</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>But now I have two unrelated changes in one file. How do I commit? I could bring the old name back, commit the new feature, and <em>then</em> fix the naming. But this is not always appropriate as the changes may be quite large.</p>
+
+<p>Git has a great command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add <span class="nt">-p</span>
+</code></pre></div></div>
+
+<p>It’s interactive. It grabs parts of the diff (hunks) and asks you what to do with it: ignore, add, or edit+add. The third option is quite powerful; you can commit even a <em>part</em> of a line (<code class="language-plaintext highlighter-rouge">sqare(x) + cub(x)</code> -&gt; <code class="language-plaintext highlighter-rouge">square(x) + cub(x)</code> in two commits).</p>
+
+<p>I recommend trying it out for yourself. It’s better to try once than to hear thrice.</p>
+
+<p><a id="org15a50f6"></a></p>
+
+<h1 id="notable-mentions">Notable mentions</h1>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">git reflog</code> — saved my butt when I accidentally deleted a branch without pushing it.</li>
+  <li><code class="language-plaintext highlighter-rouge">git rebase -i</code> — I only mentioned a couple of use-cases but there’re more.</li>
+  <li><code class="language-plaintext highlighter-rouge">git log --graph</code> — It’s quite cool. Not sure if it’s practical though</li>
+  <li><code class="language-plaintext highlighter-rouge">git cherry-pick &lt;commit&gt;</code> — tries to apply a commit to the current branch.</li>
+</ul>
+
+<p><a id="org0bbd0a0"></a></p>
+
+<h1 id="outro">Outro</h1>
+
+<p>It’s only a few git tricks but I use them <em>every</em> day.</p>
+
+<p>I’d like to emphasise: <strong>know your tools!</strong></p>
+
+<p>Git (and many other tools you use or may be using) has lots of features that can make your life easier. For instance, there’re repos that use commit validators: you can’t commit unless some tests don’t pass or there’re tests missing for new files.</p>
+
+</article>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fproductivity%2Fhow-i-use-git.html&text=How+I+use+git" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fproductivity%2Fhow-i-use-git.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fproductivity%2Fhow-i-use-git.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+
+
+<script src="https://cdn.fastcomments.com/js/embed-v2.min.js"></script>
+<div id="fastcomments-widget"></div>
+<script>
+  window.FastCommentsUI(document.getElementById('fastcomments-widget'), {
+    "tenantId": "yGXgdvu2fN"
+  });
+</script>
+
+
+    </div>
+
+    <footer id="footer" class="has-background-light">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        &copy; <a class="has-text-black" href="https://nondv.wtf" target="_blank" rel="noopener"><u>Dmitry Non</u></a>
+      </div>
+      <div class="column has-text-right">
+        <div>
+          <a href="https://bulma.io/" target="_blank" rel="noopener"><img src="/img/made-with-bulma.png" alt="bulma logo" width="128"/></a>
+        </div>
+        <div>
+          <a href="https://jekyllrb.com/" target="_blank" rel="noopener"><img src="/img/jekyll-logo.png" alt="jekyll logo" width="128"/></a>
+        </div>
+        <div>
+          Hosted on <a href="https://github.com" target="_blank" rel="noopener"><img id="footer-github-logo" src="/img/github-logo.png" alt="Github logo" width="128"/></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>
