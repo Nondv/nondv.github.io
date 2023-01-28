@@ -1,7 +1,16 @@
 ---
 layout: default
 ---
-<div class="title is-1 mt-4">{{page.title}}</div>
+<nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="{% link blog.html %}">Blog</a></li>
+    <li><a href="{% link categories.html %}">Categories</a></li>
+    <li><a href="{{site.url}}/blog/categories/{{page.categories[0] | slugify}}">{{page.categories[0]}}</a></li>
+    <li class="is-active"><a href="#" aria-current="page">{{page.title}}</a></li>
+  </ul>
+</nav>
+
+<div class="title is-1">{{page.title}}</div>
 {% include share-buttons.html %}
 
 {%- if page.img -%}
