@@ -5,7 +5,9 @@ layout: default
 {% include share-buttons.html %}
 
 {%- if page.img -%}
-  <img class='post-image' src='{{page.img}}' alt='Post image' />
+  <div class="mb-4">
+    <img class='post-image' src='{{page.img}}' alt='Post image' />
+  </div>
 {%- endif -%}
 
 <article class="content">
