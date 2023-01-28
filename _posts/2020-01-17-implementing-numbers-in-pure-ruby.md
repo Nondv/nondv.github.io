@@ -1,7 +1,7 @@
 ---
 title:  Implementing numbers in "pure" Ruby
 author_profile_url: https://nondv.wtf
-categories: [oop]
+categories: ['Weird Programming', 'OOP', 'Ruby']
 tags: [ruby, oop, numbers, object-oriented programming]
 description: >-
   Let's implement our own numbers in Ruby without standard library functions

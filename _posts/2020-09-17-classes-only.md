@@ -1,7 +1,7 @@
 ---
 title: Programming only with classes
 author_profile_url: https://nondv.wtf
-categories: [oop]
+categories: ['Weird Programming', 'OOP', 'Ruby']
 tags: [ruby, oop, classes, object-oriented programming, pure oop]
 img: /img/posts/caveman.png
 description: >-

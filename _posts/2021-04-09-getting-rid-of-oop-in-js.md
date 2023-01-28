@@ -1,7 +1,7 @@
 ---
 title: Getting rid of OOP in Javascript with lodash/fp
 author_profile_url: https://nondv.wtf
-categories: [javascript, fp]
+categories: ['Functional Programming', 'JavaScript']
 tags: [javascript, js, oop, fp, lodash, lodash/fp]
 img: /img/posts/lambda.svg
 description: >-

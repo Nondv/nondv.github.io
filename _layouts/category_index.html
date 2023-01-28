@@ -1,8 +1,8 @@
 ---
-title: Dmitry Non's personal blog
----
+layout: default
 
-{%- for post in site.posts -%}
+---
+{%- for post in page.posts -%}
   {% include posts_item.html post=post %}
   <hr class="hr"></hr>
 {%- endfor -%}

@@ -1,6 +1,6 @@
 ---
 title: How I use git
-categories: [productivity]
+categories: ['Productivity', 'Tooling']
 tags: [git, bash]
 img: /img/posts/git-logo.svg
 description: >-

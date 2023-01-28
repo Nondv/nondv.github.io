@@ -1,0 +1,29 @@
+<article>
+  <div class="columns is-vcentered">
+    <div class="column is-narrow">
+      <figure class="image is-128x128">
+        {%- if include.post.img -%}
+        <img src="{{ include.post.img }}">
+        {%- endif-%}
+      </figure>
+    </div>
+    <div class="column">
+      <a href="{{ include.post.url }}">
+        <h1 class="title is-size-1">{{include.post.title}}</h1>
+      </a>
+      <div class="subtitle"><time>{{ include.post.date | date: "%-d %b %Y" }}</time></div>
+
+      <div class="content">
+        {{ include.post.excerpt }}
+      </div>
+      <div class="has-text-right">
+        <a class="button  is-link is-rounded is-outlined" href="{{ include.post.url }}">
+          Continue reading &nbsp;
+          <span class="icon">
+            <i class="fas fa-arrow-right"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>

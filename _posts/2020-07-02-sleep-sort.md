@@ -1,7 +1,7 @@
 ---
 title: Sleep sort algorithm
 author_profile_url: https://url-to-the-author
-categories: [algorithms]
+categories: ['Weird Programming', 'Algorithms']
 tags: [sleep sort, sorting, algorithm]
 img: /img/posts/sleeping.png
 description: >-

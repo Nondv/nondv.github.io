@@ -1,7 +1,7 @@
 ---
 title: Implementing integer expressions in Haskell data types
 author_profile_url: https://nondv.wtf
-categories: [fp]
+categories: ['Weird Programming', 'Functional Programming']
 img: /img/posts/kids_math.png
 tags: [haskell, functional programming, fp, data types, pattern matching]
 description: >-

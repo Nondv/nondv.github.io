@@ -27,6 +27,8 @@ twitter_username: Nondv
 github_username:  Nondv
 plugins:
   - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-category-pages
 
 # Build settings
 excerpt_separator: '<!--more-->'
@@ -40,7 +42,9 @@ defaults:
     values:
       layout: 'post'
       is_post: true
-      permalink: '/blog/:slugified_categories/:title:output_ext'
+      permalink: '/blog/posts/:title:output_ext'
+
+category_path: '/blog/categories'
 exclude:
   - README.md
 # Exclude from processing.

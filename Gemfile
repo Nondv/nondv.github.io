@@ -9,6 +9,9 @@ source "https://rubygems.org"
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
 gem "jekyll", "~> 4.3.2"
+# gem 'jekyll-archives', "~> 2.2.1"
+gem "jekyll-paginate"
+gem "jekyll-category-pages"
 gem 'jekyll-sitemap'
 
 gem "sassc", '2.4.0'
