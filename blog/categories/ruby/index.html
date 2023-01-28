@@ -13,9 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
 <meta itemprop="description" name="description" content="Personal blog and CV" />
-<meta property="og:title" content="Dmitry Non's personal blog" />
+<meta property="og:title" content="Ruby" />
 <meta property='og:site_name' content='Dmitry Non' />
-<meta property="og:url" content="https://nondv.wtf/blog.html" />
+<meta property="og:url" content="https://nondv.wtf/blog/categories/ruby/" />
 
   <meta property="og:type" content="website" />
 <meta name="theme-color" content="#4A4A4A"/>
@@ -31,7 +31,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <title>Dmitry Non's personal blog</title>
+    <title>Ruby</title>
   </head>
   <body>
     <header class="has-background-light mb-4">
@@ -98,77 +98,13 @@
 
 
     <div class="container">
-      <article>
-  <div class="columns is-vcentered">
-    <div class="column is-narrow">
-      <figure class="image is-128x128"><img src="/img/posts/git-logo.svg"></figure>
-    </div>
-    <div class="column">
-      <a href="/blog/posts/how-i-use-git.html">
-        <h1 class="title is-size-1">How I use git</h1>
-      </a>
-      <div class="subtitle"><time>27 Jan 2023</time></div>
-
-      <div class="content">
-        <p>This is a loose translation of my <a href="https://habr.com/en/post/336708/">post</a> from
-2017 + minor edits.</p>
-
-
-      </div>
-      <div class="has-text-right">
-        <a class="button  is-link is-rounded is-outlined" href="/blog/posts/how-i-use-git.html">
-          Continue reading &nbsp;
-          <span class="icon">
-            <i class="fas fa-arrow-right"></i>
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
-</article>
-
-  <hr class="hr"></hr><article>
-  <div class="columns is-vcentered">
-    <div class="column is-narrow">
-      <figure class="image is-128x128"><img src="/img/posts/lambda.svg"></figure>
-    </div>
-    <div class="column">
-      <a href="/blog/posts/getting-rid-of-oop-in-js.html">
-        <h1 class="title is-size-1">Getting rid of OOP in Javascript with lodash/fp</h1>
-      </a>
-      <div class="subtitle"><time>9 Apr 2021</time></div>
-
-      <div class="content">
-        <p>One of the things I dislike about JavaScript is how it intertwines
-object-oriented paradigm with functional programming. Ironically, that’s also the
-thing that I do like about JS. I like that I have a choice and JS actually does
-allow you to write functional code that looks natural (as opposed to Ruby that
-doesn’t even have actual functions per se).</p>
-
-<p>However, the standard library in JavaScript is written in a OOP manner, meaning
-that you need to call methods on objects instead of using functions. This
-creates inconsistency when you write in functional style because you end up with
-code that uses both functions end methods: <code class="language-plaintext highlighter-rouge">getUsers(ids).map(userToJson)</code>.</p>
-
-<p>I’d much rather prefer to have a consistent function-oriented code. Lodash,
-defining a lot of commonly-used functions, basically provides functional
-alternative to JS methods from standard library.</p>
-
-
-      </div>
-      <div class="has-text-right">
-        <a class="button  is-link is-rounded is-outlined" href="/blog/posts/getting-rid-of-oop-in-js.html">
-          Continue reading &nbsp;
-          <span class="icon">
-            <i class="fas fa-arrow-right"></i>
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
-</article>
-
-  <hr class="hr"></hr><article>
+      <nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li class="is-active"><a>Ruby</a></li>
+  </ul>
+</nav><article>
   <div class="columns is-vcentered">
     <div class="column is-narrow">
       <figure class="image is-128x128"><img src="/img/posts/caveman.png"></figure>
@@ -191,114 +127,6 @@ like <code class="language-plaintext highlighter-rouge">if</code> and <code clas
       </div>
       <div class="has-text-right">
         <a class="button  is-link is-rounded is-outlined" href="/blog/posts/classes-only.html">
-          Continue reading &nbsp;
-          <span class="icon">
-            <i class="fas fa-arrow-right"></i>
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
-</article>
-
-  <hr class="hr"></hr><article>
-  <div class="columns is-vcentered">
-    <div class="column is-narrow">
-      <figure class="image is-128x128"><img src="/img/posts/sleeping.png"></figure>
-    </div>
-    <div class="column">
-      <a href="/blog/posts/sleep-sort.html">
-        <h1 class="title is-size-1">Sleep sort algorithm</h1>
-      </a>
-      <div class="subtitle"><time>2 Jul 2020</time></div>
-
-      <div class="content">
-        <p>Some time ago I was doing some small introductions to basic algorithms I learned
-back in school to my colleagues at carwow (just for fun).
-Some of them became <a href="https://medium.com/programming-basics">posts on medium</a>.</p>
-
-<p>After one of them a colleague told me about sleep sort algorithm. I think it’s
-ingenious and should be in my blog.</p>
-
-
-      </div>
-      <div class="has-text-right">
-        <a class="button  is-link is-rounded is-outlined" href="/blog/posts/sleep-sort.html">
-          Continue reading &nbsp;
-          <span class="icon">
-            <i class="fas fa-arrow-right"></i>
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
-</article>
-
-  <hr class="hr"></hr><article>
-  <div class="columns is-vcentered">
-    <div class="column is-narrow">
-      <figure class="image is-128x128"><img src="/img/posts/kids_math.png"></figure>
-    </div>
-    <div class="column">
-      <a href="/blog/posts/implementing-integer-expressions-with-only-data-types-and-pattern-matching.html">
-        <h1 class="title is-size-1">Implementing integer expressions in Haskell data types</h1>
-      </a>
-      <div class="subtitle"><time>6 Apr 2020</time></div>
-
-      <div class="content">
-        <p><em>Inspired by <a href="/blog/posts/implementing-numbers-in-pure-ruby.html">Implementing numbers in “pure” Ruby</a></em></p>
-
-<p>When I started working with <a href="https://elm-lang.org/">Elm programming language</a>
-I was amazed how simple and yet powerful the type system is. It’s just shocking
-how far you can go with with just having some symbols and type constructors.</p>
-
-<!-- Type constructors, in my perception, are merely [injective functions](https://en.wikipedia.org/wiki/Injective_function) -->
-<!-- that evaluate into some abstract data we don't, actually, care about (we care -->
-<!-- only about the function itself and its arguments). I guess, mathematicians would -->
-<!-- disagree with me but that's just how I perceive them to ease the understanding. -->
-
-<p>But how <em>really</em> far can we go? Well, I decided to test it out <em>starting with</em>
-implementing  integers and expressions with them. I decided to use Haskell for
-that. Its laziness may be useful.</p>
-
-
-      </div>
-      <div class="has-text-right">
-        <a class="button  is-link is-rounded is-outlined" href="/blog/posts/implementing-integer-expressions-with-only-data-types-and-pattern-matching.html">
-          Continue reading &nbsp;
-          <span class="icon">
-            <i class="fas fa-arrow-right"></i>
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
-</article>
-
-  <hr class="hr"></hr><article>
-  <div class="columns is-vcentered">
-    <div class="column is-narrow">
-      <figure class="image is-128x128"><img src="/img/posts/bugs-handshake.png"></figure>
-    </div>
-    <div class="column">
-      <a href="/blog/posts/functional-programming-meet-oop.html">
-        <h1 class="title is-size-1">Functional programming, meet OOP</h1>
-      </a>
-      <div class="subtitle"><time>15 Mar 2020</time></div>
-
-      <div class="content">
-        <p><em>Originally posted on <a href="https://medium.com/swlh/functional-programming-meet-oop-3dc12a14e38e">medium.com</a></em></p>
-
-<p>I enjoy experimenting with programming paradigms and trying out some interesting
-(to me) ideas (some things become posts, like
-<a href="/blog/posts/implementing-numbers-in-pure-ruby.html">this</a> and
-<a href="/blog/posts/writing-a-small-web-service-with-ruby-rack-and-fp.html">that</a>).
-Recently I decided to see if I can write object-oriented code in a functional language.</p>
-
-
-      </div>
-      <div class="has-text-right">
-        <a class="button  is-link is-rounded is-outlined" href="/blog/posts/functional-programming-meet-oop.html">
           Continue reading &nbsp;
           <span class="icon">
             <i class="fas fa-arrow-right"></i>
