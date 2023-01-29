@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+  <head><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-162786325-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-162786325-2');
+</script>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<meta itemprop="description" name="description" content="Short explanation of how constant lookup works in Ruby" />
+<meta property="og:title" content="I hate Ruby constants" />
+<meta property='og:site_name' content='Dmitry Non' />
+<meta property="og:url" content="https://nondv.wtf/blog/posts/i-hate-ruby-constants.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2023-01-29" />
+  
+  <meta property="og:image" content="/img/posts/ruby.png" />
+  <meta property="article:tag" content="ruby" />
+  <meta property="article:tag" content="constants" />
+  <meta property="article:tag" content="lookup" />
+  <meta property="article:tag" content="const_missing" />
+  
+<meta name="theme-color" content="#4A4A4A"/>
+<link rel="apple-touch-icon" href="/img/icon-black.png" />
+
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <!-- Syntax highlight  -->
+    <link rel="stylesheet" href="/css/syntax-highlight/perldoc.css">
+    <!-- Custom shit and hacks -->
+    <link rel="stylesheet" href="/css/other.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>I hate Ruby constants</title>
+  </head>
+  <body>
+    <header class="has-background-light mb-4">
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column is-narrow">
+        <a href="/">
+          <figure id="photo" class="image is-128x128">
+            <img class="is-rounded" src="/img/avatar.jpg" />
+          </figure>
+        </a>
+      </div>
+      <div class="column">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <div class="title is-size-2">Dmitry Non</div>
+            <div class="subtitle is-size-4">Software Engineer</div>
+          </div>
+          <div class="column is-narrow">
+            <a href="mailto:mail@nondv.io">
+              <span class="icon">
+                <i class="far fa-envelope"></i>
+              </span>
+              mail@nondv.io
+            </a>
+            <a class="is-block" target="_blank" href="https://www.linkedin.com/in/nondv/">
+              <span class="icon">
+                <i class="fab fa-linkedin"></i>
+              </span>
+              Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://github.com/Nondv">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              @Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://medium.com/@nondv">
+              <span class="icon">
+                <i class="fab fa-medium"></i>
+              </span>
+              @nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://weird-programming.dev">
+              <span class="icon">
+                <i class="fas fa-external-link-alt"></i>
+              </span>
+              weird-programming.dev
+            </a>
+            <a class="is-block" href="/blog.html">
+              <span class="icon">
+                <i class="fas fa-pen"></i>
+              </span>
+              nondv.wtf/blog
+            </a>
+            <div>London, UK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+    <div class="container">
+      <nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="https://nondv.wtf/blog/categories/ruby">Ruby</a></li>
+    <li class="is-active"><a href="#" aria-current="page">I hate Ruby constants</a></li>
+  </ul>
+</nav>
+
+<div class="title is-1">I hate Ruby constants</div>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fi-hate-ruby-constants.html&text=I+hate+Ruby+constants" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fi-hate-ruby-constants.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fi-hate-ruby-constants.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+<figure class="mb-6 has-text-centered">
+    <img class='post-image' src='/img/posts/ruby.png' alt='Post image' /></figure><article class="content">
+  <p><em>This is a loose translation of <a href="https://habr.com/en/post/347272/">my post</a> from 2018.</em></p>
+
+<p>Ruby is a very complex programming language. It’s incredibly beautiful and
+expressive.  However, it also has lots of traits and implementation details that
+even some of the experienced Ruby programmers may not know. One of these is
+constant lookup.</p>
+
+<p>I’m not gonna try to explain the lookup algorithm works. I just want to raise
+some awareness of the topic. Mostly, it’s just a rant.</p>
+
+<!--more-->
+
+<h1 id="example">Example</h1>
+
+<p>Let’s make a little demonstration. Let’s start with a few constants:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">M</span>
+  <span class="no">A</span> <span class="o">=</span> <span class="s1">'A from M'</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">Namespace</span>
+  <span class="no">A</span> <span class="o">=</span> <span class="s1">'A from Namespace'</span>
+
+  <span class="k">class</span> <span class="nc">C</span>
+    <span class="kp">include</span> <span class="no">M</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>We have a mixin module <code class="language-plaintext highlighter-rouge">M</code> and a module <code class="language-plaintext highlighter-rouge">Namespace</code> with a subclass <code class="language-plaintext highlighter-rouge">C</code>. Each
+module defines a constant <code class="language-plaintext highlighter-rouge">A</code> which we are going to try and access.</p>
+
+<p>A quiz. What will the code below print out? I’ll put the answers a bit further
+so they don’t spoil the fun.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">puts</span> <span class="no">Namespace</span><span class="o">::</span><span class="no">C</span><span class="o">::</span><span class="no">A</span>
+
+<span class="k">module</span> <span class="nn">Namespace</span>
+  <span class="k">class</span> <span class="nc">C</span>
+    <span class="nb">puts</span> <span class="no">A</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Let’s also define a few methods:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">M</span>
+  <span class="k">def</span> <span class="nf">m</span>
+    <span class="no">A</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">Namespace</span>
+  <span class="k">class</span> <span class="nc">C</span>
+    <span class="k">def</span> <span class="nf">f</span>
+      <span class="no">A</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Namespace::C</span>
+  <span class="k">def</span> <span class="nf">g</span>
+    <span class="no">A</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+
+<span class="n">x</span> <span class="o">=</span> <span class="no">Namespace</span><span class="o">::</span><span class="no">C</span><span class="p">.</span><span class="nf">new</span>
+<span class="nb">puts</span> <span class="n">x</span><span class="p">.</span><span class="nf">f</span>
+<span class="nb">puts</span> <span class="n">x</span><span class="p">.</span><span class="nf">g</span>
+<span class="nb">puts</span> <span class="n">x</span><span class="p">.</span><span class="nf">m</span></code></pre></figure>
+
+<p>What do you think? Are they different?</p>
+
+<h1 id="answers">Answers</h1>
+
+<p>Here’s the full code from our demo with answers in it:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">M</span>
+  <span class="no">A</span> <span class="o">=</span> <span class="s1">'A from M'</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">Namespace</span>
+  <span class="no">A</span> <span class="o">=</span> <span class="s1">'A from Namespace'</span>
+  <span class="k">class</span> <span class="nc">C</span>
+    <span class="kp">include</span> <span class="no">M</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="no">Namespace</span><span class="o">::</span><span class="no">C</span><span class="o">::</span><span class="no">A</span> <span class="c1"># A from M</span>
+
+<span class="k">module</span> <span class="nn">Namespace</span>
+  <span class="k">class</span> <span class="nc">C</span>
+    <span class="nb">puts</span> <span class="no">A</span> <span class="c1"># A from Namespace</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">M</span>
+  <span class="k">def</span> <span class="nf">m</span>
+    <span class="no">A</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">Namespace</span>
+  <span class="k">class</span> <span class="nc">C</span>
+    <span class="k">def</span> <span class="nf">f</span>
+      <span class="no">A</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Namespace::C</span>
+  <span class="k">def</span> <span class="nf">g</span>
+    <span class="no">A</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="no">Namespace</span><span class="o">::</span><span class="no">C</span><span class="p">.</span><span class="nf">new</span>
+<span class="nb">puts</span> <span class="n">x</span><span class="p">.</span><span class="nf">f</span> <span class="c1"># A from Namespace</span>
+<span class="nb">puts</span> <span class="n">x</span><span class="p">.</span><span class="nf">g</span> <span class="c1"># A from M</span>
+<span class="nb">puts</span> <span class="n">x</span><span class="p">.</span><span class="nf">m</span> <span class="c1"># A from M</span></code></pre></figure>
+
+<p>So the output will be:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A from M
+A from Namespace
+A from Namespace
+A from M
+A from M
+</code></pre></div></div>
+
+<h1 id="short-explanation">Short explanation</h1>
+
+<p>Simply speaking, constant lookup includes a few steps:</p>
+
+<ol>
+  <li>Lexical scope search. I.e. the lookup context will depend on the place where
+the line of code is. For example, in the first <code class="language-plaintext highlighter-rouge">puts</code> the execution context
+is the top-level so it uses the constant <code class="language-plaintext highlighter-rouge">Namespace::C::A</code>. During the second
+<code class="language-plaintext highlighter-rouge">puts</code>, it first changes the context to <code class="language-plaintext highlighter-rouge">Namespace</code> module, then the <code class="language-plaintext highlighter-rouge">C</code>
+class, and only then looks <code class="language-plaintext highlighter-rouge">A</code> up. You can find more about that if you read
+about nesting and <code class="language-plaintext highlighter-rouge">Module.nesting</code> method.</li>
+  <li>If the first step wasn’t successful, the interpreter starts going through
+mixins and parent classes for <em>every</em> module from the first step.</li>
+  <li>If even that didn’t help, the top-level gets checked. Technically, it’s
+included in the step 2 because top-level is an <code class="language-plaintext highlighter-rouge">Object</code> instance.</li>
+  <li>At this stage the constant is considered missing and the <code class="language-plaintext highlighter-rouge">const_missing</code>
+method is called (similarly to <code class="language-plaintext highlighter-rouge">method_missing</code>).</li>
+</ol>
+
+<p>So:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># We are at the top-level</span>
+<span class="c1"># ruby checks C and accesses A from its mixin M.</span>
+<span class="nb">puts</span> <span class="no">Namespace</span><span class="o">::</span><span class="no">C</span><span class="o">::</span><span class="no">A</span> <span class="c1"># A from M</span>
+
+<span class="k">module</span> <span class="nn">Namespace</span>
+  <span class="k">class</span> <span class="nc">C</span>
+    <span class="c1"># We are at the Namespace -&gt; C</span>
+    <span class="c1"># At the first step the constant is found within the lexical scope (in Namespace)</span>
+    <span class="nb">puts</span> <span class="no">A</span> <span class="c1"># A from Namespace</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">M</span>
+  <span class="k">def</span> <span class="nf">m</span>
+    <span class="c1"># We are in the context of M. There's an A within the lexical scope</span>
+    <span class="no">A</span> <span class="c1"># A from M</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">Namespace</span>
+  <span class="k">class</span> <span class="nc">C</span>
+    <span class="k">def</span> <span class="nf">f</span>
+      <span class="c1"># We are in the context of Namespace -&gt; C</span>
+      <span class="no">A</span> <span class="c1"># A from Namespace</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Namespace::C</span>
+  <span class="k">def</span> <span class="nf">g</span>
+    <span class="c1"># We are in the context of Namespace::C (notice that we didn't enter Namespace)</span>
+    <span class="c1"># First step will fail as there's no A in the lexical scope</span>
+    <span class="c1"># At the second step A is found in the mixin.</span>
+    <span class="no">A</span> <span class="c1"># A from M</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<h1 id="outro">Outro</h1>
+
+<p>Можно сказать, Ruby заставляет нас при написании в коде констант вычислять их
+значение относительно написанного кода, а не относительно контекста выполнения
+(очень странно звучит, простите).</p>
+
+<p>Ruby Style Guide has a good <a href="https://github.com/bbatsov/ruby-style-guide#namespace-definition">rule of thumb</a>: define and extend classes/modules
+using explicit nesting, i.e. never write `class A::B`. Following this simple
+rule is, practically, enough to avoid surprises and to be oblivious of constant
+lookup completely.</p>
+
+<p>What else you can read on the subject:</p>
+
+<ul>
+  <li>Chapter 7.9 of “The Ruby Programming Language” - book written by Matz.</li>
+  <li><a href="https://guides.rubyonrails.org/autoloading_and_reloading_constants.html">Autoloading and Reloading Constants</a> in Rails guides</li>
+  <li><a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a></li>
+  <li>Play around with <a href="http://ruby-doc.org/core-2.2.0/Module.html#method-c-nesting">Module.nesting</a></li>
+</ul>
+
+<h1 id="update">Update</h1>
+
+<p>User @DsideSPb left a useful <a href="https://habrahabr.ru/post/347272/#comment_10629706">comment</a> about an additional feature of constant
+lookup. However, it was deleted in the last ruby release (2.5.0).</p>
+
+<p>I don’t know all the details but in some cases if you specify wrong way to the
+constant, interpreter may replace it with one from top-level.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># 1.rb</span>
+<span class="k">class</span> <span class="nc">A</span><span class="p">;</span> <span class="k">end</span>
+<span class="k">class</span> <span class="nc">B</span><span class="p">;</span> <span class="k">end</span>
+<span class="no">A</span><span class="o">::</span><span class="no">B</span> <span class="c1"># returns B with a warning</span>
+
+<span class="c1"># 2.rb</span>
+<span class="k">class</span> <span class="nc">A</span><span class="p">;</span> <span class="k">end</span>
+<span class="k">module</span> <span class="nn">M</span><span class="p">;</span> <span class="k">end</span>
+<span class="no">A</span><span class="o">::</span><span class="no">M</span> <span class="c1"># ==&gt; M with a warning</span>
+<span class="no">M</span><span class="o">::</span><span class="no">A</span> <span class="c1"># ==&gt; NameError</span></code></pre></figure>
+
+
+</article>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fi-hate-ruby-constants.html&text=I+hate+Ruby+constants" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fi-hate-ruby-constants.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fi-hate-ruby-constants.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+
+
+<script src="https://cdn.fastcomments.com/js/embed-v2.min.js"></script>
+<div id="fastcomments-widget"></div>
+<script>
+  window.FastCommentsUI(document.getElementById('fastcomments-widget'), {
+    "tenantId": "yGXgdvu2fN"
+  });
+</script>
+
+
+    </div>
+
+    <footer id="footer" class="has-background-light">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        &copy; <a class="has-text-black" href="https://nondv.wtf" target="_blank" rel="noopener"><u>Dmitry Non</u></a>
+      </div>
+      <div class="column has-text-right">
+        <div>
+          <a href="https://bulma.io/" target="_blank" rel="noopener"><img src="/img/made-with-bulma.png" alt="bulma logo" width="128"/></a>
+        </div>
+        <div>
+          <a href="https://jekyllrb.com/" target="_blank" rel="noopener"><img src="/img/jekyll-logo.png" alt="jekyll logo" width="128"/></a>
+        </div>
+        <div>
+          Hosted on <a href="https://github.com" target="_blank" rel="noopener"><img id="footer-github-logo" src="/img/github-logo.png" alt="Github logo" width="128"/></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>
