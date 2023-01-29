@@ -206,10 +206,6 @@ end
 
 # Outro
 
-Можно сказать, Ruby заставляет нас при написании в коде констант вычислять их
-значение относительно написанного кода, а не относительно контекста выполнения
-(очень странно звучит, простите).
-
 Ruby Style Guide has a good [rule of thumb](https://github.com/bbatsov/ruby-style-guide#namespace-definition): define and extend classes/modules
 using explicit nesting, i.e. never write \`class A::B\`. Following this simple
 rule is, practically, enough to avoid surprises and to be oblivious of constant
