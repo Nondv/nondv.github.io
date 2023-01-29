@@ -5,7 +5,31 @@ layout: default
   <ul>
     <li><a href="{% link blog.html %}">Blog</a></li>
     <li><a href="{% link categories.html %}">Categories</a></li>
-    <li><a href="{{site.url}}/blog/categories/{{page.categories[0] | slugify}}">{{page.categories[0]}}</a></li>
+    <li>
+      {%- if page.categories.size > 1 -%}
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <a href="{{site.url}}/blog/categories/{{page.categories[0] | slugify}}">
+              <span class="icon is-small mr-0 ml-0"><i class="fas fa-angle-down"></i></span>
+              {{page.categories[0]}}
+            </a>
+          </div>
+
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              {%- assign categories_except_first = page.categories | slice: 1, page.categories.size -%}
+              {%- for category in categories_except_first -%}
+                <a style="justify-content: left" class="dropdown-item" href="{{site.url}}/blog/categories/{{category | slugify}}">
+                  {{category}}
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      {%- else -%}
+        <a href="{{site.url}}/blog/categories/{{page.categories[0] | slugify}}">{{page.categories[0]}}</a>
+      {%- endif -%}
+    </li>
     <li class="is-active"><a href="#" aria-current="page">{{page.title}}</a></li>
   </ul>
 </nav>
