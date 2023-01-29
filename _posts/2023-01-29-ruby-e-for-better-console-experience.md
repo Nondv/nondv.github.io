@@ -1,6 +1,6 @@
 ---
 title: "ruby -e for better console experience"
-categories: ['Ruby', 'Tooling']
+categories: ['Ruby', 'Tooling', 'Productivity']
 tags: ['ruby', 'bash', 'one-liners', 'console', 'terminal']
 img: /img/posts/desktop.jpg
 description: >-
