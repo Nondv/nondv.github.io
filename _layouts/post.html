@@ -14,9 +14,12 @@ layout: default
 {% include share-buttons.html %}
 
 {%- if page.img -%}
-  <div class="mb-4">
+  <figure class="mb-6 has-text-centered">
     <img class='post-image' src='{{page.img}}' alt='Post image' />
-  </div>
+    {%- if page.img_caption -%}
+      <figcaption class="is-size-7">{{page.img_caption}}</figcaption>
+    {%- endif -%}
+  </figure>
 {%- endif -%}
 
 <article class="content">
