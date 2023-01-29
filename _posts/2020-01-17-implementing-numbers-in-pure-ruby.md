@@ -3,6 +3,8 @@ title:  Implementing numbers in "pure" Ruby
 author_profile_url: https://nondv.wtf
 categories: ['Weird Programming', 'OOP', 'Ruby']
 tags: [ruby, oop, numbers, object-oriented programming]
+img: /img/posts/numbers.jpg
+img_caption: Photo by Andrew Buchanan on Unsplash
 description: >-
   Let's implement our own numbers in Ruby without standard library functions
 ---
