@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-162786325-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-162786325-2');
+</script>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<meta itemprop="description" name="description" content="One-liners and cross-platform unix tools with ruby -run" />
+<meta property="og:title" content="ruby -run" />
+<meta property='og:site_name' content='Dmitry Non' />
+<meta property="og:url" content="https://nondv.wtf/blog/posts/ruby-run.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2023-01-29" />
+  
+  <meta property="og:image" content="/img/posts/matrix-binary.jpg" />
+  <meta property="article:tag" content="ruby" />
+  <meta property="article:tag" content="run" />
+  <meta property="article:tag" content="unix" />
+  <meta property="article:tag" content="linux" />
+  <meta property="article:tag" content="bash" />
+  <meta property="article:tag" content="shell" />
+  <meta property="article:tag" content="one-liners" />
+  <meta property="article:tag" content="windows" />
+  
+<meta name="theme-color" content="#4A4A4A"/>
+<link rel="apple-touch-icon" href="/img/icon-black.png" />
+
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <!-- Syntax highlight  -->
+    <link rel="stylesheet" href="/css/syntax-highlight/perldoc.css">
+    <!-- Custom shit and hacks -->
+    <link rel="stylesheet" href="/css/other.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>ruby -run</title>
+  </head>
+  <body>
+    <header class="has-background-light mb-4">
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column is-narrow">
+        <a href="/">
+          <figure id="photo" class="image is-128x128">
+            <img class="is-rounded" src="/img/avatar.jpg" />
+          </figure>
+        </a>
+      </div>
+      <div class="column">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <div class="title is-size-2">Dmitry Non</div>
+            <div class="subtitle is-size-4">Software Engineer</div>
+          </div>
+          <div class="column is-narrow">
+            <a href="mailto:mail@nondv.io">
+              <span class="icon">
+                <i class="far fa-envelope"></i>
+              </span>
+              mail@nondv.io
+            </a>
+            <a class="is-block" target="_blank" href="https://www.linkedin.com/in/nondv/">
+              <span class="icon">
+                <i class="fab fa-linkedin"></i>
+              </span>
+              Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://github.com/Nondv">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              @Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://medium.com/@nondv">
+              <span class="icon">
+                <i class="fab fa-medium"></i>
+              </span>
+              @nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://weird-programming.dev">
+              <span class="icon">
+                <i class="fas fa-external-link-alt"></i>
+              </span>
+              weird-programming.dev
+            </a>
+            <a class="is-block" href="/blog.html">
+              <span class="icon">
+                <i class="fas fa-pen"></i>
+              </span>
+              nondv.wtf/blog
+            </a>
+            <div>London, UK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+    <div class="container">
+      <nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="https://nondv.wtf/blog/categories/ruby">Ruby</a></li>
+    <li class="is-active"><a href="#" aria-current="page">ruby -run</a></li>
+  </ul>
+</nav>
+
+<div class="title is-1">ruby -run</div>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-run.html&text=ruby+-run" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-run.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-run.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+<figure class="mb-6 has-text-centered">
+    <img class='post-image' src='/img/posts/matrix-binary.jpg' alt='Post image' /><figcaption class="is-size-7"><a href="https://www.freepik.com/free-vector/matrix-style-binary-code-digital-background-with-falling-numbers_8289995.htm">Image by starline</a> on Freepik</figcaption></figure><article class="content">
+  <p><em>This is a loose translation of <a href="https://habr.com/en/post/319002/">my post</a> from 2017</em></p>
+
+<p>Recently, I was looking for a one-liner to start a web-server in the current
+directory. Stack Overflow gave me this command:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ruby <span class="nt">-run</span> <span class="nt">-e</span> httpd <span class="nt">--</span> <span class="nt">-p</span> 9090 <span class="o">[</span>DIR]</code></pre></figure>
+
+<p>So what is this mysterious <code class="language-plaintext highlighter-rouge">-run</code> option an why is it not in the ruby manual?</p>
+
+<!--more-->
+
+<h1 id="option--run">Option <code class="language-plaintext highlighter-rouge">-run</code></h1>
+
+<p>In reality, <code class="language-plaintext highlighter-rouge">-run</code> is not an option. More precisely, it’s an option, but not
+“run”. Notice that there’s one dash instead of two.</p>
+
+<p>Turns out, it’s just an option <code class="language-plaintext highlighter-rouge">-r</code> with an argument <code class="language-plaintext highlighter-rouge">un</code>. And <code class="language-plaintext highlighter-rouge">un</code> is a file in
+ruby standard library (<em>2023 edit: now available on <a href="https://github.com/ruby/un">Github</a></em>). It defines a few
+useful methods to use in one-liners as standalone programs.</p>
+
+<p>One of the methods is <code class="language-plaintext highlighter-rouge">httpd</code> which just start <code class="language-plaintext highlighter-rouge">WebBrick</code> with parameters from
+<code class="language-plaintext highlighter-rouge">ARGV</code> (in the case above, it’s just port and directory).</p>
+
+<h1 id="availability">Availability</h1>
+
+<p>Apparently, it’s a really old file beceause I found its documentation for ruby
+<code class="language-plaintext highlighter-rouge">1.8.6</code>. So you can use it freely.</p>
+
+<h1 id="what-else-is-in-there">What else is in there?</h1>
+
+<p>Here’s a copypaste from the docs:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ruby <span class="nt">-run</span> <span class="nt">-e</span> <span class="nb">cp</span> <span class="nt">--</span> <span class="o">[</span>OPTION] SOURCE DEST
+ruby <span class="nt">-run</span> <span class="nt">-e</span> <span class="nb">ln</span> <span class="nt">--</span> <span class="o">[</span>OPTION] TARGET LINK_NAME
+ruby <span class="nt">-run</span> <span class="nt">-e</span> <span class="nb">mv</span> <span class="nt">--</span> <span class="o">[</span>OPTION] SOURCE DEST
+ruby <span class="nt">-run</span> <span class="nt">-e</span> <span class="nb">rm</span> <span class="nt">--</span> <span class="o">[</span>OPTION] FILE
+ruby <span class="nt">-run</span> <span class="nt">-e</span> <span class="nb">mkdir</span> <span class="nt">--</span> <span class="o">[</span>OPTION] DIRS
+ruby <span class="nt">-run</span> <span class="nt">-e</span> <span class="nb">rmdir</span> <span class="nt">--</span> <span class="o">[</span>OPTION] DIRS
+ruby <span class="nt">-run</span> <span class="nt">-e</span> <span class="nb">install</span> <span class="nt">--</span> <span class="o">[</span>OPTION] SOURCE DEST
+ruby <span class="nt">-run</span> <span class="nt">-e</span> <span class="nb">chmod</span> <span class="nt">--</span> <span class="o">[</span>OPTION] OCTAL-MODE FILE
+ruby <span class="nt">-run</span> <span class="nt">-e</span> <span class="nb">touch</span> <span class="nt">--</span> <span class="o">[</span>OPTION] FILE
+ruby <span class="nt">-run</span> <span class="nt">-e</span> <span class="nb">help</span> <span class="o">[</span>COMMAND]</code></pre></figure>
+
+<h1 id="outro">Outro</h1>
+
+<p>I think there’s not much point in using <code class="language-plaintext highlighter-rouge">un</code> outside of one-liners since its
+every method uses <code class="language-plaintext highlighter-rouge">ARGV</code> but it’s useful to remember that ruby has it. I imagine
+it’ll work in Windows too bringing a way to use Unix-tools in it.</p>
+
+<p>BTW, I added this alias to my bash config:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">alias </span>start-webrick<span class="o">=</span><span class="s1">'ruby -run -e httpd -- -p 9090'</span></code></pre></figure>
+
+<p>Really convenient!</p>
+
+</article>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-run.html&text=ruby+-run" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-run.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-run.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+
+
+<script src="https://cdn.fastcomments.com/js/embed-v2.min.js"></script>
+<div id="fastcomments-widget"></div>
+<script>
+  window.FastCommentsUI(document.getElementById('fastcomments-widget'), {
+    "tenantId": "yGXgdvu2fN"
+  });
+</script>
+
+
+    </div>
+
+    <footer id="footer" class="has-background-light">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        &copy; <a class="has-text-black" href="https://nondv.wtf" target="_blank" rel="noopener"><u>Dmitry Non</u></a>
+      </div>
+      <div class="column has-text-right">
+        <div>
+          <a href="https://bulma.io/" target="_blank" rel="noopener"><img src="/img/made-with-bulma.png" alt="bulma logo" width="128"/></a>
+        </div>
+        <div>
+          <a href="https://jekyllrb.com/" target="_blank" rel="noopener"><img src="/img/jekyll-logo.png" alt="jekyll logo" width="128"/></a>
+        </div>
+        <div>
+          Hosted on <a href="https://github.com" target="_blank" rel="noopener"><img id="footer-github-logo" src="/img/github-logo.png" alt="Github logo" width="128"/></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>
