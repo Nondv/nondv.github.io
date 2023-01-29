@@ -2,6 +2,13 @@
 title: Dmitry Non's personal blog
 ---
 
+<nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+  <ul>
+    <li class="is-active"><a href="#">Blog</a></li>
+    <li><a href="{% link categories.html %}">Categories</a></li>
+  </ul>
+</nav>
+
 {%- for post in site.posts -%}
   {% include posts_item.html post=post %}
   <hr class="hr"></hr>
