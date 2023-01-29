@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+  <head><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-162786325-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-162786325-2');
+</script>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<meta itemprop="description" name="description" content="Using ruby one-liners in terminal" />
+<meta property="og:title" content="ruby -e for better console experience" />
+<meta property='og:site_name' content='Dmitry Non' />
+<meta property="og:url" content="https://nondv.wtf/blog/posts/ruby-e-for-better-console-experience.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2023-01-29" />
+  
+  <meta property="og:image" content="/img/posts/desktop.jpg" />
+  <meta property="article:tag" content="ruby" />
+  <meta property="article:tag" content="bash" />
+  <meta property="article:tag" content="one-liners" />
+  <meta property="article:tag" content="console" />
+  <meta property="article:tag" content="terminal" />
+  
+<meta name="theme-color" content="#4A4A4A"/>
+<link rel="apple-touch-icon" href="/img/icon-black.png" />
+
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <!-- Syntax highlight  -->
+    <link rel="stylesheet" href="/css/syntax-highlight/perldoc.css">
+    <!-- Custom shit and hacks -->
+    <link rel="stylesheet" href="/css/other.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>ruby -e for better console experience</title>
+  </head>
+  <body>
+    <header class="has-background-light mb-4">
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column is-narrow">
+        <a href="/">
+          <figure id="photo" class="image is-128x128">
+            <img class="is-rounded" src="/img/avatar.jpg" />
+          </figure>
+        </a>
+      </div>
+      <div class="column">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <div class="title is-size-2">Dmitry Non</div>
+            <div class="subtitle is-size-4">Software Engineer</div>
+          </div>
+          <div class="column is-narrow">
+            <a href="mailto:mail@nondv.io">
+              <span class="icon">
+                <i class="far fa-envelope"></i>
+              </span>
+              mail@nondv.io
+            </a>
+            <a class="is-block" target="_blank" href="https://www.linkedin.com/in/nondv/">
+              <span class="icon">
+                <i class="fab fa-linkedin"></i>
+              </span>
+              Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://github.com/Nondv">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              @Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://medium.com/@nondv">
+              <span class="icon">
+                <i class="fab fa-medium"></i>
+              </span>
+              @nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://weird-programming.dev">
+              <span class="icon">
+                <i class="fas fa-external-link-alt"></i>
+              </span>
+              weird-programming.dev
+            </a>
+            <a class="is-block" href="/blog.html">
+              <span class="icon">
+                <i class="fas fa-pen"></i>
+              </span>
+              nondv.wtf/blog
+            </a>
+            <div>London, UK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+    <div class="container">
+      <nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><a href="https://nondv.wtf/blog/categories/ruby">Ruby</a></li>
+    <li class="is-active"><a href="#" aria-current="page">ruby -e for better console experience</a></li>
+  </ul>
+</nav>
+
+<div class="title is-1">ruby -e for better console experience</div>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-e-for-better-console-experience.html&text=ruby+-e+for+better+console+experience" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-e-for-better-console-experience.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-e-for-better-console-experience.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+<div class="mb-4">
+    <img class='post-image' src='/img/posts/desktop.jpg' alt='Post image' />
+  </div><article class="content">
+  <p><em>This is a loose translation of <a href="https://habr.com/en/post/339544/">my post</a> from 2017.</em></p>
+
+<p>Ruby was influenced by Perl and can substitute it in its niche of “practical
+extraction and reporting”. In this small post, I’ll talk about using ruby for
+simple text processing in the terminal.</p>
+
+<!--more-->
+
+<h1 id="tldr">TL;DR</h1>
+
+<p>Remember these two forms:</p>
+
+<figure class="highlight"><pre><code class="language-nil" data-lang="nil">... | ruby -lne '&lt;CODE&gt;'
+ruby -lne '&lt;CODE&gt;' file1, file2, ...</code></pre></figure>
+
+<p>In the former, your input will come from some previous command output (via
+pipe). In the latter, it’ll come from the concatenation of multiple files.</p>
+
+<p>CODE will be executed for every <strong>line</strong> of the input which will be available via
+<code class="language-plaintext highlighter-rouge">$_</code> variable. Important: lines won’t have <code class="language-plaintext highlighter-rouge">\n</code> at the end (which is enabled via
+<code class="language-plaintext highlighter-rouge">-l</code> flag).</p>
+
+<h2 id="examples">Examples</h2>
+
+<p>This is how we could implement <code class="language-plaintext highlighter-rouge">tac</code> (reverse <code class="language-plaintext highlighter-rouge">cat</code>):</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ruby <span class="nt">-lne</span> <span class="s1">'puts $_.reverse'</span> file-to-show.txt</code></pre></figure>
+
+<p>Display the first 10 characters from each filename in the current directory:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">ls</span> | ruby <span class="nt">-lne</span> <span class="s1">'puts $_[0..9]'</span></code></pre></figure>
+
+<h1 id="some-details">Some details</h1>
+
+<h2 id="pre-defined-variables">Pre-defined variables</h2>
+
+<p>Ruby has many pre-defined variables which we may have never even heard
+of. Some of them coming from Perl, e.g. <code class="language-plaintext highlighter-rouge">$_</code> and <code class="language-plaintext highlighter-rouge">$&lt;</code> (to be precise, Perl
+doesn’t have <code class="language-plaintext highlighter-rouge">$&lt;</code> but it’s got input operator <code class="language-plaintext highlighter-rouge">&lt;&gt;</code> reading from files/stdin and
+setting <code class="language-plaintext highlighter-rouge">$_</code>).</p>
+
+<p>You can see the list of those variables <a href="https://ruby-doc.org/core-2.4.2/doc/globals_rdoc.html">here</a>.</p>
+
+<p>In the context of this post, I recommend you take a look at the aforementioned
+<code class="language-plaintext highlighter-rouge">$_</code> and <code class="language-plaintext highlighter-rouge">$&lt;</code> and also <code class="language-plaintext highlighter-rouge">$~</code>, <code class="language-plaintext highlighter-rouge">$1</code>, <code class="language-plaintext highlighter-rouge">$stdin</code>, <code class="language-plaintext highlighter-rouge">ARGV</code>, <code class="language-plaintext highlighter-rouge">$stdout</code>, <code class="language-plaintext highlighter-rouge">STDIN</code> и
+<code class="language-plaintext highlighter-rouge">STDOUT</code>.</p>
+
+<h2 id="gets-terrible-secret"><code class="language-plaintext highlighter-rouge">gets</code>’ terrible secret</h2>
+
+<p>Maybe you’ve used <code class="language-plaintext highlighter-rouge">gets</code> before to request some user input from the keyboard.
+However, what you may not know is that it also checks <code class="language-plaintext highlighter-rouge">ARGV</code> (command line
+arguments).</p>
+
+<p>When <code class="language-plaintext highlighter-rouge">ARGV</code> isn’t empty <code class="language-plaintext highlighter-rouge">gets</code> assumes that it has a list of files, takes the
+first one and tries to read a line from it.</p>
+
+<p>Consider this script:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># myscript.rb</span>
+<span class="nb">puts</span> <span class="nb">gets</span></code></pre></figure>
+
+<p>Let’s run it with <code class="language-plaintext highlighter-rouge">ruby myscript.rb</code>. As expected, the program is waiting for
+our input.</p>
+
+<p>Let’s try running it with <code class="language-plaintext highlighter-rouge">ruby myscript.rb no-such-file.txt</code></p>
+
+<p>We’ll get a “no such file” error. Let’s change the script:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># myscript.rb</span>
+<span class="no">ARGV</span><span class="p">.</span><span class="nf">pop</span>
+<span class="nb">puts</span> <span class="nb">gets</span></code></pre></figure>
+
+<p>Now the program is waiting for our input once again because we removed the item
+from <code class="language-plaintext highlighter-rouge">ARGV</code>.</p>
+
+<h2 id="interpreter-options">Interpreter options</h2>
+
+<p>This is my template for one-liners:</p>
+
+<figure class="highlight"><pre><code class="language-nil" data-lang="nil">ruby -lne &lt;CODE&gt; [file1, file2, ...]</code></pre></figure>
+
+<p>(often without <code class="language-plaintext highlighter-rouge">-l</code>)</p>
+
+<p>Here’s a description of used and some helpful options:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-e &lt;CODE&gt;</code> - makes ruby not assume that a script is provided in the arguments
+and runs <code class="language-plaintext highlighter-rouge">CODE</code> instead.</li>
+  <li><code class="language-plaintext highlighter-rouge">-n</code> - wraps your program (whether from a file or <code class="language-plaintext highlighter-rouge">-e</code>) in a <code class="language-plaintext highlighter-rouge">while gets</code>
+loop. <code class="language-plaintext highlighter-rouge">gets</code> implicitly stores its result in <code class="language-plaintext highlighter-rouge">$_</code> variable (hello, Perl!),
+which we can use. <strong>Important:</strong> the string will end with <code class="language-plaintext highlighter-rouge">\n</code></li>
+  <li><code class="language-plaintext highlighter-rouge">-l</code> - For simplicity, we can say that it just removes newline (<code class="language-plaintext highlighter-rouge">\n</code>)
+character from <code class="language-plaintext highlighter-rouge">$_</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">-p</code> - works the same way as <code class="language-plaintext highlighter-rouge">-n</code> <strong>but</strong> after each iteration it prints <code class="language-plaintext highlighter-rouge">$_</code>.
+So instead of printing stuff out yourself, you can just change/mutate <code class="language-plaintext highlighter-rouge">$_</code>.
+Try this: <code class="language-plaintext highlighter-rouge">ls | ruby -pe '$_.upcase!'</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">-C &lt;DIR&gt;</code> - sets your workdir.</li>
+  <li><code class="language-plaintext highlighter-rouge">-a</code> (from “auto-split”) - can be used with <code class="language-plaintext highlighter-rouge">-n</code> или <code class="language-plaintext highlighter-rouge">-p</code> and sets <code class="language-plaintext highlighter-rouge">$F</code> to
+<code class="language-plaintext highlighter-rouge">$_.split</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">-F</code> - sets <code class="language-plaintext highlighter-rouge">$;</code> which is a default delimiter of <code class="language-plaintext highlighter-rouge">String#split</code>. In theory,
+can be useful along with <code class="language-plaintext highlighter-rouge">-a</code>. For instance, we could process simple <code class="language-plaintext highlighter-rouge">.csv</code>
+files (although I think it’s easier to just do <code class="language-plaintext highlighter-rouge">.split</code> yourself).</li>
+</ul>
+
+<h1 id="in-conclusion">In conclusion</h1>
+
+<p>The first time I thought of using <code class="language-plaintext highlighter-rouge">ruby-e</code> because of the program <code class="language-plaintext highlighter-rouge">cut</code>. I had
+to use it a few times and <em>every</em> time I had to open the manual which my had was
+taking a long time to understand <em>every</em> time.</p>
+
+<p>In the end, I thought: “Yes, I don’t know how to use <code class="language-plaintext highlighter-rouge">cut=/=awk=/=sed</code>. But I
+know quite a bit of Ruby so why can’t I just use it for small tasks?”.</p>
+
+<p>So now, instead of remembering how to use numerous of **nix tools I can just
+remember this form:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ruby <span class="nt">-lne</span> CODE</code></pre></figure>
+
+<p>And that’s it!</p>
+
+<p>There’s nothing new about this approach. Bearded system administrators have been
+using perl for this for a long time.</p>
+
+<p>P.S. Here’s an example of how I lately used this:</p>
+
+<p>I downloaded a TV show but it had really ugly filenames like “s01e01 - super
+release by super-mega-macho.mkv”. I wanted to rename them to keep it neat. Here
+you go:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">ls</span> | ruby <span class="nt">-lne</span> <span class="s1">'File.rename($_, "#{$_[0..5]}.mkv")'</span></code></pre></figure>
+
+
+</article>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-e-for-better-console-experience.html&text=ruby+-e+for+better+console+experience" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-e-for-better-console-experience.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fruby-e-for-better-console-experience.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+
+
+<script src="https://cdn.fastcomments.com/js/embed-v2.min.js"></script>
+<div id="fastcomments-widget"></div>
+<script>
+  window.FastCommentsUI(document.getElementById('fastcomments-widget'), {
+    "tenantId": "yGXgdvu2fN"
+  });
+</script>
+
+
+    </div>
+
+    <footer id="footer" class="has-background-light">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        &copy; <a class="has-text-black" href="https://nondv.wtf" target="_blank" rel="noopener"><u>Dmitry Non</u></a>
+      </div>
+      <div class="column has-text-right">
+        <div>
+          <a href="https://bulma.io/" target="_blank" rel="noopener"><img src="/img/made-with-bulma.png" alt="bulma logo" width="128"/></a>
+        </div>
+        <div>
+          <a href="https://jekyllrb.com/" target="_blank" rel="noopener"><img src="/img/jekyll-logo.png" alt="jekyll logo" width="128"/></a>
+        </div>
+        <div>
+          Hosted on <a href="https://github.com" target="_blank" rel="noopener"><img id="footer-github-logo" src="/img/github-logo.png" alt="Github logo" width="128"/></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>
