@@ -35,6 +35,7 @@ layout: default
 </nav>
 
 <div class="title is-1">{{page.title}}</div>
+<div class="subtitle"><time>{{ page.date | date: "%-d %b %Y" }}</time></div>
 {% include share-buttons.html %}
 
 {%- if page.img -%}
