@@ -13,6 +13,9 @@
   {% for tag in page.tags -%}
     <meta property="article:tag" content="{{ tag }}" />
   {% endfor -%}
+  {% for category in page.categories -%}
+    <meta property="article:tag" content="{{ category }}" />
+  {% endfor -%}
 {%- else %}
   <meta property="og:type" content="website" />
 {%- endif %}
