@@ -4,7 +4,7 @@ categories: ['Ruby', 'Clojure', 'Weird Programming']
 tags: ['DSL', 'validation']
 img: /img/posts/gear-lightbulb.jpg
 description: >-
-  A validation DSL generator based on simple functions and data.
+  A validation DSL generator based on pure functions and data.
 ---
 
 
@@ -198,7 +198,7 @@ approach like this:
 -   The core is minimal so it's easy to learn
 -   Because each DSL is created with pure functions, they can easily be re-used
 -   It's very portable as no special language features are required. Any
-    functional or OOP language can have this. I assume it can even be done in C
+    functional or OOP language can have this.
 
 My particular example simply returns `true/false` but with some tuning it can
 return explanations for validation failures.
