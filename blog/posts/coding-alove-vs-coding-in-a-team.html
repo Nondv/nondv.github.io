@@ -274,6 +274,24 @@ keyword arguments (e.g. <code class="language-plaintext highlighter-rouge">:init
 
 <p>Now I use it everywhere throughout my codebase. And nobody can stop me!</p>
 
+<p>I even used dynamic binding:</p>
+
+<figure class="highlight"><pre><code class="language-lisp" data-lang="lisp"><span class="p">(</span><span class="nb">defvar</span> <span class="vg">*connection*</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defmacro</span> <span class="nv">within-same-connection</span> <span class="p">(</span><span class="k">&amp;rest</span> <span class="nv">forms</span><span class="p">)</span>
+  <span class="o">`</span><span class="p">(</span><span class="nv">dbi:with-connection</span> <span class="p">(</span><span class="vg">*connection*</span> <span class="ss">:sqlite3</span> <span class="ss">:database-name</span> <span class="nv">+db-filename+</span><span class="p">)</span>
+     <span class="o">,</span><span class="p">(</span><span class="nb">cons</span> <span class="ss">'progn</span> <span class="nv">forms</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">sql-fetch</span> <span class="p">(</span><span class="nv">query</span> <span class="k">&amp;rest</span> <span class="nv">params</span><span class="p">)</span>
+  <span class="c1">;; Not gonna lie, this is shitty because it opens a new connection</span>
+  <span class="c1">;; even if it's not gonna need it.</span>
+  <span class="c1">;; But this was easier to write at the time so sue me</span>
+  <span class="p">(</span><span class="nv">dbi:with-connection</span> <span class="p">(</span><span class="nv">conn</span> <span class="ss">:sqlite3</span> <span class="ss">:database-name</span> <span class="nv">+db-filename+</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">connection</span> <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">boundp</span> <span class="ss">'*connection*</span><span class="p">)</span> <span class="vg">*connection*</span> <span class="nv">conn</span><span class="p">)))</span>
+      <span class="p">(</span><span class="nv">-&lt;&gt;</span> <span class="p">(</span><span class="nv">dbi:prepare</span> <span class="nv">connection</span> <span class="nv">query</span><span class="p">)</span>
+           <span class="p">(</span><span class="nv">dbi:execute</span> <span class="nv">&lt;&gt;</span> <span class="nv">params</span><span class="p">)</span>
+           <span class="nv">dbi:fetch-all</span><span class="p">))))</span></code></pre></figure>
+
 <h2 id="stick-to-one-coding-style-but-only-when-its-convenient">Stick to one coding style. But only when it’s convenient</h2>
 
 <p>In the recent years I developed a taste for functional style of coding. I love
@@ -314,6 +332,48 @@ would fit into my usual coding style. However! I didn’t come up with it off th
 top of my head and I was focused on prototyping. Right now, I don’t care about
 this piece of code. I have more interesting stuff to do. And there’s nobody else
 whom this code could screw over.</p>
+
+<p>Sometimes I’d use objects over raw data:</p>
+
+<figure class="highlight"><pre><code class="language-lisp" data-lang="lisp"><span class="nv">@export-accessors</span>
+<span class="p">(</span><span class="nb">defclass</span> <span class="nv">&lt;user&gt;</span> <span class="p">()</span>
+  <span class="p">((</span><span class="nv">id</span> <span class="ss">:reader</span> <span class="nv">id</span> <span class="ss">:type</span> <span class="nb">string</span> <span class="ss">:initarg</span> <span class="ss">:id</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">name</span> <span class="ss">:reader</span> <span class="nv">name</span> <span class="ss">:type</span> <span class="nb">string</span> <span class="ss">:initarg</span> <span class="ss">:name</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">bio</span> <span class="ss">:reader</span> <span class="nv">bio</span> <span class="ss">:type</span> <span class="nb">string</span> <span class="ss">:initarg</span> <span class="ss">:bio</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">photos</span> <span class="ss">:reader</span> <span class="nv">photos</span> <span class="ss">:type</span> <span class="nb">list</span> <span class="ss">:initarg</span> <span class="ss">:photos</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">distance-mi</span> <span class="ss">:reader</span> <span class="nv">distance-mi</span> <span class="ss">:type</span> <span class="nc">integer</span> <span class="ss">:initarg</span> <span class="ss">:distance-mi</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">verified</span> <span class="ss">:reader</span> <span class="nv">verified</span> <span class="ss">:type</span> <span class="kt">boolean</span> <span class="ss">:initarg</span> <span class="ss">:verified</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">in-travel-mode</span> <span class="ss">:reader</span> <span class="nv">in-travel-mode</span> <span class="ss">:type</span> <span class="kt">boolean</span> <span class="ss">:initarg</span> <span class="ss">:in-travel-mode</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">_original-data</span> <span class="ss">:initarg</span> <span class="ss">:_original-data</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">recommendation-&gt;user</span> <span class="p">(</span><span class="nv">rec</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">make-instance</span>
+   <span class="ss">'&lt;user&gt;</span>
+   <span class="ss">:id</span> <span class="p">(</span><span class="nv">alist-dig</span> <span class="o">'</span><span class="p">(</span><span class="s">"user"</span> <span class="s">"_id"</span><span class="p">)</span> <span class="nv">rec</span><span class="p">)</span>
+   <span class="ss">:name</span> <span class="p">(</span><span class="nv">alist-dig</span> <span class="o">'</span><span class="p">(</span><span class="s">"user"</span> <span class="s">"name"</span><span class="p">)</span> <span class="nv">rec</span><span class="p">)</span>
+   <span class="ss">:bio</span> <span class="p">(</span><span class="nv">alist-dig</span> <span class="o">'</span><span class="p">(</span><span class="s">"user"</span> <span class="s">"bio"</span><span class="p">)</span> <span class="nv">rec</span><span class="p">)</span>
+   <span class="ss">:photos</span> <span class="p">(</span><span class="nv">-&gt;&gt;</span> <span class="nv">rec</span>
+                <span class="p">(</span><span class="nv">alist-dig</span> <span class="o">'</span><span class="p">(</span><span class="s">"user"</span> <span class="s">"photos"</span><span class="p">))</span>
+                <span class="p">(</span><span class="nb">mapcar</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">alist-get</span> <span class="s">"url"</span> <span class="nv">x</span><span class="p">))))</span>
+   <span class="ss">:distance-mi</span> <span class="p">(</span><span class="nv">alist-get</span> <span class="s">"distance_mi"</span> <span class="nv">rec</span><span class="p">)</span>
+   <span class="ss">:verified</span> <span class="p">(</span><span class="nv">-&lt;&gt;</span> <span class="nv">rec</span>
+                  <span class="p">(</span><span class="nv">alist-dig</span> <span class="o">'</span><span class="p">(</span><span class="s">"user"</span> <span class="s">"badges"</span><span class="p">))</span>
+                  <span class="p">(</span><span class="nb">find-if</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">string=</span> <span class="s">"selfie_verified"</span> <span class="p">(</span><span class="nv">alist-get</span> <span class="s">"type"</span> <span class="nv">x</span><span class="p">))))</span>
+                  <span class="p">(</span><span class="nb">when</span> <span class="nv">&lt;&gt;</span> <span class="no">t</span><span class="p">))</span>
+   <span class="ss">:in-travel-mode</span> <span class="p">(</span><span class="nv">alist-dig</span> <span class="o">'</span><span class="p">(</span><span class="s">"user"</span> <span class="s">"is_traveling"</span><span class="p">)</span> <span class="nv">rec</span><span class="p">)</span>
+   <span class="ss">:_original-data</span> <span class="nv">rec</span><span class="p">))</span></code></pre></figure>
+
+<p>This was done for three reasons:</p>
+
+<ol>
+  <li>I wanted to simplify the response from Tinder API. So instead of querying the
+raw data in every function I just created one mapper that’ll pack it all in a
+convenient structure.</li>
+  <li>I didn’t want to deal with large data blobs because they don’t printout
+well.</li>
+  <li>I kinda felt like using objects. In this particular case this is more of a
+struct though.</li>
+</ol>
 
 <h2 id="dont-follow-communityindustry-standards">Don’t follow community/industry standards</h2>
 
