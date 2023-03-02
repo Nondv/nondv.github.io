@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+  <head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XK1T34QNVF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XK1T34QNVF');
+</script>
+<meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    
+<meta itemprop="description" name="description" content="The excitement of coding just for yourself and by yourself as a professional software engineer" />
+<meta property="og:title" content="Coding alone vs coding in a team" />
+<meta property='og:site_name' content='Dmitry Non' />
+<meta property="og:url" content="https://nondv.wtf/blog/posts/coding-alove-vs-coding-in-a-team.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2023-02-02" />
+  <meta property="article:author" content="Dmitry Non" />
+  <meta property="og:image" content="/img/posts/alone.jpg" />
+  <meta property="article:tag" content="lisp" />
+  <meta property="article:tag" content="common lisp" />
+  <meta property="article:tag" content="functional programming" />
+  <meta property="article:tag" content="fp" />
+  <meta property="article:tag" content="programming" />
+  <meta property="article:tag" content="clojure" />
+  <meta property="article:tag" content="Weird Programming" />
+  <meta property="article:tag" content="Functional Programming" />
+  <meta property="article:tag" content="Clojure" />
+  
+<meta name="theme-color" content="#4A4A4A"/>
+<link rel="apple-touch-icon" href="/img/favicon.svg" />
+
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <!-- Syntax highlight  -->
+    <link rel="stylesheet" href="/css/syntax-highlight/perldoc.css">
+    <!-- Custom shit and hacks -->
+    <link rel="stylesheet" href="/css/other.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>Coding alone vs coding in a team</title>
+  </head>
+  <body>
+    <header class="has-background-light mb-4">
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column is-narrow">
+        <a href="/">
+          <figure id="photo" class="image is-128x128">
+            <img class="is-rounded" src="/img/avatar.jpg" />
+          </figure>
+        </a>
+      </div>
+      <div class="column">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <div class="title is-size-2">Dmitry Non</div>
+            <div class="subtitle is-size-4 mb-4">Software Engineer</div>
+            <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+              <ul><li><a href="/"><span class="icon m-0"><i class="fas fa-user"></i></span>CV</a></li>
+                  <li class="is-active"><a><span class="icon m-0"><i class="fas fa-pen"></i></span> Blog</a></li></ul>
+            </nav>
+
+          </div>
+          <div class="column is-narrow">
+            <a href="mailto:mail@nondv.io">
+              <span class="icon">
+                <i class="far fa-envelope"></i>
+              </span>
+              mail@nondv.io
+            </a>
+            <a class="is-block" target="_blank" href="https://www.linkedin.com/in/nondv/">
+              <span class="icon">
+                <i class="fab fa-linkedin"></i>
+              </span>
+              Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://github.com/Nondv">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              @Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://medium.com/@nondv">
+              <span class="icon">
+                <i class="fab fa-medium"></i>
+              </span>
+              @nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://weird-programming.dev">
+              <span class="icon">
+                <i class="fas fa-external-link-alt"></i>
+              </span>
+              weird-programming.dev
+            </a>
+            <a class="is-block" href="/blog.html">
+              <span class="icon">
+                <i class="fas fa-pen"></i>
+              </span>
+              nondv.wtf/blog
+            </a>
+            <div>London, UK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+    <div class="container px-2">
+      <nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <a href="https://nondv.wtf/blog/categories/weird-programming">
+              <span class="icon is-small mr-0 ml-0"><i class="fas fa-angle-down"></i></span>
+              Weird Programming
+            </a>
+          </div>
+
+          <div class="dropdown-menu">
+            <div class="dropdown-content"><a style="justify-content: left" class="dropdown-item" href="https://nondv.wtf/blog/categories/functional-programming">
+                  Functional Programming
+                </a><a style="justify-content: left" class="dropdown-item" href="https://nondv.wtf/blog/categories/clojure">
+                  Clojure
+                </a></div>
+          </div>
+        </div></li>
+    <li class="is-active"><a href="#" aria-current="page">Coding alone vs coding in a team</a></li>
+  </ul>
+</nav>
+
+<div class="title is-1">Coding alone vs coding in a team</div>
+<div class="subtitle"><time>2 Feb 2023</time></div>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcoding-alove-vs-coding-in-a-team.html&text=Coding+alone+vs+coding+in+a+team" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcoding-alove-vs-coding-in-a-team.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcoding-alove-vs-coding-in-a-team.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+<figure class="mb-6 has-text-centered">
+    <img class='post-image' src='/img/posts/alone.jpg' alt='Post image' /><figcaption class="is-size-7"><a href="https://www.freepik.com/free-vector/lonely-girl-suffering-from-depression_7732643.htm">Image by pch.vector</a> on Freepik</figcaption></figure><article class="content">
+  <p>Recently I’ve been working on a personal project (a Tinder bot integrated with
+ChatGPT and using Telegram Bot API as UI). I started out with a small prototype
+in Ruby (like 40 lines script) however then I switched to Common Lisp.</p>
+
+<p>The reason for it was that I wanted to use the language for a while but couldn’t
+bring myself to (because I <strong>hate</strong> LISP-2 and I also thought and still do that CL
+is a language equivalent of a dumpster).</p>
+
+<p>My opinion of the language hasn’t changed but I did love the experience. And now
+I’m gonna try to explain why.</p>
+
+<!--more-->
+
+<h1 id="why-is-common-lisp-a-dumpster-and-why-do-i-want-to-learn-it">Why is Common Lisp a dumpster and why do I want to learn it?</h1>
+
+<p>It was created a long time ago and it was purposed to be a very practical
+language you could use for anything. It, basically, <em>supports</em> <strong>every</strong>
+programming paradigm. It’s important to stress that because other languages
+usually <em>let</em> you code in a different style. For instance, Ruby lets you code
+functionally and Clojure lets you code imperatively, however neither actually
+supports that (Ruby doesn’t even have functions and Clojure makes it hard to
+write stateful code).</p>
+
+<p>Common Lisp, on the other hand, has a pretty much imperative, almost low-level,
+core with stateful data structures (lots of functions actually modify data in
+place) and has a lot of FP stuff on top of it (like <code class="language-plaintext highlighter-rouge">mapcar</code> and <code class="language-plaintext highlighter-rouge">reduce</code>). It
+also supports typing and OOP (via CLOS, which is pretty interesting by
+itself). Interactive programming, duh. It even mixes lexical and dynamic
+binding.</p>
+
+<p>Being relatively low-level in its core AND being a Lisp allows CL to be extended
+indefinitely. For instance, there’s a 3rd-party <strong>library</strong> that introduces
+annotations:</p>
+
+<figure class="highlight"><pre><code class="language-lisp" data-lang="lisp"><span class="nv">@export</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my-public-fn</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+</span> <span class="nv">x</span> <span class="mi">123</span><span class="p">))</span></code></pre></figure>
+
+<p>That sort of flexibility is why I am drawn to CL even though I dislike a lot of
+things about it.</p>
+
+<p>Also, this sort of flexibility is the reason why I don’t think it’s a good
+language to use nowadays.</p>
+
+<h2 id="clojure---a-lisp-on-the-other-end-of-the-spectrum">Clojure - a lisp on the other end of the spectrum</h2>
+
+<p>Compared to Common Lisp, Clojure is incredibly opinionated. It pushes you
+towards solving a problem in a particular way. It makes it harder for you to
+solve problem some other way.</p>
+
+<p>And I think it’s one of its greatest strengths. In the modern software
+engineering we have to work on large projects with lots of people from different
+backgrounds (experience, language, gender, ethnicity, nationality, etc etc etc).
+Having some sort of predictability and consistency is great.</p>
+
+<p>Not only many popular languages are opinionated (think of Python vs Perl, they
+literally have opposite philosophy: “Explicit is better than implicit” vs
+“There’s more than one way to do it”) but also the industry itself is
+opinionated nowadays. The technology used across companies is often similar,
+system designs are often the same (how many apps in the “process of splitting
+into services” have you seen in the past 5 years?). It’s very practical to
+follow the same patterns.</p>
+
+<p>I don’t like quite a few things about Clojure but I also think it’s a much
+better language choice for a modern project. I love using it at work. However, I
+noticed that I hated using it at home. At home, I don’t need (nor want) to write
+perfect production-grade code. I want to write code fast and dirty and play
+around with different ideas. Clojure made me feel suffocated.</p>
+
+<h1 id="so-what-sort-of-unholy-nsfw-stuff-did-i-do-while-coding-just-for-myself">So what sort of unholy nsfw stuff did I do while coding just for myself?</h1>
+
+<h2 id="code-the-way-i-want-and-be-as-inconsistent-as-i-want">Code the way I want and be as inconsistent as I want</h2>
+
+<p>One thing I don’t like about Clojure is that it’s a bit inconsistent with its
+function signatures. Some of them are data-first and others are
+data-last (personally, I prefer data-last, similar to ML-languages, lodash/fn,
+Ramda.js, etc). Because of that, there’re two pipelining operators (threading
+macros): thread-first (<code class="language-plaintext highlighter-rouge">-&gt;</code>) which inserts intermediate results as a first
+argument and thread-last (<code class="language-plaintext highlighter-rouge">-&gt;&gt;</code>) which inserts them as the last
+argument. Sometimes (not often but still) it’s a bit annoying when I need to use
+a data-first function with the thread-last operator.
+There’s a library called <a href="https://github.com/rplevy/swiss-arrows">swiss-arrows</a> which has a clever macro that sort of
+addresses this issue:</p>
+
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">-&lt;&gt;</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="nf">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w">
+     </span><span class="c1">;; by default it's just like thread-last</span><span class="w">
+     </span><span class="p">(</span><span class="nb">map</span><span class="w"> </span><span class="nb">inc</span><span class="p">)</span><span class="w">
+     </span><span class="n">frequencies</span><span class="w">
+     </span><span class="c1">;; but we can also specify the exact place</span><span class="w">
+     </span><span class="p">(</span><span class="nb">assoc</span><span class="w"> </span><span class="n">&lt;&gt;</span><span class="w"> </span><span class="no">:meta</span><span class="w"> </span><span class="s">"some description"</span><span class="p">))</span></code></pre></figure>
+
+<p>I really like this but I never actually got to use it in a real project because
+people are quite reluctant about bringing language extensions into projects
+without a specific benefit (this is merely a coding utility).</p>
+
+<p>Well, in my own project when I discovered that Common Lisp lacks any pipe
+operator, I implemented the one from Clojure:</p>
+
+<figure class="highlight"><pre><code class="language-lisp" data-lang="lisp"><span class="nv">@export</span>
+<span class="p">(</span><span class="nb">defmacro</span> <span class="nv">-&gt;&gt;</span> <span class="p">(</span><span class="nv">x</span> <span class="k">&amp;rest</span> <span class="nv">forms</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">reduce</span>
+   <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">a</span> <span class="nv">e</span><span class="p">)</span>
+     <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">sexp</span> <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">symbolp</span> <span class="nv">e</span><span class="p">)</span> <span class="p">(</span><span class="nb">list</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">e</span><span class="p">)))</span>
+       <span class="c1">;; OPTIMIZE: this is pretty slow</span>
+       <span class="p">(</span><span class="nb">reverse</span> <span class="p">(</span><span class="nb">cons</span> <span class="nv">a</span> <span class="p">(</span><span class="nb">reverse</span> <span class="nv">sexp</span><span class="p">)))))</span>
+   <span class="nv">forms</span>
+   <span class="ss">:initial-value</span> <span class="nv">x</span><span class="p">))</span></code></pre></figure>
+
+<p>So far it seems to me that CL mostly follows data-last style. However, I quickly
+realised that it’s still not helpful sometimes because many functions have
+keyword arguments (e.g. <code class="language-plaintext highlighter-rouge">:initial-value</code> in <code class="language-plaintext highlighter-rouge">reduce</code> in the example above).</p>
+
+<p>So I decided to just implement this swiss-arrow macro!</p>
+
+<figure class="highlight"><pre><code class="language-lisp" data-lang="lisp"><span class="p">(</span><span class="nb">defmacro</span> <span class="nv">-&lt;&gt;</span> <span class="p">(</span><span class="nv">x</span> <span class="k">&amp;rest</span> <span class="nv">forms</span><span class="p">)</span>
+  <span class="c1">;; &lt;Lots of shitty unoptimised code&gt;</span>
+  <span class="c1">;; BUT NOBODY CARES!</span>
+  <span class="p">)</span></code></pre></figure>
+
+<p>Now I use it everywhere throughout my codebase. And nobody can stop me!</p>
+
+<h2 id="stick-to-one-coding-style-but-only-when-its-convenient">Stick to one coding style. But only when it’s convenient</h2>
+
+<p>In the recent years I developed a taste for functional style of coding. I love
+OOP but I prefer writing functional code as I think it’s more laconic and
+simpler than OO-style equivalent. With experience in Clojure, Elm and functional
+JS and Ruby I started appreciating immutable data structures and variables. So
+this is the way I mostly code:</p>
+
+<ul>
+  <li>I avoid changing state</li>
+  <li>I don’t use mutating functions (CL has a pretty convenient naming convention
+where functions that mutate data in-place end with <code class="language-plaintext highlighter-rouge">f</code> suffix, e.g. <code class="language-plaintext highlighter-rouge">setf</code>,
+<code class="language-plaintext highlighter-rouge">incf</code>)</li>
+  <li>I use only simple data structures (lists and cons cells)</li>
+  <li>Etc etc</li>
+</ul>
+
+<p>However, for myself, I don’t feel bad about “breaking” the rules and being a bit
+naughty:</p>
+
+<figure class="highlight"><pre><code class="language-lisp" data-lang="lisp"><span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">last-msg-sent-at</span> <span class="mi">0</span><span class="p">))</span>
+  <span class="p">(</span><span class="nb">loop</span>
+    <span class="p">(</span><span class="nb">dolist</span> <span class="p">(</span><span class="nv">user</span> <span class="p">(</span><span class="nv">db:get-all-active-users</span><span class="p">))</span>
+      <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">messages-sent</span> <span class="p">(</span><span class="nv">answer-messages</span> <span class="nv">user</span><span class="p">)))</span>
+        <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">messages-sent</span> <span class="mi">0</span><span class="p">)</span>
+          <span class="c1">;; Yes, this changes the var declared in `let`!</span>
+          <span class="p">(</span><span class="nb">setf</span> <span class="nv">last-msg-sent-at</span> <span class="p">(</span><span class="nb">get-universal-time</span><span class="p">)))))</span>
+
+    <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">seconds-passed</span> <span class="p">(</span><span class="nb">-</span> <span class="p">(</span><span class="nb">get-universal-time</span><span class="p">)</span> <span class="nv">last-msg-sent-at</span><span class="p">)))</span>
+      <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="mi">900</span> <span class="nv">seconds-since-last-msg</span><span class="p">)</span>
+          <span class="p">(</span><span class="k">progn</span>
+            <span class="p">(</span><span class="nb">format</span> <span class="no">t</span> <span class="s">"No activity. Taking a break~%"</span><span class="p">)</span>
+            <span class="p">(</span><span class="nb">sleep</span> <span class="mi">300</span><span class="p">))</span>
+          <span class="p">(</span><span class="nb">sleep</span> <span class="mi">10</span><span class="p">)))))</span></code></pre></figure>
+
+<p>I’m absolutely sure there’s a way to write this code in a more elegant way that
+would fit into my usual coding style. However! I didn’t come up with it off the
+top of my head and I was focused on prototyping. Right now, I don’t care about
+this piece of code. I have more interesting stuff to do. And there’s nobody else
+whom this code could screw over.</p>
+
+<h2 id="dont-follow-communityindustry-standards">Don’t follow community/industry standards</h2>
+
+<p>At some point I needed some persistent data. My first thought was “oh that’s
+easy, I’m just gonna start running my app in a Docker container and setup
+PostreSQL in another one”. But while I was trying to remember how to write
+dockerfiles, it hit me “why the hell do I need docker and postgres?”. I just
+found a library that supported SQLite and used that. When I wasn’t happy with
+the recommended library (it was a ROM lib), I just used a different, simpler
+one. And it was enough. I don’t wanna spend time setting up docker. I wanna
+write my app. And by the way, I didn’t write any tests. Why? Because fuck you,
+that’s why. I don’t need to set a high bar. I <em>just</em> wanna swim in my own crap.</p>
+
+<p>Later, I needed to extend the data. How do we do that usually? We bring a
+migration library (or use the one from the framework used, if there’s one).Then
+we setup a deployment pipeline. Then we just write a bunch of migration files.</p>
+
+<p>Well, no, to hell with that. I’m not doing that shit for my personal small
+app. But I did need migrations and I wanted them to be more or less safe.</p>
+
+<p>So I just wrote <em>my own</em> migration solution:</p>
+
+<figure class="highlight"><pre><code class="language-lisp" data-lang="lisp"><span class="p">(</span><span class="nb">defun</span> <span class="nv">init</span> <span class="p">()</span>
+  <span class="p">(</span><span class="nv">sql-exec</span> <span class="s">"CREATE TABLE IF NOT EXISTS migrations (id TEXT PRIMARY KEY)"</span><span class="p">)</span>
+
+  <span class="p">(</span><span class="k">labels</span> <span class="p">((</span><span class="nv">migrated?</span> <span class="p">(</span><span class="nv">migration-id</span><span class="p">)</span>
+             <span class="p">(</span><span class="nv">sql-fetch</span> <span class="s">"SELECT * FROM migrations WHERE id=?"</span> <span class="nv">migration-id</span><span class="p">))</span>
+           <span class="p">(</span><span class="nv">migrate</span> <span class="p">(</span><span class="nv">migration-id</span> <span class="k">&amp;rest</span> <span class="nv">queries</span><span class="p">)</span>
+             <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nv">migrated?</span> <span class="nv">migration-id</span><span class="p">))</span>
+               <span class="p">(</span><span class="nv">within-same-connection</span>
+                <span class="p">(</span><span class="nv">sql-exec</span> <span class="s">"BEGIN TRANSACTION"</span><span class="p">)</span>
+                <span class="p">(</span><span class="nb">dolist</span> <span class="p">(</span><span class="nv">quer</span> <span class="nv">queries</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nb">apply</span> <span class="nf">#'</span><span class="nv">sql-exec</span> <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">listp</span> <span class="nv">quer</span><span class="p">)</span> <span class="nv">quer</span> <span class="p">(</span><span class="nb">list</span> <span class="nv">quer</span><span class="p">))))</span>
+                <span class="p">(</span><span class="nv">sql-exec</span> <span class="s">"INSERT INTO migrations(id) VALUES(?)"</span> <span class="nv">migration-id</span><span class="p">)</span>
+                <span class="p">(</span><span class="nv">sql-exec</span> <span class="s">"COMMIT"</span><span class="p">)))))</span>
+
+    <span class="p">(</span><span class="nv">sql-exec</span> <span class="s">"CREATE TABLE IF NOT EXISTS users (
+               tg_chat_id TEXT PRIMARY KEY,
+               tg_chat_state TEXT NOT NULL,
+               tg_username TEXT NOT NULL,
+               tinder_token TEXT
+             )"</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nv">migrate</span> <span class="s">"001"</span>
+             <span class="s">"ALTER TABLE users ADD turned_on INTEGER DEFAULT 0"</span>
+             <span class="s">"UPDATE users SET turned_on = 1"</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nv">migrate</span> <span class="s">"002"</span>
+             <span class="s">"ALTER TABLE users ADD tinder_msg_limit INTEGER DEFAULT 3"</span>
+             <span class="s">"UPDATE users SET tinder_msg_limit = 3"</span><span class="p">)</span>
+    <span class="c1">;; ...</span>
+
+    <span class="p">(</span><span class="nv">migrate</span> <span class="s">"007"</span>
+             <span class="s">"ALTER TABLE users ADD chatgpt_identity TEXT DEFAULT 'human'"</span>
+             <span class="s">"UPDATE users SET chatgpt_identity = 'human'"</span><span class="p">)))</span></code></pre></figure>
+
+<p>And it works! I don’t even know what the recommended migration library in CL
+is. And I don’t fucking care!</p>
+
+<h1 id="in-conclusion">In conclusion</h1>
+
+<p>I haven’t coded anything for myself in years. And I must say, it feels so
+bloody liberating. I’ve been coding professionally for over like 10 years
+now and all this time I was honing my skills to make myself a professional
+software engineer. And it meant doing things in a certain way to make sure the
+code quality is up to standard. Somewhere along the line I lost the passion I
+once had for coding. Back then it was a loved hobby and now it’s just a tool for
+me to keep being paid. A very rigid tool at that.</p>
+
+<p>P.S. noticed how I started swearing towards the end of this essay? It’s because
+I actually felt exhilaration going through all this wonderful experience in my
+head. I finally feel like a programmer again, not a Senior Software Engineer.</p>
+
+</article>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcoding-alove-vs-coding-in-a-team.html&text=Coding+alone+vs+coding+in+a+team" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcoding-alove-vs-coding-in-a-team.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcoding-alove-vs-coding-in-a-team.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+
+
+<script src="https://cdn.fastcomments.com/js/embed-v2.min.js"></script>
+<div id="fastcomments-widget"></div>
+<script>
+  window.FastCommentsUI(document.getElementById('fastcomments-widget'), {
+    "tenantId": "yGXgdvu2fN"
+  });
+</script>
+
+
+    </div>
+
+    <footer id="footer" class="has-background-light">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        &copy; <a class="has-text-black" href="https://nondv.wtf" target="_blank" rel="noopener"><u>Dmitry Non</u></a>
+      </div>
+      <div class="column has-text-right">
+        <div>
+          <a href="https://bulma.io/" target="_blank" rel="noopener"><img src="/img/made-with-bulma.png" alt="bulma logo" width="128"/></a>
+        </div>
+        <div>
+          <a href="https://jekyllrb.com/" target="_blank" rel="noopener"><img src="/img/jekyll-logo.png" alt="jekyll logo" width="128"/></a>
+        </div>
+        <div>
+          Hosted on <a href="https://github.com" target="_blank" rel="noopener"><img id="footer-github-logo" src="/img/github-logo.png" alt="Github logo" width="128"/></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>
