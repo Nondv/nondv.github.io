@@ -53,6 +53,10 @@
 <lastmod>2023-03-01T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://nondv.wtf/blog/posts/microservices-arent-the-problem-incompetent-people-are.html</loc>
+<lastmod>2023-11-08T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://nondv.wtf/blog.html</loc>
 </url>
 <url>
@@ -81,6 +85,9 @@
 </url>
 <url>
 <loc>https://nondv.wtf/blog/categories/ruby/</loc>
+</url>
+<url>
+<loc>https://nondv.wtf/blog/categories/software-engineering/</loc>
 </url>
 <url>
 <loc>https://nondv.wtf/blog/categories/tooling/</loc>
