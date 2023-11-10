@@ -25,10 +25,17 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://nondv.wtf" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: Nondv
 github_username:  Nondv
+author: Dmitry Non
 plugins:
+  - jekyll-feed
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-category-pages
+
+feed:
+  excerpt_only: true
+  posts_limit: 20
+  path: /blog/feed.xml
 
 # Build settings
 excerpt_separator: '<!--more-->'

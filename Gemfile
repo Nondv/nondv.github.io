@@ -10,6 +10,7 @@ source "https://rubygems.org"
 # Happy Jekylling!
 gem "jekyll", "~> 4.3.2"
 # gem 'jekyll-archives', "~> 2.2.1"
+gem 'jekyll-feed'
 gem "jekyll-paginate"
 gem "jekyll-category-pages"
 gem 'jekyll-sitemap'
