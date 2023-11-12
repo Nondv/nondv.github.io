@@ -15,14 +15,21 @@ Some years back I wrote the essay ["Functional programming, meet OOP"](https://n
 
 # Intro
 
-I love exploring and experimenting with programming concepts. I find it quite interesting overall and useful for deeper understanding of the ideas brilliant people have came up with. It makes us better engineers. For instance, he main reason I quit my first job was I wanted to explore OOP (also I hated my first job).
+I love exploring and experimenting with programming concepts. I find it quite
+interesting overall and useful for deeper understanding of the ideas brilliant
+people have came up with. It makes us better engineers. For instance, the main
+reason I quit my first job was I wanted to explore OOP (also I hated my first
+job).
 
 For years I've been toying around with functional programming, lambda calculus, etc. At some point I started wondering about how "compatible" OOP and FP are. So I decided to see if I can "implement" OOP in a functional language.
 
 
 ## The language of choice
 
-My first thought was to use purest language I could think of - Haskell. However, after some deliberation I settled on Clojure since I had *actual* experience with it and it's really well suited for experimenting and prototyping due to interactive programming capabilities.
+My first thought was to use the purest language I could think of - Haskell.
+However, after some deliberation I settled on Clojure since I had *actual*
+experience with it and it's really well suited for experimenting and prototyping
+due to interactive programming capabilities.
 
 However, I had to establish some ground rules. Clojure, being a practical language, has lots of "impure" stuff e.g. Java interop. One thing to avoid was state (so no atoms, agents, etc). Obviously, no hacks to generate java classes and objects. Overall, the rule of thumb was to ask yourself "is this a Clojure thing or an FP thing?".
 
