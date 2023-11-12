@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+  <head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XK1T34QNVF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XK1T34QNVF');
+</script>
+<meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    
+<meta itemprop="description" name="description" content="Trying to "implement" OOP in a functional language. What is OOP? Is it really different?" />
+<meta property="og:title" content="Implementing OOP in FP" />
+<meta property='og:site_name' content='Dmitry Non' />
+<meta property="og:url" content="https://nondv.wtf/blog/posts/implementing-oop-in-fp.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2023-11-12" />
+  <meta property="article:author" content="Dmitry Non" />
+  <meta property="og:image" content="/img/posts/implementing-oop-in-fp.jpg" />
+  <meta property="article:tag" content="programming" />
+  <meta property="article:tag" content="oop" />
+  <meta property="article:tag" content="fp" />
+  <meta property="article:tag" content="actors" />
+  <meta property="article:tag" content="clojure" />
+  <meta property="article:tag" content="elixir" />
+  <meta property="article:tag" content="erlang" />
+  <meta property="article:tag" content="Weird Programming" />
+  <meta property="article:tag" content="Software Engineering" />
+  <meta property="article:tag" content="OOP" />
+  <meta property="article:tag" content="Functional Programming" />
+  
+<meta name="theme-color" content="#4A4A4A"/>
+<link rel="apple-touch-icon" href="/img/favicon.svg" />
+
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <!-- Syntax highlight  -->
+    <link rel="stylesheet" href="/css/syntax-highlight/perldoc.css">
+    <!-- Custom shit and hacks -->
+    <link rel="stylesheet" href="/css/other.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>Implementing OOP in FP</title>
+  </head>
+  <body>
+    <header class="has-background-light mb-4">
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column is-narrow">
+        <a href="/">
+          <figure id="photo" class="image is-128x128">
+            <img class="is-rounded" src="/img/avatar.jpg" />
+          </figure>
+        </a>
+      </div>
+      <div class="column">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <div class="title is-size-2">Dmitry Non</div>
+            <div class="subtitle is-size-4 mb-4">Software Engineer</div>
+            <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+              <ul><li><a href="/"><span class="icon m-0"><i class="fas fa-user"></i></span>CV</a></li>
+                  <li class="is-active"><a><span class="icon m-0"><i class="fas fa-pen"></i></span> Blog</a></li></ul>
+            </nav>
+
+          </div>
+          <div class="column is-narrow">
+            <a href="mailto:mail@nondv.io">
+              <span class="icon">
+                <i class="far fa-envelope"></i>
+              </span>
+              mail@nondv.io
+            </a>
+            <a class="is-block" target="_blank" href="https://www.linkedin.com/in/nondv/">
+              <span class="icon">
+                <i class="fab fa-linkedin"></i>
+              </span>
+              Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://github.com/Nondv">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              @Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://medium.com/@nondv">
+              <span class="icon">
+                <i class="fab fa-medium"></i>
+              </span>
+              @nondv
+            </a>
+            <a class="is-block" href="https://nondv.wtf/blog.html">
+              <span class="icon">
+                <i class="fas fa-pen"></i>
+              </span>
+              nondv.wtf/blog
+            </a>
+            <a class="is-block" href="https://nondv.wtf/blog/feed.xml">
+              <span class="icon">
+                <i class="fas fa-rss"></i>
+              </span>
+              Atom feed
+            </a>
+            <div>London, UK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+    <div class="container px-2">
+      <nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <a href="https://nondv.wtf/blog/categories/weird-programming">
+              <span class="icon is-small mr-0 ml-0"><i class="fas fa-angle-down"></i></span>
+              Weird Programming
+            </a>
+          </div>
+
+          <div class="dropdown-menu">
+            <div class="dropdown-content"><a style="justify-content: left" class="dropdown-item" href="https://nondv.wtf/blog/categories/software-engineering">
+                  Software Engineering
+                </a><a style="justify-content: left" class="dropdown-item" href="https://nondv.wtf/blog/categories/oop">
+                  OOP
+                </a><a style="justify-content: left" class="dropdown-item" href="https://nondv.wtf/blog/categories/functional-programming">
+                  Functional Programming
+                </a></div>
+          </div>
+        </div></li>
+    <li class="is-active"><a href="#" aria-current="page">Implementing OOP in FP</a></li>
+  </ul>
+</nav>
+
+<div class="title is-1">Implementing OOP in FP</div>
+<div class="subtitle"><time>12 Nov 2023</time></div>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fimplementing-oop-in-fp.html&text=Implementing+OOP+in+FP" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fimplementing-oop-in-fp.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fimplementing-oop-in-fp.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+<figure class="mb-6 has-text-centered">
+    <img class='post-image' src='/img/posts/implementing-oop-in-fp.jpg' alt='Post image' /><figcaption class="is-size-7">Weird DALL-E 2 generation</figcaption></figure><article class="content">
+  <p>Some years back I wrote the essay <a href="https://nondv.wtf/blog/posts/functional-programming-meet-oop.html">“Functional programming, meet OOP”</a>. A few months ago I gave a talk loosely based on it but with some major improvements. It didn’t feel right to update the original post so instead I decided to rewrite it to go a <em>little</em> bit more in detail of the higher level concepts and to make it less Clojure-specific.</p>
+
+<!--more-->
+
+<h1 id="intro">Intro</h1>
+
+<p>I love exploring and experimenting with programming concepts. I find it quite interesting overall and useful for deeper understanding of the ideas brilliant people have came up with. It makes us better engineers. For instance, he main reason I quit my first job was I wanted to explore OOP (also I hated my first job).</p>
+
+<p>For years I’ve been toying around with functional programming, lambda calculus, etc. At some point I started wondering about how “compatible” OOP and FP are. So I decided to see if I can “implement” OOP in a functional language.</p>
+
+<h2 id="the-language-of-choice">The language of choice</h2>
+
+<p>My first thought was to use purest language I could think of - Haskell. However, after some deliberation I settled on Clojure since I had <em>actual</em> experience with it and it’s really well suited for experimenting and prototyping due to interactive programming capabilities.</p>
+
+<p>However, I had to establish some ground rules. Clojure, being a practical language, has lots of “impure” stuff e.g. Java interop. One thing to avoid was state (so no atoms, agents, etc). Obviously, no hacks to generate java classes and objects. Overall, the rule of thumb was to ask yourself “is this a Clojure thing or an FP thing?”.</p>
+
+<p>For the sake of this essay, I’ll be using pseudocode so it’s a bit easier to read for wider audience (although maybe I made it worse haha).</p>
+
+<h1 id="what-is-oop">What is OOP?</h1>
+
+<p>When coming up with ideas how to do this, I used <a href="https://www.purl.org/stefan_ram/pub/doc_kay_oop_en">Alan Kay’s quote</a> as a source of inspiration:</p>
+
+<blockquote>
+  <p>OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things.</p>
+</blockquote>
+
+<p>If we look closely, we can actually highlight three things here:</p>
+
+<ol>
+  <li>Messaging</li>
+  <li>Local retention and protection and hiding of state-process</li>
+  <li>Late-binding</li>
+</ol>
+
+<p>Let’s try to define what they mean.</p>
+
+<h2 id="messaging">Messaging</h2>
+
+<p>According to Dr. Kay, it’s the most important idea behind OOP. In fact, he <a href="http://lists.squeakfoundation.org/pipermail/squeak-dev/1998-October/017019.html">regrets</a> using the term “object” because it makes people “focus on the lesser idea”.</p>
+
+<p>The concept is simple in its nature: you divide your program into small units (objects) and the only way you can do something with them is to <em>send</em> them a message. You don’t actually execute anything, you send a message (kind of like sliding into Instagram dm’s) and hope it’s gonna be understood.</p>
+
+<p>And that’s it.</p>
+
+<p>Encapsulation and polymorphism which are the focus of most OOP languages are really just benefits (almost a side-effect) that come with the messaging system.</p>
+
+<h2 id="local-retention-protection-and-hiding-of-state-process">Local retention, protection, and hiding of state-process</h2>
+
+<p>Behaviour and state are contained within objects and not exposed to the outside world.</p>
+
+<p>Let’s compare coding to storytelling. In procedural programming the story is told by a narrator that says exactly what’s going on and what’s going to happen next. In OOP, the story is told from the first person. All we know is what one character is thinking. As the other characters go, we can only see their actions and hear their words without actually knowing what’s going on inside their heads.</p>
+
+<p>The way I see it, it’s pretty much a rule to enforce using messaging for everything. If we expose internals of the object, there’s gonna be a temptation to use them directly instead of sending a message which will lead to lower level abstractions (which isn’t good btw).</p>
+
+<h2 id="late-binding">Late binding</h2>
+
+<p>Conveniently, there’s a <a href="https://en.wikipedia.org/wiki/Late_binding">wiki page</a>!</p>
+
+<p>The way I define it is: specific implementation (types and behaviour) is only known at runtime.</p>
+
+<p>Take a look at this example:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># pseudocode</span>
+<span class="n">sendMessage</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="s2">"describeUser"</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+<span class="c1"># smalltalk-like syntax</span>
+<span class="n">logger</span> <span class="ss">describeUser: </span><span class="n">user</span>
+<span class="c1"># most common</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">describeUser</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>By looking at this code, we can’t tell what <code class="language-plaintext highlighter-rouge">logger</code> technically is or its output format. For all we know, it may not even be logging to stdout but making external device calls instead. But do we care here? No. There’s a contract that objects used in this scenario will understand “describeUser” message and which particular implementation it is, we don’t care. In runtime, the program will find the particular implementation (likely, based on the object’s class) and execute it. As the object user, I don’t really care what that is (the black box abstraction).</p>
+
+<p>This is how polymorphism is achieved.</p>
+
+<h1 id="implementation">Implementation</h1>
+
+<h2 id="state">State</h2>
+
+<p>Before diving into the messaging system, we need to somehow represent objects themselves. That means adding state. And we can’t use Clojure’s atoms.</p>
+
+<p>How is state managed in procedural programming? We assign values to variables and change them over time (as the algorithm’s being executed).</p>
+
+<p>In functional programming variables are different. We can’t really change their values once assigned. So how do we go around it?</p>
+
+<p>Well, we can either overshadow them (boooo), create intermediate variables for each step (which brings <code class="language-plaintext highlighter-rouge">let</code> spaghetti hell) or we can execute another (or the same) function with updated values.</p>
+
+<p>Here’s a simple example:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Procedural</span>
+<span class="k">def</span> <span class="nf">listSum</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">while</span> <span class="o">!</span><span class="n">empty?</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="n">head</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+    <span class="n">list</span> <span class="o">=</span> <span class="n">tail</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">result</span>
+
+<span class="c1"># Functional</span>
+<span class="k">def</span> <span class="nf">listSum</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">empty?</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="n">listSum</span><span class="p">(</span><span class="n">tail</span><span class="p">(</span><span class="n">list</span><span class="p">),</span> <span class="n">result</span> <span class="o">+</span> <span class="n">head</span><span class="p">(</span><span class="n">list</span><span class="p">))</span>
+
+<span class="n">total</span> <span class="o">=</span> <span class="n">listSum</span><span class="p">(</span><span class="n">numbersList</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The two are absolutely identical (I’m pretty sure some compilers would produce identical machine code too): we have two variables (<code class="language-plaintext highlighter-rouge">list</code> and <code class="language-plaintext highlighter-rouge">result</code>), result is being added to on each step, the list is being shortened one element at a time, and there’s the emptiness check. The difference is how exactly we reassign the variables.</p>
+
+<p>So with this in mind I came up with the idea of “object loop”:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">objectLoop</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+  <span class="n">nextState</span> <span class="o">=</span> <span class="n">someUpdate</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">objectLoop</span><span class="p">(</span><span class="n">nextState</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This already achieves <strong>local retention, protection, and hiding of state-process</strong>. Once we spin up an object, there’s no way for us to know what’s going on inside of it, the state is completely hidden as it’s merely temporarily bound to the variable called <code class="language-plaintext highlighter-rouge">state</code> which then gets discarded (with tail-call elimination).</p>
+
+<h2 id="messaging-1">Messaging</h2>
+
+<p>Since the updates will come only as a reaction to messages, let’s update the object loop:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">objectLoop</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+  <span class="n">message</span> <span class="o">=</span> <span class="n">receiveMessage</span><span class="p">()</span>
+  <span class="n">nextState</span> <span class="o">=</span> <span class="n">processMessage</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">objectLoop</span><span class="p">(</span><span class="n">nextState</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>How do we receive messages though? In my Clojure implementation I opted for using <a href="https://clojuredocs.org/clojure.core.async/chan">channels</a> since they’re widely present in different languages. But the reality is, any means of communication would do: unix sockets, internet, text files, etc. Channels are simply very convenient.</p>
+
+<p>Objects are now represented by 2 things: a channel and a message handler. On top of that, it just needs an object loop running.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Object struct</span>
+<span class="c1"># { channel: Channel, messageHandler: Fn }</span>
+
+<span class="k">def</span> <span class="nf">sendMessage</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+  <span class="n">appendToChannel</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="ss">:channel</span><span class="p">],</span> <span class="n">msg</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">receiveMessage</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">fetchFromChannel</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="ss">:channel</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">objectLoop</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+  <span class="n">message</span> <span class="o">=</span> <span class="n">receiveMessage</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+  <span class="n">nextState</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="ss">:messageHandler</span><span class="p">](</span><span class="n">obj</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">objectLoop</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">nextState</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">initialState</span><span class="p">,</span> <span class="n">messageHandler</span><span class="p">)</span>
+  <span class="n">channel</span> <span class="o">=</span> <span class="n">createChannel</span><span class="p">()</span>
+  <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">channel: </span><span class="n">channel</span><span class="p">,</span>
+          <span class="ss">messageHandler: </span><span class="n">messageHandler</span><span class="p">}</span>
+
+  <span class="n">objectLoop</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">initialState</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">obj</span>
+
+</code></pre></div></div>
+
+<p>Looks good, however, there’s a bug. Once <code class="language-plaintext highlighter-rouge">init</code> gets to <code class="language-plaintext highlighter-rouge">objectLoop</code>, it’ll get stuck because, well, it’s an infinite loop. How do we go around it? We run the object in a separate thread! Or process, whatever.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">initialState</span><span class="p">,</span> <span class="n">messageHandler</span><span class="p">)</span>
+  <span class="n">channel</span> <span class="o">=</span> <span class="n">createChannel</span><span class="p">()</span>
+  <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">channel: </span><span class="n">channel</span><span class="p">,</span>
+          <span class="ss">messageHandler: </span><span class="n">messageHandler</span><span class="p">}</span>
+
+  <span class="n">newThread</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="n">objectLoop</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">initialState</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">obj</span>
+</code></pre></div></div>
+
+<p>Here. Now we’re good. Let’s create an object:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">counter</span> <span class="o">=</span> <span class="n">init</span><span class="p">(</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">if</span> <span class="n">msg</span> <span class="o">==</span> <span class="s1">'dec'</span> <span class="k">then</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="p">)</span>
+<span class="n">sendMessage</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="s2">"increment plz"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="more-practical-example-stringbuilder">More practical example: StringBuilder</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">stringBuilderMessageHandler</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="n">strings</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+  <span class="k">case</span> <span class="n">msg</span><span class="p">[</span><span class="ss">:method</span><span class="p">]</span>
+  <span class="k">when</span> <span class="ss">:add</span>
+    <span class="k">return</span> <span class="n">strings</span> <span class="o">+</span> <span class="p">[</span><span class="n">msg</span><span class="p">[</span><span class="ss">:str</span><span class="p">]]</span>
+  <span class="k">when</span> <span class="ss">:addTwice</span>
+    <span class="c1"># This is crappy (and buggy)</span>
+    <span class="c1"># but it showcases sending messages to self</span>
+    <span class="n">sendMessage</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="p">{</span> <span class="ss">method: :add</span><span class="p">,</span> <span class="ss">str: </span><span class="n">msg</span><span class="p">[</span><span class="ss">:str</span><span class="p">]</span> <span class="p">})</span>
+    <span class="n">sendMessage</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="p">{</span> <span class="ss">method: :add</span><span class="p">,</span> <span class="ss">str: </span><span class="n">msg</span><span class="p">[</span><span class="ss">:str</span><span class="p">]</span> <span class="p">})</span>
+    <span class="k">return</span> <span class="n">strings</span>
+  <span class="k">when</span> <span class="ss">:build</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">concatAll</span><span class="p">(</span><span class="n">strings</span><span class="p">)</span>
+    <span class="n">sendMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="ss">:resultReceiver</span><span class="p">],</span>
+                <span class="p">{</span> <span class="ss">method: </span><span class="n">msg</span><span class="p">[</span><span class="ss">:receiverMethod</span><span class="p">],</span>
+                  <span class="ss">str: </span><span class="n">result</span> <span class="p">})</span>
+    <span class="k">return</span> <span class="n">strings</span>
+
+<span class="n">stringBuilder</span> <span class="o">=</span> <span class="n">init</span><span class="p">([],</span> <span class="n">stringBuilderMessageHandler</span><span class="p">)</span>
+<span class="n">sendMessage</span><span class="p">(</span><span class="n">stringBuilder</span><span class="p">,</span> <span class="p">{</span> <span class="ss">method: :add</span><span class="p">,</span> <span class="ss">str: </span><span class="s2">"hello"</span><span class="p">})</span>
+<span class="n">sendMessage</span><span class="p">(</span><span class="n">stringBuilder</span><span class="p">,</span> <span class="p">{</span> <span class="ss">method: :add</span><span class="p">,</span> <span class="ss">str: </span><span class="s2">" world"</span><span class="p">})</span>
+<span class="n">sendMessage</span><span class="p">(</span><span class="n">stringBuilder</span><span class="p">,</span> <span class="p">{</span> <span class="ss">method: :build</span><span class="p">,</span>
+                             <span class="ss">resultReceiver: </span><span class="n">logger</span><span class="p">,</span>
+                             <span class="ss">receiverMethod: :info</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<h2 id="whats-next">What’s next?</h2>
+
+<p>We pretty much created our own “OOP” “language”. We can build it further and introduce DSL for defining message handlers via methods (similar to the case statement above).</p>
+
+<p>We can also introduce classes (in the original post I actually implemented them as object factories, which is weird but also fun IMO).</p>
+
+<p>If you’re interested, go ahead and take a look at the Clojure code with a todo list example and some tests:</p>
+
+<p><a href="https://github.com/Nondv/experiments/tree/master/functional_oop">https://github.com/Nondv/experiments/tree/master/functional_oop</a></p>
+
+<h1 id="response-to-the-original-essay">Response to the original essay</h1>
+
+<p>When I published the original post on different platforms (e.g. Reddit), I received some feedback. It was mentioned multiple times that what I came up with looked a lot like <a href="https://en.wikipedia.org/wiki/Actor_model">Actor Model</a>. At the time I wasn’t familiar with it but I thought it was an amusing coincidence. Since then I had an opportunity to learn more and even had some experience with the it (via Elixir which piggy backs off Erlang’s OTP). So I’d like to share some thoughts.</p>
+
+<h1 id="actor-model">Actor model</h1>
+
+<h2 id="what-is-it">What is it?</h2>
+
+<p>It’s a way of organising programs as a collection of independent actors that communicate with each other by sending messages. In response to a message, actors can:</p>
+
+<ul>
+  <li>Make changes to its state</li>
+  <li>Create new actors</li>
+  <li>Send more messages</li>
+</ul>
+
+<p>Sounds familiar? That’s a lot like OOP described by Dr Kay, don’t you think?</p>
+
+<p>It was introduced in a paper in 1973 by Carl Hewitt. Around the same time as Smalltalk was released (and I’m sure Alan Kay was playing around with the concept long before that). So there’s a chance that Hewitt was partially inspired by Kay’s work or even the other way around. Unfortunately, Dr Hewitt’s died recently so I don’t think we’ll ever be able to find out.</p>
+
+<p>Nowadays the main two systems that use actor model are Erlang/Elixir OTP and Akka (JVM based). I don’t have experience with the latter but OTP is freaking awesome.</p>
+
+<h2 id="some-not-necessarily-good-examples-of-actors-usage">Some (not necessarily good) examples of actors usage</h2>
+
+<p>Actors can be used for:</p>
+
+<ul>
+  <li>Lightweight in-memory storage. Since the communication is handled by the platform natively (e.g. OTP) it’s likely more efficient than third parties. You can literally create an actor that responds to “set” and “get” and use it instead of, say, Redis in some cases. And don’t forget, there’s no overhead, it’s all done <em>natively</em> in the language/VM you’re using.</li>
+  <li>Modelling of business entities (e.g. an IoT device or an NPC in a game). That’s pretty much the same as you’d use objects in OOP. You may be interested in <a href="https://www.lightbend.com/case-studies/how-eero-disrupts-consumer-wifi-with-highly-reliable-systems-powered-by-akka-and-reactive">Eero case study</a>.</li>
+  <li>Distributed systems. That’s pretty much what it’s made for. Actors don’t have to live on the same machine. Erlang provides native ways to send messages to actors on a different node just like you’d send them locally (almost). See Erlang’s <a href="https://www.erlang.org/doc/reference_manual/distributed.html">docs</a>.</li>
+</ul>
+
+<h2 id="stringbuilder-again">StringBuilder again</h2>
+
+<p>I’d like to implement StringBuilder from the above in Erlang and Elixir</p>
+
+<p>Elixir:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">StringBuilder</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">object_loop</span><span class="p">(</span><span class="n">strings</span> <span class="p">\\</span> <span class="p">[])</span> <span class="k">do</span>
+    <span class="k">receive</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:add</span><span class="p">,</span> <span class="n">str</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">object_loop</span><span class="p">(</span><span class="n">strings</span> <span class="o">++</span> <span class="p">[</span><span class="n">str</span><span class="p">])</span>
+      <span class="p">{</span><span class="ss">:add_twice</span><span class="p">,</span> <span class="n">str</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="c1"># still crappy</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="p">{</span><span class="ss">:add</span><span class="p">,</span> <span class="n">str</span><span class="p">})</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="p">{</span><span class="ss">:add</span><span class="p">,</span> <span class="n">str</span><span class="p">})</span>
+        <span class="n">object_loop</span><span class="p">(</span><span class="n">strings</span><span class="p">)</span>
+      <span class="p">{</span><span class="ss">:build</span><span class="p">,</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">method</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="p">{</span><span class="n">method</span><span class="p">,</span> <span class="no">Enum</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">strings</span><span class="p">,</span> <span class="s2">""</span><span class="p">)})</span>
+        <span class="n">object_loop</span><span class="p">(</span><span class="n">strings</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">string_builder</span> <span class="o">=</span> <span class="n">spawn</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">StringBuilder</span><span class="o">.</span><span class="n">object_loop</span><span class="p">()</span> <span class="k">end</span><span class="p">)</span>
+<span class="n">send</span><span class="p">(</span><span class="n">string_builder</span><span class="p">,</span> <span class="p">{</span><span class="ss">:add</span><span class="p">,</span> <span class="s2">"Hello"</span><span class="p">})</span>
+<span class="n">send</span><span class="p">(</span><span class="n">string_builder</span><span class="p">,</span> <span class="p">{</span><span class="ss">:add</span><span class="p">,</span> <span class="s2">" world"</span><span class="p">})</span>
+<span class="n">send</span><span class="p">(</span><span class="n">string_builder</span><span class="p">,</span> <span class="p">{</span><span class="ss">:build</span><span class="p">,</span> <span class="n">self</span><span class="p">(),</span> <span class="ss">:print_string</span><span class="p">})</span>
+
+<span class="k">receive</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:print_string</span><span class="p">,</span> <span class="n">str</span><span class="p">}</span> <span class="o">-&gt;</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>It works (and looks) pretty the same as my pseudocode (and Clojure) example. Receiver in this case is the current actor. Notice that <code class="language-plaintext highlighter-rouge">send</code> and <code class="language-plaintext highlighter-rouge">receive</code> are native constructs to the language.</p>
+
+<p>Erlang example:</p>
+
+<div class="language-erlang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">string_builder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nf">string_builder</span><span class="p">([]).</span>
+<span class="nf">string_builder</span><span class="p">(</span><span class="nv">Strings</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">receive</span>
+        <span class="p">{</span><span class="n">add</span><span class="p">,</span> <span class="nv">Str</span><span class="p">}</span> <span class="o">-&gt;</span>
+            <span class="nf">string_builder</span><span class="p">(</span><span class="nv">Strings</span> <span class="o">++</span> <span class="p">[</span><span class="nv">Str</span><span class="p">]);</span>
+        <span class="p">{</span><span class="n">add_twice</span><span class="p">,</span> <span class="nv">Str</span><span class="p">}</span> <span class="o">-&gt;</span>
+            <span class="nf">self</span><span class="p">()</span> <span class="o">!</span> <span class="p">{</span><span class="n">add</span><span class="p">,</span> <span class="nv">Str</span><span class="p">},</span>
+            <span class="nf">self</span><span class="p">()</span> <span class="o">!</span> <span class="p">{</span><span class="n">add</span><span class="p">,</span> <span class="nv">Str</span><span class="p">},</span>
+            <span class="nf">string_builder</span><span class="p">(</span><span class="nv">Strings</span><span class="p">);</span>
+        <span class="p">{</span><span class="n">build</span><span class="p">,</span> <span class="nv">Obj</span><span class="p">,</span> <span class="nv">Method</span><span class="p">}</span> <span class="o">-&gt;</span>
+            <span class="nv">Obj</span> <span class="o">!</span> <span class="p">{</span><span class="nv">Method</span><span class="p">,</span> <span class="nn">string</span><span class="p">:</span><span class="nf">join</span><span class="p">(</span><span class="nv">Strings</span><span class="p">,</span> <span class="s">""</span><span class="p">)},</span>
+            <span class="nf">string_builder</span><span class="p">(</span><span class="nv">Strings</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">.</span>
+
+<span class="nf">main</span><span class="p">(_)</span> <span class="o">-&gt;</span>
+    <span class="nv">StringBuilder</span> <span class="o">=</span> <span class="nb">spawn</span><span class="p">(</span><span class="k">fun</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="nf">string_builder</span><span class="p">()</span> <span class="k">end</span><span class="p">),</span>
+    <span class="nv">StringBuilder</span> <span class="o">!</span> <span class="p">{</span><span class="n">add</span><span class="p">,</span> <span class="s">"Hello"</span><span class="p">},</span>
+    <span class="nv">StringBuilder</span> <span class="o">!</span> <span class="p">{</span><span class="n">add</span><span class="p">,</span> <span class="s">" world"</span><span class="p">},</span>
+    <span class="nv">StringBuilder</span> <span class="o">!</span> <span class="p">{</span><span class="n">build</span><span class="p">,</span> <span class="nf">self</span><span class="p">(),</span> <span class="n">print_string</span><span class="p">},</span>
+    <span class="k">receive</span>
+        <span class="p">{</span><span class="n">print_string</span><span class="p">,</span> <span class="nv">Str</span><span class="p">}</span> <span class="o">-&gt;</span>
+            <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"</span><span class="si">~s~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="nv">Str</span><span class="p">])</span>
+    <span class="k">end</span><span class="p">.</span>
+</code></pre></div></div>
+
+<p>It’s absolutely the same, just in different language. I added it because I thought <code class="language-plaintext highlighter-rouge">send</code> syntax in Erlang (the exclamation mark) is funny because if you replace it with a period, it’ll look like an OOP language.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>There’s none, really. But it’s interesting how different ideas all come down the same “split into black-box components” design.</p>
+
+<p>Looking at the OOP vs FP, the only difference I see between the two is how state is managed: internal variables vs closures. Other than that it’s all about the way we perceive them. First order functions? Create a “callable” object. Immutable data structures? Who says you have to mutate anything? Type abstractions vs primitives? Have you seen ML-languages? Nobody will tell you what constitutes an FP language and the way I see it, most OOP languages aren’t really OOP either.</p>
+
+<p>Language shapes the way its speakers think. But also language is shaped by its speakers.</p>
+
+<h1 id="some-reading-links">Some reading links</h1>
+
+<ul>
+  <li>My original essay <a href="https://nondv.wtf/blog/posts/functional-programming-meet-oop.html">“Functional programming, meet OOP”</a></li>
+  <li><a href="https://www.purl.org/stefan_ram/pub/doc_kay_oop_en">Dr Alan Kay on the Meaning of “Object-Oriented Programming”</a></li>
+  <li><a href="http://lists.squeakfoundation.org/pipermail/squeak-dev/1998-October/017019.html">Dr Alan Kay on messaging</a></li>
+  <li><a href="https://pharo.org">Pharo</a> - a modern Smalltalk system (Smalltalk is awesome)</li>
+  <li><a href="https://www.lightbend.com/case-studies/how-eero-disrupts-consumer-wifi-with-highly-reliable-systems-powered-by-akka-and-reactive">Eero case study</a> on Akka’s website</li>
+</ul>
+
+</article>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fimplementing-oop-in-fp.html&text=Implementing+OOP+in+FP" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fimplementing-oop-in-fp.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fimplementing-oop-in-fp.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+
+
+<script src="https://cdn.fastcomments.com/js/embed-v2.min.js"></script>
+<div id="fastcomments-widget"></div>
+<script>
+  window.FastCommentsUI(document.getElementById('fastcomments-widget'), {
+    "tenantId": "yGXgdvu2fN",
+    "urlId": "implementing-oop-in-fp"
+  });
+</script>
+
+
+    </div>
+
+    <footer id="footer" class="has-background-light">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        &copy; <a class="has-text-black" href="https://nondv.wtf" target="_blank" rel="noopener"><u>Dmitry Non</u></a>
+      </div>
+      <div class="column has-text-right">
+        <div>
+          <a href="https://bulma.io/" target="_blank" rel="noopener"><img src="/img/made-with-bulma.png" alt="bulma logo" width="128"/></a>
+        </div>
+        <div>
+          <a href="https://jekyllrb.com/" target="_blank" rel="noopener"><img src="/img/jekyll-logo.png" alt="jekyll logo" width="128"/></a>
+        </div>
+        <div>
+          Hosted on <a href="https://github.com" target="_blank" rel="noopener"><img id="footer-github-logo" src="/img/github-logo.png" alt="Github logo" width="128"/></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>
