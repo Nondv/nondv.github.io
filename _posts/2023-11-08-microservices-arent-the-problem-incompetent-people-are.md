@@ -236,7 +236,7 @@ defined by SOLID principles.
         access database credentials and establish connection to it simply because I
         want to fetch a specific user. This should be done somewhere else (where and
         how exactly will depend on the exact codebase).
-    -   At the system level, it's pretty much the same. Example: TODO
+    -   At the system level, it's pretty much the same.
     -   At the org level it's again all about communication. I shouldn't have to
         deal with irrelevant people and jump hoops to get something from another
         team.
