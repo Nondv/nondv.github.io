@@ -152,9 +152,7 @@
 </div>
 <figure class="mb-6 has-text-centered">
     <img class='post-image' src='/img/posts/inspectocat.jpg' alt='Post image' /><figcaption class="is-size-7"><a href="https://octodex.github.com/inspectocat/">Inspectocat</a> on octodex.github.com</figcaption></figure><article class="content">
-  <p>For months (even years) I wanted to compile a list of advice I have on code reviewing. Initially, for myself but recently I thought it’d be a good idea for a blog post.</p>
-
-<p>Some of the advice is generic and some is quite opinionated.</p>
+  <p>For months (even years) I wanted to compile a list of advice I have on code reviewing. Initially, for myself but recently I thought it’d be a good idea for a blog post. Some of the advice is generic and some is quite opinionated.</p>
 
 <p>I’ll try to keep this updated (all my other posts are one-offs).</p>
 
@@ -202,11 +200,11 @@
 
 <p>I truly believe that written intention/purpose of tests is more important that the tests (assertions) themselves. And that’s what specs are in the nutshell: they describe the <em>purpose</em> behind some function/module/feature/etc. If there’s no purpose, why are you even building it?</p>
 
-<p>Well-written specs also help you write better tests because it becomes clearer what exactly needs to be tested. They also help the reviewers to make more informed judgement call whether a test is good or not.</p>
+<p>Well-written specs also help you write better tests because it becomes clearer what exactly needs to be tested. They also help the reviewers to come to an informed conclusion whether a test is good or not.</p>
 
 <p>Specs for higher level features also make it easier to reason about with other people e.g. other teams or even non-technical people like your product manager. Such specs pretty much come directly word-to-word from business requirements.</p>
 
-<p>When writing specs, make sure they’re human readable and easy to understand. Literally, ignore the code and read them to yourself out loud as English prose. If it doesn’t sound like proper English, you’re doing it wrong. I often see tests like “Feature X, when user not authorised” and then there’s code with assertions. The sentence describes the situation but doesn’t actually say what <em>should</em> happen and forces you to read the code. I don’t want to read your shitty code, just tell me what you’re trying to do first.</p>
+<p>When writing specs, make sure they’re human-readable and easy to understand. Literally, ignore the code and read them to yourself out loud as English prose. If it doesn’t sound like proper English, you’re doing it wrong. I often see tests like “Feature X, when user not authorised” and then there’s code with assertions. The sentence describes the situation but doesn’t actually say what <em>should</em> happen and forces you to read the code. I don’t want to read your shitty code, just tell me what you’re trying to do first.</p>
 
 <p>As a coder, when I get to testing, before I write any assertions or setup I first jot down a high-level specification for the thing I’m testing. It doesn’t have to be TDD but it works very well with it.</p>
 
@@ -299,7 +297,7 @@
 <p>Some general advice:</p>
 
 <ul>
-  <li>Identify things that are often overlook and lead to bugs. For example, company I’m working for is using Kafka for interservice communication. However, not many people in general have experience with async processing so the mistake I see the most often is not making sure your code is idempotent which makes things happen multiple times. Things like that should be checked every time and are good candidates for the checklist/questionnaire.</li>
+  <li>Identify things that are often overlooked and lead to bugs. For example, the company I’m working for is using Kafka for interservice communication. However, not many people in general have experience with async processing so the mistake I see the most often is not making sure your code is idempotent which makes things happen multiple times. Things like that should be checked every time and are good candidates for the checklist/questionnaire.</li>
   <li>
     <p>Try to write the questionnaire in a way that every question <em>has</em> to have at least one checkbox ticked. Consider this:</p>
 
