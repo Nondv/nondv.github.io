@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+  <head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XK1T34QNVF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XK1T34QNVF');
+</script>
+<meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    
+<meta itemprop="description" name="description" content="Recommendations on how to make code review process efficient and useful" />
+<meta property="og:title" content="Code review guide" />
+<meta property='og:site_name' content='Dmitry Non' />
+<meta property="og:url" content="https://nondv.wtf/blog/posts/code-review-guide.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2024-05-09" />
+  <meta property="article:author" content="Dmitry Non" />
+  <meta property="og:image" content="https://nondv.wtf/img/posts/inspectocat.jpg" />
+  <meta property="article:tag" content="github" />
+  <meta property="article:tag" content="pr" />
+  <meta property="article:tag" content="cr" />
+  <meta property="article:tag" content="code review" />
+  <meta property="article:tag" content="codereview" />
+  <meta property="article:tag" content="communication" />
+  <meta property="article:tag" content="pr comments" />
+  <meta property="article:tag" content="Software Engineering" />
+  <meta property="article:tag" content="Productivity" />
+  
+<meta name="theme-color" content="#4A4A4A"/>
+<link rel="apple-touch-icon" href="/img/favicon.svg" />
+
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <!-- Syntax highlight  -->
+    <link rel="stylesheet" href="/css/syntax-highlight/perldoc.css">
+    <!-- Custom shit and hacks -->
+    <link rel="stylesheet" href="/css/other.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>Code review guide</title>
+  </head>
+  <body>
+    <header class="has-background-light mb-4">
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column is-narrow">
+        <a href="/">
+          <figure id="photo" class="image is-128x128">
+            <img class="is-rounded" src="/img/avatar.jpg" />
+          </figure>
+        </a>
+      </div>
+      <div class="column">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <div class="title is-size-2">Dmitry Non</div>
+            <div class="subtitle is-size-4 mb-4">Software Engineer</div>
+            <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+              <ul><li><a href="/"><span class="icon m-0"><i class="fas fa-user"></i></span>CV</a></li>
+                  <li class="is-active"><a><span class="icon m-0"><i class="fas fa-pen"></i></span> Blog</a></li></ul>
+            </nav>
+
+          </div>
+          <div class="column is-narrow">
+            <a href="mailto:mail@nondv.io">
+              <span class="icon">
+                <i class="far fa-envelope"></i>
+              </span>
+              mail@nondv.io
+            </a>
+            <a class="is-block" target="_blank" href="https://www.linkedin.com/in/nondv/">
+              <span class="icon">
+                <i class="fab fa-linkedin"></i>
+              </span>
+              Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://github.com/Nondv">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              @Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://medium.com/@nondv">
+              <span class="icon">
+                <i class="fab fa-medium"></i>
+              </span>
+              @nondv
+            </a>
+            <a class="is-block" href="https://nondv.wtf/blog.html">
+              <span class="icon">
+                <i class="fas fa-pen"></i>
+              </span>
+              nondv.wtf/blog
+            </a>
+            <a class="is-block" href="https://nondv.wtf/blog/feed.xml">
+              <span class="icon">
+                <i class="fas fa-rss"></i>
+              </span>
+              Atom feed
+            </a>
+            <div>London, UK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+    <div class="container px-2">
+      <nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <a href="https://nondv.wtf/blog/categories/software-engineering">
+              <span class="icon is-small mr-0 ml-0"><i class="fas fa-angle-down"></i></span>
+              Software Engineering
+            </a>
+          </div>
+
+          <div class="dropdown-menu">
+            <div class="dropdown-content"><a style="justify-content: left" class="dropdown-item" href="https://nondv.wtf/blog/categories/productivity">
+                  Productivity
+                </a></div>
+          </div>
+        </div></li>
+    <li class="is-active"><a href="#" aria-current="page">Code review guide</a></li>
+  </ul>
+</nav>
+
+<div class="title is-1">Code review guide</div>
+<div class="subtitle"><time>9 May 2024</time></div>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcode-review-guide.html&text=Code+review+guide" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcode-review-guide.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcode-review-guide.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+<figure class="mb-6 has-text-centered">
+    <img class='post-image' src='/img/posts/inspectocat.jpg' alt='Post image' /><figcaption class="is-size-7"><a href="https://octodex.github.com/inspectocat/">Inspectocat</a> on octodex.github.com</figcaption></figure><article class="content">
+  <p>For months (even years) I wanted to compile a list of advice I have on code reviewing. Initially, for myself but recently I thought it’d be a good idea for a blog post.</p>
+
+<p>Some of the advice is generic and some is quite opinionated.</p>
+
+<p>I’ll try to keep this updated (all my other posts are one-offs).</p>
+
+<!--more-->
+
+<h1 id="table-of-contents">Table of Contents</h1>
+
+<ul>
+  <li><a href="#org47256c6">Pay attention to tests</a>
+    <ul>
+      <li><a href="#orgf91d6df">Prefer specs over tests</a></li>
+      <li><a href="#org971e9e3">Before reviewing tests, think to yourself, what needs to be tested</a></li>
+      <li><a href="#org0f5270f">Consider writing “scenario” tests</a></li>
+    </ul>
+  </li>
+  <li><a href="#org4503bd6">Consider pairing or review with the author present</a></li>
+  <li><a href="#orgfc5d442">Introduce a checklist/questionnaire to your process</a></li>
+  <li><a href="#orge5245bb">Communication</a>
+    <ul>
+      <li><a href="#org585ca85">Use tags to set the tone and convey importance of proposed changes</a></li>
+      <li><a href="#orge4ef7a8">Avoid using “request changes” feature</a></li>
+      <li><a href="#org07826b4">Cultural diversity - always assume good intentions</a></li>
+    </ul>
+  </li>
+  <li><a href="#org58801b9">As the PR author</a>
+    <ul>
+      <li><a href="#orgd0d6873">Don’t take anything personally</a></li>
+      <li><a href="#org4a82d36">Don’t ignore comments</a></li>
+      <li><a href="#org1addbc6">Make sure your PR description and commits are easy to read</a></li>
+      <li><a href="#org908d22a">Review your own work before asking someone else for review</a></li>
+    </ul>
+  </li>
+  <li><a href="#org2ec31c7">Code review questionnaire (PR template)</a></li>
+</ul>
+
+<p><a id="org47256c6"></a></p>
+
+<h1 id="pay-attention-to-tests">Pay attention to tests</h1>
+
+<p>Tests can be very useful. They provide some guarantees that something works as expected; they can prevent you from introducing breaking changes; and they can act as documentation. It makes a lot of sense to put an emphasis on testing. Especially, as a reviewer, because your job is to make sure that proposed changes match the product requirements</p>
+
+<p><a id="orgf91d6df"></a></p>
+
+<h2 id="prefer-specs-over-tests">Prefer specs over tests</h2>
+
+<p>I truly believe that written intention/purpose of tests is more important that the tests (assertions) themselves. And that’s what specs are in the nutshell: they describe the <em>purpose</em> behind some function/module/feature/etc. If there’s no purpose, why are you even building it?</p>
+
+<p>Well-written specs also help you write better tests because it becomes clearer what exactly needs to be tested. They also help the reviewers to make more informed judgement call whether a test is good or not.</p>
+
+<p>Specs for higher level features also make it easier to reason about with other people e.g. other teams or even non-technical people like your product manager. Such specs pretty much come directly word-to-word from business requirements.</p>
+
+<p>When writing specs, make sure they’re human readable and easy to understand. Literally, ignore the code and read them to yourself out loud as English prose. If it doesn’t sound like proper English, you’re doing it wrong. I often see tests like “Feature X, when user not authorised” and then there’s code with assertions. The sentence describes the situation but doesn’t actually say what <em>should</em> happen and forces you to read the code. I don’t want to read your shitty code, just tell me what you’re trying to do first.</p>
+
+<p>As a coder, when I get to testing, before I write any assertions or setup I first jot down a high-level specification for the thing I’m testing. It doesn’t have to be TDD but it works very well with it.</p>
+
+<p>Ideally, your testing framework already has some sort of spec-ing DSL similar to Ruby’s RSpec or Clojure’s <code class="language-plaintext highlighter-rouge">testing</code> macro:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">JobScheduler</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'takes job type and payload, schedules it and returns job id'</span> <span class="k">do</span>
+    <span class="n">code_goes_here</span>
+  <span class="k">end</span>
+  <span class="n">it</span> <span class="s1">'throws if job type doesnt exist'</span>
+  <span class="n">it</span> <span class="s1">'optionally, runs the job synchronously'</span>
+  <span class="n">context</span> <span class="s1">'when exact time specified'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'sets the job time'</span>
+    <span class="n">it</span> <span class="s1">'throws if time is in the past'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">deftest</span><span class="w"> </span><span class="n">schedule-job</span><span class="w">
+  </span><span class="p">(</span><span class="nf">testing</span><span class="w"> </span><span class="s">"schedule-job"</span><span class="w">
+    </span><span class="p">(</span><span class="nf">testing</span><span class="w"> </span><span class="s">"takes job type and payload, schedules it and returns job id"</span><span class="w">
+      </span><span class="p">(</span><span class="nf">code-goes-here</span><span class="p">))</span><span class="w">
+    </span><span class="p">(</span><span class="nf">testing</span><span class="w"> </span><span class="s">"throws if job doesn't exist"</span><span class="p">)</span><span class="w">
+    </span><span class="p">(</span><span class="nf">testing</span><span class="w"> </span><span class="s">"optionally, runs the job synchronously"</span><span class="p">)</span><span class="w">
+    </span><span class="p">(</span><span class="nf">testing</span><span class="w"> </span><span class="s">"when exact time specified"</span><span class="w">
+      </span><span class="p">(</span><span class="nf">testing</span><span class="w"> </span><span class="s">"sets the job time"</span><span class="p">)</span><span class="w">
+      </span><span class="p">(</span><span class="nf">testing</span><span class="w"> </span><span class="s">"throws if time is in the past"</span><span class="p">))))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If not, you can at least use comments instead</p>
+
+<p><a id="org971e9e3"></a></p>
+
+<h2 id="before-reviewing-tests-think-to-yourself-what-needs-to-be-tested">Before reviewing tests, think to yourself, what needs to be tested</h2>
+
+<p>When we don’t think of the requirements <em>before</em> reading the code, what often happens is we start going through it almost following the chain of thought of the author and everything simply makes sense. If something’s missing, we may not notice it.</p>
+
+<p>Just because something makes sense, it doesn’t mean it’s correct.</p>
+
+<p><a id="org0f5270f"></a></p>
+
+<h2 id="consider-writing-scenario-tests">Consider writing “scenario” tests</h2>
+
+<p>Depending on the context, I also call them “flow tests”. Basically, instead of describing what your feature does, it may be helpful to describe a scenario (a script/play) of its usage. For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Scenario: user with expired auth token tries to access Product API
+  - list endpoint returns 404
+  - the body is json with "error": "unauthorised"
+</code></pre></div></div>
+
+<p>as opposed to</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Product API
+  - When there's no token
+    - list endpoint returns 404
+    - the body is json with "error": "unauthorised"
+  - When the token expired
+    - list endpoint returns 404
+    - the body is json with "error": "unauthorised"
+</code></pre></div></div>
+
+<p>The latter is more generic and has more coverage. The tests in it are very similar (which isn’t a problem, to be clear). However, the first one, arguably is a bit higher level and may be set up closer to integration tests. The former also can’t really serve as documentation BUT a few of those can serve as a kind of a playbook/FAQ (i.e. as a dev I may have a good idea how the API behaves already but I may be interested in some specific edge cases or just the happy path).</p>
+
+<p>Scenario tests are often easier to write as they are quite specific so the set up is more straightforward</p>
+
+<p>I, personally, write those in certain cases:</p>
+
+<ul>
+  <li>The scenario is clearly outlined in the requirements. Main specs probably already cover it but often implicitly, a scenario test makes it explicit (even if introduces a bit of duplication)</li>
+  <li>The thing I’m working on is a PoC and I don’t want to invest too much time in testing. Specific scenarios (e.g. “Scenario: happy path”) are often easier to write while providing some important coverage</li>
+  <li>Bugs. TDD recommends writing a red test first when working on a bug. Scenario is a clear set up for it and is often faster to write than modifying existing tests (e.g. when they’re a legacy mess). Be careful though, the test may look awkward (kinda random) in the future (“why was this significant?”) so make sure the commit history provides context or maybe even leave a comment.</li>
+</ul>
+
+<p><a id="org4503bd6"></a></p>
+
+<h1 id="consider-pairing-or-review-with-the-author-present">Consider pairing or review with the author present</h1>
+
+<p>Pair programming often reduces time needed for code review as you have a second pair of eyes working on the issue with you. However, not everyone likes pair programming. Many people are simply more productive on their own.</p>
+
+<p>However, you should also consider pair reviewing. You just get in touch with the PR author and ask them to walk you through the changes.</p>
+
+<p>But be careful though, you may fall into the same fallacy I mentioned earlier where everything you hear makes sense and you miss some problems.</p>
+
+<p><a id="orgfc5d442"></a></p>
+
+<h1 id="introduce-a-checklistquestionnaire-to-your-process">Introduce a checklist/questionnaire to your process</h1>
+
+<p>It may be beneficial to have a checklist/questionnaire for reviewers and authors to fill out that’ll cover the most important properties of the changes. Different projects will have a different checklist, e.g. some will be specific to your system design (architecture), some will be industry-specific (e.g. compliance in Finance, GDPR, etc), some will be team-specific (e.g. JIRA ticket created, PM approved the UI changes, etc).</p>
+
+<p>Some general advice:</p>
+
+<ul>
+  <li>Identify things that are often overlook and lead to bugs. For example, company I’m working for is using Kafka for interservice communication. However, not many people in general have experience with async processing so the mistake I see the most often is not making sure your code is idempotent which makes things happen multiple times. Things like that should be checked every time and are good candidates for the checklist/questionnaire.</li>
+  <li>
+    <p>Try to write the questionnaire in a way that every question <em>has</em> to have at least one checkbox ticked. Consider this:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Manual testing
+  - [ ] Locally
+  - [ ] Staging
+</code></pre></div>    </div>
+
+    <p>You’re reading through someone’s answers and encounter this, both unchecked. What does it mean? Has the person not tested it? Have they forgotten to answer? This can be resolved by simply adding the third option “Nope, not tested”.</p>
+  </li>
+  <li>
+    <p>Try to encourage people to provide more context when answering it wherever relevant. For instance:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Automated tests
+  - [ ] Unit
+  - [ ] Integration
+  - [ ] E2e
+  - [ ] Nope. *Explain why*
+</code></pre></div>    </div>
+  </li>
+  <li>Try to make the extra comments more visible by asking people to use <strong>bold</strong> style on them. Otherwise the comments will go unnoticed after people get used to skimming through the whole thing.</li>
+  <li>Keep in mind, it does feel very bureaucratic and daunting to fill out a questionnaire. So try to make it as brief as possible, covering only important points (that’s a tall order, I know. I’m still struggling myself). You may also want to introduce it as a formal process within your team (some bureaucracy may be useful sometimes).</li>
+</ul>
+
+<p>I’ll leave an example of the questionnaire I introduced to my team recently at the end of the essay. It’s far from perfect and specific to our project but hopefully you’ll find it helpful to get you started.</p>
+
+<p><a id="orge5245bb"></a></p>
+
+<h1 id="communication">Communication</h1>
+
+<p>There’re many posts on the internet about this. Most of them go along the lines of “say <em>‘What do you think of X’</em> instead of <em>‘it is conventional to do X here’</em>”. It’s almost like reading a “corporate emails for dummies” article.</p>
+
+<p>It’s generally a good advice in my opinion, however, many people feel like it’s too bureaucratic and formal. Also, it forces you to change your style of communication which isn’t necessarily a bad thing but is quite challenging.</p>
+
+<p>Ever since moving to England from Russia communication has always been an issue for me (eastern europeans are infamous for being very straightforward and even straight up rude in some cases). While I’m actively working on it and have come a long way (I think), I’m still not perfect and it’d be unwise to not take that into account.</p>
+
+<p>The main problem of communication (not only during code reviews but in general) is that people may misunderstand you or misinterpret your intention or tone (imagine trying to guess tone over the internet).</p>
+
+<p>So I figured in addition to working on my communication style, it’s better to set the intent and tone of a message explicitly and straight away. What I came up with is <em>tags</em>.</p>
+
+<p><a id="org585ca85"></a></p>
+
+<h2 id="use-tags-to-set-the-tone-and-convey-importance-of-proposed-changes">Use tags to set the tone and convey importance of proposed changes</h2>
+
+<p>To leave less to interpretation, you can prepend your comments with tags setting up the tone/importance of the comment.</p>
+
+<p>Obviously, you need try and communicate as clear as possible but let’s be honest, that’s really hard. A tag makes it less likely for you to be misunderstood.</p>
+
+<p>Here’s some of the tags I use:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">[strong]</code> - means you feel really strong about this piece and it has to be discussed. Use in combination with other tags</li>
+  <li><code class="language-plaintext highlighter-rouge">[bug]</code> - there’s an actual problem and it needs to be resolved.</li>
+  <li><code class="language-plaintext highlighter-rouge">[suggestion]</code> - is for proposals that you think would improve the code. In most cases, the author will likely just follow them. If you feel like may be subjective, you should make it obvious by either saying it explicitly or adding another tag like <code class="language-plaintext highlighter-rouge">[subjective]</code>. More often than not, some conventions one uses are based on personal experience and are hard to reason about. However, when proposed by a senior person, they have more weight simply because that person has seen some shit so don’t be shy to propose them (but see the <code class="language-plaintext highlighter-rouge">[alternative]</code> tag which may be more appropriate).</li>
+  <li><code class="language-plaintext highlighter-rouge">[alternative]</code> - you don’t necessarily think it’s better or unsure. You may also use this as a way to share some knowledge but you don’t think it’s necessarily worth redoing, i.e. “your implementation is good to go but have you considered X? It has benefits of Y and Z”.</li>
+  <li><code class="language-plaintext highlighter-rouge">[question]</code> - literally a question. Without the tag those can often be perceived as a suggestion or passive aggression.</li>
+  <li><code class="language-plaintext highlighter-rouge">[nitpick]</code> - for things that aren’t important or maybe even style suggestions (could be combined with <code class="language-plaintext highlighter-rouge">[style]</code> tag). Can be safely ignored but normally are fixed together with other stuff. If your review has only nitpicks, you should always approve the PR to make sure the person can deploy it without addressing them if needed (sometimes it’s better to address those separately post-deploy).</li>
+  <li><code class="language-plaintext highlighter-rouge">[observation]</code> - to add a general comment about something. Or maybe when you see a problem but don’t think it should be addressed within this PR. For instance “We keep using the same pattern everywhere. We should probably come up with a way to unify it”.</li>
+  <li><code class="language-plaintext highlighter-rouge">[blocking]</code> and <code class="language-plaintext highlighter-rouge">[non-blocking]</code>. Not something I actually use myself (I usually communicate this with <code class="language-plaintext highlighter-rouge">[strong]</code> tag or in the comment itself by saying something like “not actionable” or “feel free to ignore this”) but it was suggested by some people and honestly I think it’s much better than what I do.</li>
+</ul>
+
+<p>Consider these examples:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Have you considered using Redis instead?
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[strong]
+Have you considered using Redis instead?
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[suggestion]
+Have you considered using Redis instead?
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[alternative]
+Have you considered using Redis instead?
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[question]
+Have you considered using Redis instead?
+</code></pre></div></div>
+
+<p>The tag here communicates your intention. It can also make the tone bit clearer:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Why didn't you cover this in tests?
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[question]
+Why didn't you cover this in tests?
+</code></pre></div></div>
+
+<p>While both variants are really blunt, the former <em>can</em> be perceived as an attack whereas the latter looks more like an enquiry for some clarification.</p>
+
+<p>Of course, ideally, you <em>also</em> should word it a bit less blunt. Communication style is covered by various guides on the internet even outside software engineering context so please look them up.</p>
+
+<p>A colleague also told me about “shit sandwich” technique where you mix negative feedback with the positive so they balance each other out. I think it’s important to give credit where it’s due however I feel like it’s wrong to provide positive feedback for the sake of it as it may look insincere. In fact, personally, I hate receiving praise (I need therapy haha) so even positive things may be perceived in a negative light. Can’t please everyone</p>
+
+<p>It was also pointed out to me that there’s a system similar to my tags called <a href="https://conventionalcomments.org">“Conventional Comments”</a>. It’s pretty much the same but there’s a fancy website with really good examples and explanations. I’m sure it’ll be easier to convince your team to follow that rather than some system from a random chump’s blog.</p>
+
+<p>And you don’t actually have to set up a formal process around it. You can use it just by yourself (after all, it’s about you and your communication style, not your teammates).</p>
+
+<p><a id="orge4ef7a8"></a></p>
+
+<h2 id="avoid-using-request-changes-feature">Avoid using “request changes” feature</h2>
+
+<p>While I think it’s silly but many people feel that it’s quite aggressive when someone “requests” changes. Regardless of what you think about it, it’s safer to avoid using it whatsoever.</p>
+
+<p>Nowadays I only use it if I think it’ll be helpful to the author. For instance “blocking this because we’re waiting for team X to deploy their part of the feature”.</p>
+
+<p><a id="org07826b4"></a></p>
+
+<h2 id="cultural-diversity---always-assume-good-intentions">Cultural diversity - always assume good intentions</h2>
+
+<p>People come from all sorts of backgrounds. Even within the same small town two people may have completely different upbringing meaning that they’ll have a very different worldview and perception. Something that’s clear to me may not be clear to you.</p>
+
+<p>We should not forget that. We should also never assume that we 100% understand what the other person says or means. So if you are going to make an assumption, always assume good intentions.</p>
+
+<p>Just try.</p>
+
+<p><a id="org58801b9"></a></p>
+
+<h1 id="as-the-pr-author">As the PR author</h1>
+
+<p>Code review is at least two-sided process. Both author and the reviewer are working together on solving business problems. The author is as important in code review as the reviewers. Here’s some advice on being a good PR author</p>
+
+<p><a id="orgd0d6873"></a></p>
+
+<h2 id="dont-take-anything-personally">Don’t take anything personally</h2>
+
+<p>Your code is not your child. It’s not even your property (it belongs to the company that hired you). You shouldn’t be afraid to throw it away when there’s a reason for it. And if you make a mistake or there’s a much better solution proposed, it’s not a big deal. Shit happens. It’s not a reflection of you as a professional or a person.</p>
+
+<p>A real-life example. A developer spends a whole day building an over-engineered solution for a simple internal feature and then it turns out they could’ve achieved pretty much the same by a simple one-line change (not even tests needed) to solve the problem. When it gets pointed out, the person gets defensive and starts advocating for the solution they wrote: “maybe we’ll need to change it in the future”, “it gives more human-friendly messages in case of errors”. It turns into a huge argument and then their solution just gets deployed because it’s already written and it’s not worth fighting over. A few months later turns out it was bugged. Roll credits.</p>
+
+<p>Don’t grow attached to code.</p>
+
+<p><a id="org4a82d36"></a></p>
+
+<h2 id="dont-ignore-comments">Don’t ignore comments</h2>
+
+<p>Don’t ignore comments. Answer everything. If something sounds like it’s not even worth discussing, just honestly say you’d don’t want to discuss this to save time and the person should follow up on that separately (e.g. bring to the team chat or even create a ticket, use your own judgement) if they truly feel strong about this.</p>
+
+<p>Also, github has a feature “Require conversation resolution before merging” in branch protection settings. I think it’s quite nice.</p>
+
+<p><a id="org1addbc6"></a></p>
+
+<h2 id="make-sure-your-pr-description-and-commits-are-easy-to-read">Make sure your PR description and commits are easy to read</h2>
+
+<p>Don’t you love a commit history that looks like:</p>
+
+<ol>
+  <li>Implement <FEATURE></FEATURE></li>
+  <li>fix</li>
+  <li>fix</li>
+  <li>address comments</li>
+  <li>linter</li>
+</ol>
+
+<p>Commit history should be a high level description of the changes in its own right. Each of them should contain a meaningful change that can be reviewed on its own. Commit often and make use of <code class="language-plaintext highlighter-rouge">git rebase -i</code>, <code class="language-plaintext highlighter-rouge">--amend</code>, and partial committing (your git UI should have that feature or you can use <code class="language-plaintext highlighter-rouge">git add -p</code>). See my old <a href="https://nondv.wtf/blog/posts/how-i-use-git.html">“How I use git”</a> post (nowadays I use Magit so some of the advice there may be a bit dated).</p>
+
+<p>Your PR description should provide an overview of the changes as a whole. List any notable changes. The more background you provide, the better it’ll be both now (for the reviewers) and in the future. When looking at history, you’ll be able to get to pull requests from specific commits they contained.</p>
+
+<p>Your future self and peers will be grateful for a clean commit history.</p>
+
+<p><a id="org908d22a"></a></p>
+
+<h2 id="review-your-own-work-before-asking-someone-else-for-review">Review your own work before asking someone else for review</h2>
+
+<p>Before notifying anyone that there’s a PR ready, open it and review as if it was someone else’s work. Maybe even create it as a draft first. Waiting for CI to finish first is a good idea too.</p>
+
+<p>It’s really annoying to invest your time looking at half-baked code. Sometimes you would like some feedback on the solution before it’s finalised which is fine. But in such cases you should reach out to people directly and walk them through your idea (maybe pair program) instead of creating a PR and telling them to read through everything on their own lonesome.</p>
+
+<p>“Talk is cheap, show me the code” is <strong>not</strong> a quote you should live by. Business requirements and intent should come first and then based on that, you should see if the code satisfies them.</p>
+
+<p><a id="org2ec31c7"></a></p>
+
+<h1 id="code-review-questionnaire-pr-template">Code review questionnaire (PR template)</h1>
+
+<p>As promised, here’s the PR <a href="https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository">template</a> I recently introduced within my team. It’s quite specific to us and is not polished enough yet. So use it merely as an example.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Acts as an overview of the changes and a checklist for reviewers and the author
+to make sure important bits (e.g. idempotency) are covered.
+
+Add commentary in **bold**.
+
+- *Are you using any potentially stale data?* It's important to think of race
+  conditions, implications of processing existing data (e.g. new consumers for
+  existing topics), etc.
+  - [ ] Sinks (DB tables).
+  - [ ] Consumer accessing historical/existing data.
+  - [ ] Nope.
+- *Are you updating any public interfaces/API?* E.g. introduce new parameters or
+  change the return result. It's important to make sure any users of those
+  interfaces are ready for the change (e.g. updated or not affected at all)
+  - [ ] Yes
+    - [ ] The API is contained within the codebase and usages are checked.
+    - [ ] The API is exposed to external apps (via HTTP/Kafka/etc). The apps
+      are ready/unaffected by the changes
+    - [ ] It's a new public API and has no active users yet.
+  - [ ] No public interfaces are affected.
+- *Is the logic idempotent?*. This is really important for reactive services
+  - [ ] Yes.
+  - [ ] No. Explain why
+  - [ ] N/A.
+- *Side effects*
+  - [ ] Kafka messages produced.
+  - [ ] DB writes.
+  - [ ] Side effects are transactional (i.e. if one step fails, everything
+    gets cancelled).
+  - [ ] Logging.
+  - [ ] Alerts
+    - [ ] Honeybadger.
+    - [ ] Slack.
+    - [ ] Nope.
+  - [ ] Nope.
+- *Automated tests*
+  - [ ] Unit.
+  - [ ] Integration (using kafka).
+  - [ ] Flow tests.
+  - [ ] None of the above (explain why)
+- *Manual testing*
+  - [ ] Tested locally.
+  - [ ] Tested on staging.
+  - [ ] Stakeholder (e.g. PM) involved.
+  - [ ] Nope.
+- *Infrastructure*
+  - [ ] DB migrations.
+    - [ ] Indexes added/not needed.
+    - [ ] Adequate migration performance (no long locks).
+    - [ ] No data regression (e.g. if you delete a column, will you be able to
+      restore its data easily?). If there is, explain why
+    - [ ] Obvious rollback plan. If not, explain why
+    - [ ] Backfill required. Add link to follow-up ticket if applicable
+  - [ ] New service (pod) added.
+  - [ ] New external resource added/used (usually, terraform changes).
+    - [ ] Kafka topics.
+      - [ ] ACLs set up. Add link to PR
+      - [ ] Needs to be in datalake. Add link to follow-up ticket/PR
+    - [ ] AWS resource (e.g. Lambda, database, etc). Add details
+  - [ ] Nope.
+
+</code></pre></div></div>
+
+</article>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcode-review-guide.html&text=Code+review+guide" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcode-review-guide.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcode-review-guide.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+
+
+<script src="https://cdn.fastcomments.com/js/embed-v2.min.js"></script>
+<div id="fastcomments-widget"></div>
+<script>
+  window.FastCommentsUI(document.getElementById('fastcomments-widget'), {
+    "tenantId": "yGXgdvu2fN",
+    "urlId": "code-review-guide"
+  });
+</script>
+
+
+    </div>
+
+    <footer id="footer" class="has-background-light">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        &copy; <a class="has-text-black" href="https://nondv.wtf" target="_blank" rel="noopener"><u>Dmitry Non</u></a>
+      </div>
+      <div class="column has-text-right">
+        <div>
+          <a href="https://bulma.io/" target="_blank" rel="noopener"><img src="/img/made-with-bulma.png" alt="bulma logo" width="128"/></a>
+        </div>
+        <div>
+          <a href="https://jekyllrb.com/" target="_blank" rel="noopener"><img src="/img/jekyll-logo.png" alt="jekyll logo" width="128"/></a>
+        </div>
+        <div>
+          Hosted on <a href="https://github.com" target="_blank" rel="noopener"><img id="footer-github-logo" src="/img/github-logo.png" alt="Github logo" width="128"/></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>
