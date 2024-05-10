@@ -126,7 +126,7 @@ Scenario tests are often easier to write as they are quite specific so the set u
 
 I, personally, write those in certain cases:
 
--   The scenario is clearly outlined in the requirements. Main specs probably already cover it but often implicitly, a scenario test makes it explicit (even if introduces a bit of duplication)
+-   The scenario is clearly outlined in the requirements. Main specs probably already cover it but often implicitly. A scenario test makes it explicit (even if introduces a bit of duplication)
 -   The thing I'm working on is a PoC and I don't want to invest too much time in testing. Specific scenarios (e.g. "Scenario: happy path") are often easier to write while providing some important coverage
 -   Bugs. TDD recommends writing a red test first when working on a bug. Scenario is a clear set up for it and is often faster to write than modifying existing tests (e.g. when they're a legacy mess). Be careful though, the test may look awkward (kinda random) in the future ("why was this significant?") so make sure the commit history provides context or maybe even leave a comment.
 
@@ -137,7 +137,7 @@ I, personally, write those in certain cases:
 
 Pair programming often reduces time needed for code review as you have a second pair of eyes working on the issue with you. However, not everyone likes pair programming. Many people are simply more productive on their own.
 
-However, you should also consider pair reviewing. You just get in touch with the PR author and ask them to walk you through the changes.
+Consider pair reviewing. You just get in touch with the PR author and ask them to walk you through the changes.
 
 But be careful though, you may fall into the same fallacy I mentioned earlier where everything you hear makes sense and you miss some problems.
 
@@ -150,7 +150,7 @@ It may be beneficial to have a checklist/questionnaire for reviewers and authors
 
 Some general advice:
 
--   Identify things that are often overlooked and lead to bugs. For example, the company I'm working for is using Kafka for interservice communication. However, not many people in general have experience with async processing so the mistake I see the most often is not making sure your code is idempotent which makes things happen multiple times. Things like that should be checked every time and are good candidates for the checklist/questionnaire.
+-   Identify things that are often overlooked and lead to bugs. For example, the company I'm working for uses Kafka for interservice communication. However, not many people in general have experience with async processing so the mistake I see quite often is not making sure your code is idempotent which makes things happen multiple times and break. Things like that should be checked every time and are good candidates for the checklist/questionnaire.
 -   Try to write the questionnaire in a way that every question *has* to have at least one checkbox ticked. Consider this:
 
     ```
