@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    
+<meta itemprop="description" name="description" content="Common Lisp has a LOT of stuff in it. Some of it is charming. Some of it is plain weird" />
+<meta property="og:title" content="Common Lisp is a dumpster" />
+<meta property='og:site_name' content='Dmitry Non' />
+<meta property="og:url" content="https://nondv.wtf/blog/posts/common-lisp-is-a-dumpster.html" />
+<meta property="og:description" content="Common Lisp has a LOT of stuff in it. Some of it is charming. Some of it is plain weird" />
+
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2025-06-01" />
+  <meta property="article:author" content="Dmitry Non" />
+  <meta property="og:image" content="https://nondv.wtf/img/posts/cl-is-a-dumpster.jpg" />
+  <meta property="article:tag" content="lisp" />
+  <meta property="article:tag" content="common lisp" />
+  <meta property="article:tag" content="sbcl" />
+  <meta property="article:tag" content="prog" />
+  <meta property="article:tag" content="Functional Programming" />
+  <meta property="article:tag" content="Weird Programming" />
+  
+<meta name="theme-color" content="#4A4A4A"/>
+<link rel="apple-touch-icon" href="/img/favicon.svg" />
+
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <!-- Syntax highlight  -->
+    <link rel="stylesheet" href="/css/syntax-highlight/perldoc.css">
+    <!-- Custom shit and hacks -->
+    <link rel="stylesheet" href="/css/other.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>Common Lisp is a dumpster</title>
+  </head>
+  <body>
+    <header class="has-background-light mb-4">
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column is-narrow">
+        <a href="/">
+          <figure id="photo" class="image is-128x128">
+            <img class="is-rounded" src="/img/avatar.jpg" />
+          </figure>
+        </a>
+      </div>
+      <div class="column">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <div class="title is-size-2">Dmitry Non</div>
+            <div class="subtitle is-size-4 mb-4">Software Engineer</div>
+            <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+              <ul><li><a href="/"><span class="icon m-0"><i class="fas fa-user"></i></span>CV</a></li>
+                  <li class="is-active"><a><span class="icon m-0"><i class="fas fa-pen"></i></span> Blog</a></li></ul>
+            </nav>
+
+          </div>
+          <div class="column is-narrow">
+            <a href="mailto:mail@nondv.io">
+              <span class="icon">
+                <i class="far fa-envelope"></i>
+              </span>
+              mail@nondv.io
+            </a>
+            <a class="is-block" target="_blank" href="https://www.linkedin.com/in/nondv/">
+              <span class="icon">
+                <i class="fab fa-linkedin"></i>
+              </span>
+              Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://github.com/Nondv">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              @Nondv
+            </a>
+            <a class="is-block" target="_blank" href="https://medium.com/@nondv">
+              <span class="icon">
+                <i class="fab fa-medium"></i>
+              </span>
+              @nondv
+            </a>
+            <a class="is-block" href="https://nondv.wtf/blog.html">
+              <span class="icon">
+                <i class="fas fa-pen"></i>
+              </span>
+              nondv.wtf/blog
+            </a>
+            <a class="is-block" href="https://nondv.wtf/blog/feed.xml">
+              <span class="icon">
+                <i class="fas fa-rss"></i>
+              </span>
+              Atom feed
+            </a>
+            <div>London, UK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+    <div class="container px-2">
+      <nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/blog/categories">Categories</a></li>
+    <li><div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <a href="https://nondv.wtf/blog/categories/functional-programming">
+              <span class="icon is-small mr-0 ml-0"><i class="fas fa-angle-down"></i></span>
+              Functional Programming
+            </a>
+          </div>
+
+          <div class="dropdown-menu">
+            <div class="dropdown-content"><a style="justify-content: left" class="dropdown-item" href="https://nondv.wtf/blog/categories/weird-programming">
+                  Weird Programming
+                </a></div>
+          </div>
+        </div></li>
+    <li class="is-active"><a href="#" aria-current="page">Common Lisp is a dumpster</a></li>
+  </ul>
+</nav>
+
+<div class="title is-1">Common Lisp is a dumpster</div>
+<div class="subtitle"><time>1 Jun 2025</time></div>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcommon-lisp-is-a-dumpster.html&text=Common+Lisp+is+a+dumpster" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcommon-lisp-is-a-dumpster.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcommon-lisp-is-a-dumpster.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+<figure class="mb-6 has-text-centered">
+    <img class='post-image' src='/img/posts/cl-is-a-dumpster.jpg' alt='Post image' /><figcaption class="is-size-7">Image by @pch-vector on Freepik</figcaption></figure><article class="content">
+  <h1 id="intro">Intro</h1>
+
+<p>I’ve switched from Ruby and Clojure for my personal stuff to Common Lisp a couple of years ago. I think it fits my programming style very well. But it’s a very strange language.</p>
+
+<p>CL has <strong>a lot</strong> of stuff in it. It feels like it tried to cater to many different types of programmers all at once. It mixes functional, procedural, and object-oriented ideas. It makes use of dynamic binding (which isn’t very common nowadays) whilst being mainly lexically scoped and supporting closures.</p>
+
+<p>However, some things in CL don’t seem practical at all. Or maybe just weird. In this essay I’m going to show some things I’m weirded out by.</p>
+
+<!--more-->
+
+<p>Starting with the strangest one…</p>
+
+<h1 id="the-prog-macro">The prog macro</h1>
+
+<p>From the ANSI standard:</p>
+
+<blockquote>
+  <p>Three distinct operations are performed by <code class="language-plaintext highlighter-rouge">prog</code> and <code class="language-plaintext highlighter-rouge">prog*</code>: they bind local variables, they permit use of the <code class="language-plaintext highlighter-rouge">return</code> statement, and they permit use of the <code class="language-plaintext highlighter-rouge">go</code> statement.</p>
+</blockquote>
+
+<p>Essentially, it allows you to use a “goto” and “return” like in older imperative languages. Other related special forms are <code class="language-plaintext highlighter-rouge">block</code> and <code class="language-plaintext highlighter-rouge">tagbody</code>. In fact, in SBCL <code class="language-plaintext highlighter-rouge">prog</code> is a macro defined in terms of <code class="language-plaintext highlighter-rouge">block</code>, <code class="language-plaintext highlighter-rouge">tagbody</code>, and <code class="language-plaintext highlighter-rouge">let</code>.</p>
+
+<p>Here’s the example provided in the standard:</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">defun</span> <span class="nv">king-of-confusion</span> <span class="p">(</span><span class="nv">w</span><span class="p">)</span>
+  <span class="s">"Take a cons of two lists and make a list of conses.
+   Think of this function as being like a zipper."</span>
+  <span class="p">(</span><span class="nb">prog</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span> <span class="nv">z</span><span class="p">)</span>          <span class="c1">;Initialize x, y, z to NIL</span>
+     <span class="p">(</span><span class="k">setq</span> <span class="nv">y</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">w</span><span class="p">)</span> <span class="nv">z</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">w</span><span class="p">))</span>
+   <span class="nb">loop</span>
+     <span class="p">(</span><span class="nb">cond</span> <span class="p">((</span><span class="nb">null</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">return</span> <span class="nv">x</span><span class="p">))</span>
+           <span class="p">((</span><span class="nb">null</span> <span class="nv">z</span><span class="p">)</span> <span class="p">(</span><span class="k">go</span> <span class="nv">err</span><span class="p">)))</span>
+   <span class="nv">rejoin</span>
+     <span class="p">(</span><span class="k">setq</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">z</span><span class="p">))</span> <span class="nv">x</span><span class="p">))</span>
+     <span class="p">(</span><span class="k">setq</span> <span class="nv">y</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">)</span> <span class="nv">z</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">z</span><span class="p">))</span>
+     <span class="p">(</span><span class="k">go</span> <span class="nb">loop</span><span class="p">)</span>
+   <span class="nv">err</span>
+     <span class="p">(</span><span class="nb">cerror</span> <span class="s">"Will self-pair extraneous items"</span>
+             <span class="s">"Mismatch - gleep!  ~S"</span> <span class="nv">y</span><span class="p">)</span>
+     <span class="p">(</span><span class="k">setq</span> <span class="nv">z</span> <span class="nv">y</span><span class="p">)</span>
+     <span class="p">(</span><span class="k">go</span> <span class="nv">rejoin</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>Followed by:</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">defun</span> <span class="nv">prince-of-clarity</span> <span class="p">(</span><span class="nv">w</span><span class="p">)</span>
+  <span class="s">"Take a cons of two lists and make a list of conses.
+   Think of this function as being like a zipper."</span>
+  <span class="p">(</span><span class="nb">do</span> <span class="p">((</span><span class="nv">y</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">w</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">y</span><span class="p">))</span>
+       <span class="p">(</span><span class="nv">z</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">w</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">z</span><span class="p">))</span>
+       <span class="p">(</span><span class="nv">x</span> <span class="o">'</span><span class="p">()</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">z</span><span class="p">))</span> <span class="nv">x</span><span class="p">)))</span>
+      <span class="p">((</span><span class="nb">null</span> <span class="nv">y</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">null</span> <span class="nv">z</span><span class="p">)</span>
+      <span class="p">(</span><span class="nb">cerror</span> <span class="s">"Will self-pair extraneous items"</span>
+              <span class="s">"Mismatch - gleep!  ~S"</span> <span class="nv">y</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">z</span> <span class="nv">y</span><span class="p">))))</span>
+</code></pre></div></div>
+
+<p>This oddball existed since LISP-1. Both LISP-1 and LISP-1.5 programmer’s manuals refer to it as “The Program Feature”. Considering that the manuals dedicate a whole chapter to it, it makes me think John McCarthy and his colleagues thought it was an important facility.</p>
+
+<p>Interestingly, the LISP-1.5 manual says it enables “Algol-like” style, while the LISP-1 manual compares it to FORTRAN.</p>
+
+<p>Reading both manuals, I got the impression that the assignment operators (<code class="language-plaintext highlighter-rouge">setq</code> and <code class="language-plaintext highlighter-rouge">set</code> in that case) only worked within the <code class="language-plaintext highlighter-rouge">prog</code> macro. My guess is that “pure” Lisp was intended to be used to write math-like expressions (many people I’ve met do say Lisp was based on Lambda Calculus).</p>
+
+<p>Also, according to “The evolution of Lisp” (Steele, Gabriel), <code class="language-plaintext highlighter-rouge">prog</code> may have been used instead of <code class="language-plaintext highlighter-rouge">let</code> (<code class="language-plaintext highlighter-rouge">let</code> itself wasn’t really a thing until late 70s). The only other way to introduce new bindings was to call a function (or lambda). Like this:</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">((</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">seconds-in-a-day</span><span class="p">)</span> <span class="p">(</span><span class="nb">*</span> <span class="mi">20</span> <span class="nv">seconds-in-a-day</span><span class="p">))</span> <span class="p">(</span><span class="nb">*</span> <span class="mi">60</span> <span class="mi">60</span> <span class="mi">24</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="prog1-prog2-progn">prog1, prog2, progn</h2>
+
+<p>Confusingly, <code class="language-plaintext highlighter-rouge">prog1</code>, <code class="language-plaintext highlighter-rouge">prog2</code>, and <code class="language-plaintext highlighter-rouge">progn</code> don’t have much in common with <code class="language-plaintext highlighter-rouge">prog</code>.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">prog1</code> evaluates all forms in order and returns the value returned by the 1st form</li>
+  <li><code class="language-plaintext highlighter-rouge">prog2</code> works just like <code class="language-plaintext highlighter-rouge">prog1</code> but returns the result of the 2nd form.</li>
+  <li><code class="language-plaintext highlighter-rouge">progn</code> is quite commonly used and returns the last form. It helps in cases where a single form is expected but one needs to evaluate a few.</li>
+</ul>
+
+<p>Interestingly, only <code class="language-plaintext highlighter-rouge">prog2</code> was included in LISP-1 and it worked differently: it only accepted 2 forms returning the result of the second one. This further supports my theory that lisp was intended to be used to simply evaluate math expressions. It seems that only <code class="language-plaintext highlighter-rouge">prog</code> allowed imperative programming style in the original LISP (modern lisps support imperative style without it).</p>
+
+<h2 id="progv">progv</h2>
+
+<p>Yet another outlier. All <code class="language-plaintext highlighter-rouge">progv</code> does is it creates some temporary dynamic variables. I struggle to come up with a use for it but HyperSpec has this note:</p>
+
+<blockquote>
+  <p>Among other things, <code class="language-plaintext highlighter-rouge">progv</code> is useful when writing interpreters for languages embedded in Lisp; it provides a handle on the mechanism for binding dynamic variables.</p>
+</blockquote>
+
+<h2 id="opinion">Opinion</h2>
+
+<p>I think <code class="language-plaintext highlighter-rouge">prog</code>, <code class="language-plaintext highlighter-rouge">prog1</code>, and <code class="language-plaintext highlighter-rouge">prog2</code> are artefacts of the past that largely have been dragged into the language for compatibility reasons (to consolidate different Lisp implementations, e.g. MacLisp and Interlisp).</p>
+
+<p><code class="language-plaintext highlighter-rouge">prog</code> (<code class="language-plaintext highlighter-rouge">tagbody</code> and <code class="language-plaintext highlighter-rouge">block</code>) simply enables the old-school imperative programming style. Maybe it was introduced because some algorithms are hard to expressive in functional programming. Or maybe it was introduced because they tried to cater to the crowd who didn’t want to do FP all the time. Who knows?</p>
+
+<p>On the other hand, it is a whole different programming style allowed in the language. I even used <code class="language-plaintext highlighter-rouge">block</code> and <code class="language-plaintext highlighter-rouge">return</code> a couple of times where I thought it gave a more straightforward algorithm. I’ll allow it.</p>
+
+<p>However, <code class="language-plaintext highlighter-rouge">prog1</code> and <code class="language-plaintext highlighter-rouge">prog2</code> don’t seem to bring <em>anything</em> to the table. Their behaviour can be achieved with a simple <code class="language-plaintext highlighter-rouge">let</code>.</p>
+
+<h1 id="assignment-operators">Assignment operators</h1>
+
+<p>One thing I had to google a while ago was <code class="language-plaintext highlighter-rouge">setq</code> vs <code class="language-plaintext highlighter-rouge">setf</code>. Being a long time Emacs user, I’m accustomed to <code class="language-plaintext highlighter-rouge">setq</code> however I’ve seen CL programmers using both of them with seemingly no difference.</p>
+
+<p>Well, the difference is that <code class="language-plaintext highlighter-rouge">setf</code> also works for some things that aren’t variables. For example, parts of a cons-cell:</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">xs</span> <span class="o">'</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)))</span>
+  <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">xs</span><span class="p">)</span> <span class="mi">5</span><span class="p">)</span>
+  <span class="nv">xs</span><span class="p">)</span>
+<span class="c1">;; ==&gt; (5 2 3)</span>
+</code></pre></div></div>
+
+<p>You may be wondering where the names come from. Well, originally, the lowest level assignment function was <code class="language-plaintext highlighter-rouge">set</code> which takes a symbol and associates a value with it:</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">set</span> <span class="p">(</span><span class="k">quote</span> <span class="nv">x</span><span class="p">)</span> <span class="mi">123</span><span class="p">)</span> <span class="c1">;; I don't think the reader macro ' existed in LISP-1</span>
+</code></pre></div></div>
+
+<p>Since this construction was so common, the macro <code class="language-plaintext highlighter-rouge">setq</code> was created (for “set quoted”).</p>
+
+<p>The etymology of <code class="language-plaintext highlighter-rouge">setf</code> is a bit more complex. The “Evolution of Lisp” attributes the idea to Peter Deutsch (who also was one of the creators of LISP-1.5, worked on Smalltalk, and other cool things). Essentially, he suggested that functions like <code class="language-plaintext highlighter-rouge">car</code> have two modes: “load” and “store”, so they can be used both for getting values as well as setting.</p>
+
+<blockquote>
+  <p>However, his syntax is suggestive; here is the proposed definition of RPLACA:</p>
+
+  <p><code class="language-plaintext highlighter-rouge">(lambda (x y) (setfq (car x) y))</code></p>
+
+  <p>Deutsch commented that the special form used here is called SETFQ because “it quotes the function and evaluates everything else.” This name was abbreviated to SETF in Lisp-Machine Lisp. Deutsch attributed the idea of dual functions to Alan Kay.</p>
+
+  <p>– The Evolution of Lisp</p>
+</blockquote>
+
+<p>So I guess the “f” in <code class="language-plaintext highlighter-rouge">setf</code> simply means “function” because it can work with dual-mode functions like <code class="language-plaintext highlighter-rouge">car</code>. Likely, <code class="language-plaintext highlighter-rouge">setf</code> was first introduced in the MIT Lisp-Machine Lisp dialect.</p>
+
+<p>Considering that normally <code class="language-plaintext highlighter-rouge">setf</code> is doing the exact same thing <code class="language-plaintext highlighter-rouge">setq</code> does, there’s no reason to keep both, in my opinion. <code class="language-plaintext highlighter-rouge">setq</code> could be simply a private function within <code class="language-plaintext highlighter-rouge">COMMON-LISP</code> package since <code class="language-plaintext highlighter-rouge">setf</code> is a macro defined in terms of lower level functions like <code class="language-plaintext highlighter-rouge">setq</code>. Speaking of which…</p>
+
+<h2 id="other-assignment-operators">Other assignment operators</h2>
+
+<p><code class="language-plaintext highlighter-rouge">setf</code> and <code class="language-plaintext highlighter-rouge">setq</code> aren’t the only assignment operators present in Common Lisp. Here’s the full list of operators I found:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">set</code> - assigns value to the symbol provided, e.g. <code class="language-plaintext highlighter-rouge">(set 'x 123)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">setq</code> - from “set quoted”. That is, <code class="language-plaintext highlighter-rouge">(set 'x 123)</code> is the same as <code class="language-plaintext highlighter-rouge">(setq x 123)</code>. One interesting difference is that <code class="language-plaintext highlighter-rouge">setq</code> can’t assign variables dynamically.</li>
+  <li><code class="language-plaintext highlighter-rouge">rplaca</code>, <code class="language-plaintext highlighter-rouge">rplacd</code> - modify car/cdr of a cons cell. It appeared in LISP-1.5. I’m guessing Deutsch felt that having a single macro for assignment would’ve been more convenient. Which it is.</li>
+  <li><code class="language-plaintext highlighter-rouge">setf</code> - the general assignment macro.</li>
+  <li><code class="language-plaintext highlighter-rouge">incf=/=decf</code> - like <code class="language-plaintext highlighter-rouge">setf</code> but simply updates the value by some delta (1 by default).</li>
+</ul>
+
+<p>I’m sure there’re more. Can never have enough, right?</p>
+
+<h1 id="nil--and-t">NIL, (), and T</h1>
+
+<p>Stepping away from functions and macros for a second, let’s take a look at something more fundamental. <code class="language-plaintext highlighter-rouge">NIL</code> and <code class="language-plaintext highlighter-rouge">T</code> in Common Lisp are <em>weird</em>. Where to begin?</p>
+
+<p>Let’s start with <code class="language-plaintext highlighter-rouge">nil</code>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nil</code> is the only false value in the language. Everything else is treated as true.</li>
+  <li>It’s a symbol that evaluates into itself. <code class="language-plaintext highlighter-rouge">(symbolp nil)</code> is true.</li>
+  <li>It <em>also</em> means empty list. In fact <code class="language-plaintext highlighter-rouge">()</code> and <code class="language-plaintext highlighter-rouge">nil</code> are exactly the same, no difference except the spelling. <code class="language-plaintext highlighter-rouge">(listp nil)</code> is true.</li>
+  <li>It’s <strong>not</strong> a cons cell (<code class="language-plaintext highlighter-rouge">(consp nil)</code> is true) however <code class="language-plaintext highlighter-rouge">car</code> and <code class="language-plaintext highlighter-rouge">cdr</code> accept it with no errors. This behaviour was popularised by Interlisp but wasn’t universally accepted.</li>
+  <li>It has its own type: <code class="language-plaintext highlighter-rouge">(type-of nil)</code> returns <code class="language-plaintext highlighter-rouge">null</code>.</li>
+</ul>
+
+<p>Now <code class="language-plaintext highlighter-rouge">t</code> is hard to explain (mainly because I don’t fully understand it myself):</p>
+
+<ul>
+  <li>It’s simply a symbol that evaluates into itself.</li>
+  <li>It’s got its own type: <code class="language-plaintext highlighter-rouge">(type-of nil)</code> returns <code class="language-plaintext highlighter-rouge">boolean</code>. Which is weird because there’re no other boolean values I know of.</li>
+  <li>It’s used as some magic constant in different contexts, for example:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">format</code> uses <code class="language-plaintext highlighter-rouge">t</code> as stdout stream.</li>
+      <li><code class="language-plaintext highlighter-rouge">t</code> is the omnipresent “supertype”. Everything is a subtype of <code class="language-plaintext highlighter-rouge">t</code>.</li>
+      <li><code class="language-plaintext highlighter-rouge">cond</code> often uses <code class="language-plaintext highlighter-rouge">t</code> as its else-clause. It’s not magic though as any value except <code class="language-plaintext highlighter-rouge">nil</code> would do the trick. Personally, I use <code class="language-plaintext highlighter-rouge">:else</code> for that but in LISP-1 and LISP-1.5 manuals they used <code class="language-plaintext highlighter-rouge">T</code> so I guess it was/is idiomatic (I’ll stick to <code class="language-plaintext highlighter-rouge">:else</code> though, thank you very much).</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="list-mapping-functions">List mapping functions</h1>
+
+<p>In a FP language, one would expect to have a <code class="language-plaintext highlighter-rouge">map</code> function. Common Lisp has at least 9!</p>
+
+<p>Here they are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">map</code> - generic function. It works with all <code class="language-plaintext highlighter-rouge">sequence</code> objects (which includes lists, arrays, strings) and returns the type you want.</li>
+  <li><code class="language-plaintext highlighter-rouge">mapcar</code> - the <code class="language-plaintext highlighter-rouge">map</code> function you’d expect. But it works only with lists</li>
+  <li><code class="language-plaintext highlighter-rouge">mapc</code> - like <code class="language-plaintext highlighter-rouge">mapcar</code> but doesn’t build a list with returned values. Pretty much intended for side-effects.</li>
+  <li><code class="language-plaintext highlighter-rouge">maplist</code> - calls the function on the successive CDRs of the list starting with the full list. So for <code class="language-plaintext highlighter-rouge">(1 2 3)</code> it’d call the function with <code class="language-plaintext highlighter-rouge">(1 2 3)</code>, <code class="language-plaintext highlighter-rouge">(2 3)</code>, and <code class="language-plaintext highlighter-rouge">(3)</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">mapl</code> - this is to <code class="language-plaintext highlighter-rouge">maplist</code> what <code class="language-plaintext highlighter-rouge">mapc</code> is to <code class="language-plaintext highlighter-rouge">mapcar</code>. It runs the function on successive CDRs but doesn’t build a new list.</li>
+  <li><code class="language-plaintext highlighter-rouge">mapcan</code> - uses <code class="language-plaintext highlighter-rouge">nconc</code> (ugh. “conc” from “concatenate” and “n” from… “n”?). Basically, a “flatmap” function: it returns a concatenation of the lists returned by the provided function.</li>
+  <li><code class="language-plaintext highlighter-rouge">mapcon</code> - like <code class="language-plaintext highlighter-rouge">mapcan</code> but uses successive CDRs of the lists (starting with the full list).</li>
+  <li><code class="language-plaintext highlighter-rouge">map-into</code> - kinda like <code class="language-plaintext highlighter-rouge">mapcar</code> but requires to provide a destination list that will be filled with the results.</li>
+  <li><code class="language-plaintext highlighter-rouge">maphash</code> - calls a 2-argument function for each entry of a hash. Returns <code class="language-plaintext highlighter-rouge">nil</code>.</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">loop</code> - not exactly a mapping function but it’s so over-complicated it can be used as such. For example:</p>
+
+    <div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">loop</span> <span class="nv">for</span> <span class="nv">x</span> <span class="nv">in</span> <span class="o">'</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span>
+      <span class="nv">collect</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">x</span> <span class="nv">x</span><span class="p">))</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>That’s a lot of functions. And I’m pretty sure that’s not even all of them, just the ones I’ve seen/found. The naming is pretty terrible and inconsistent (because the API wasn’t designed by a single person).</p>
+
+<p>Fun fact: in LISP-1, <code class="language-plaintext highlighter-rouge">map</code> worked like <code class="language-plaintext highlighter-rouge">mapl</code>. Other functions provided were <code class="language-plaintext highlighter-rouge">maplist</code> and <code class="language-plaintext highlighter-rouge">mapcon</code>. Interestingly, there was no <code class="language-plaintext highlighter-rouge">mapcar</code>. I guess <code class="language-plaintext highlighter-rouge">maplist</code> was the bare minimum needed to process lists without recursion. Maybe the original designers didn’t think of having something like <code class="language-plaintext highlighter-rouge">mapcar</code> (as it’s really just a subset of <code class="language-plaintext highlighter-rouge">maplist</code>) and it was later introduced by the programmers that used Lisp.</p>
+
+<h1 id="loop">Loop</h1>
+
+<p>I’ve already mentioned the <code class="language-plaintext highlighter-rouge">loop</code> macro above. But I think it deserves a special place in my personal hell.</p>
+
+<p>The ANSI standard has a whole section dedicated to it. It’s 30 pages explaining how to use a <em>single</em> macro. There’re roughly 25 keywords in <code class="language-plaintext highlighter-rouge">loop</code> and they can be combined together infinitely. Here’s an example from the ANSI standard:</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Group conditional clauses.</span>
+<span class="p">(</span><span class="nb">loop</span> <span class="nv">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="err">’</span><span class="p">(</span><span class="mi">1</span> <span class="mi">324</span> <span class="mi">2345</span> <span class="mi">323</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">235</span> <span class="mi">252</span><span class="p">)</span>
+      <span class="nb">when</span> <span class="p">(</span><span class="nb">oddp</span> <span class="nv">i</span><span class="p">)</span>
+        <span class="nb">do</span> <span class="p">(</span><span class="nb">print</span> <span class="nv">i</span><span class="p">)</span>
+        <span class="nb">and</span> <span class="nv">collect</span> <span class="nv">i</span> <span class="nv">into</span> <span class="nv">odd-numbers</span>
+        <span class="nb">and</span> <span class="nb">do</span> <span class="p">(</span><span class="nb">terpri</span><span class="p">)</span>
+      <span class="nv">else</span>  <span class="c1">; (evenp i)</span>
+      <span class="nv">collect</span> <span class="nv">i</span> <span class="nv">into</span> <span class="nv">even-numbers</span>
+      <span class="nv">finally</span>
+         <span class="p">(</span><span class="nb">return</span> <span class="p">(</span><span class="nb">values</span> <span class="nv">odd-numbers</span> <span class="nv">even-numbers</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>At this point, it’s its own programming language. Pretty sure it’s also Turing-complete.</p>
+
+<p>I’m not advocating for removal or anything. In fact, I think it’s a pretty good feature. But it’s overly complex and I prefer to keep things simple. I never use it in my own code unless I’m worried about performance. Generally, I prefer using recursion and <code class="language-plaintext highlighter-rouge">dolist</code>.</p>
+
+<p>Although as part of writing this essay I also wrote a docstring for it (SBCL doesn’t have a docstring for <code class="language-plaintext highlighter-rouge">loop</code>) and may start using it a little. Maybe it’s an acquired taste</p>
+
+<h1 id="quote-and-backquote">Quote and backquote</h1>
+
+<p>The only difference between backquote and quote is that backquote allows unquoting with commas. It’s fully backward-compatible with the normal quote. Using commas anywhere outside backquote throws an error.</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">'</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="o">,</span><span class="nv">x</span><span class="p">)</span> <span class="c1">; ==&gt; error</span>
+<span class="o">`</span><span class="nv">abc</span> <span class="c1">; ==&gt; same as 'abc</span>
+</code></pre></div></div>
+
+<p>There’s really no reason to keep both. Unless maybe it can be helpful in complex nested expressions? Personally, I’d remove backquote and add unquoting to the normal quote</p>
+
+<h1 id="printing">Printing</h1>
+
+<p>There’s also a bunch of printing functions. They often don’t even have consistent parameters. Some seem so niche they have no business being included in the language, IMHO.</p>
+
+<p>I searched printing functions and here’s the list. I explained some but the others I’ve never seen before and wasn’t bothered to read through docs.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">prin1</code> - produces read-able output</li>
+  <li><code class="language-plaintext highlighter-rouge">prin1-to-string</code> - same as <code class="language-plaintext highlighter-rouge">(with-output-to-string (s) (prin1 OBJ s))</code></li>
+  <li><code class="language-plaintext highlighter-rouge">princ</code> - like <code class="language-plaintext highlighter-rouge">prin1</code> but the output is supposed to be readable by humans, not necessarily by the lisp reader.</li>
+  <li><code class="language-plaintext highlighter-rouge">princ-to-string</code> - same as <code class="language-plaintext highlighter-rouge">(with-output-to-string (s) (princ OBJ s))</code></li>
+  <li><code class="language-plaintext highlighter-rouge">print</code> - like <code class="language-plaintext highlighter-rouge">prin1</code> but adds newline in the beginning and space in the end</li>
+  <li><code class="language-plaintext highlighter-rouge">pprint</code> - like <code class="language-plaintext highlighter-rouge">print</code> but without trailing space and also sets <code class="language-plaintext highlighter-rouge">*print-pretty*</code> flag.</li>
+  <li><code class="language-plaintext highlighter-rouge">pprint-tabular</code> - prints out a list like a table</li>
+  <li><code class="language-plaintext highlighter-rouge">print-object</code> - generic function to print different objects</li>
+  <li><code class="language-plaintext highlighter-rouge">print-unreadable-object</code> - I imagine, useful in <code class="language-plaintext highlighter-rouge">print-object</code> overloads</li>
+  <li><code class="language-plaintext highlighter-rouge">pprint-pop</code></li>
+  <li><code class="language-plaintext highlighter-rouge">print-not-readable</code></li>
+  <li><code class="language-plaintext highlighter-rouge">print-not-readable-object</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pprint-dispatch</code></li>
+  <li><code class="language-plaintext highlighter-rouge">copy-pprint-dispatch</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pprint-exit-if-list-exhausted</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pprint-tab</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pprint-indent</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pprint-fill</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pprint-linear</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pprint-newline</code></li>
+</ul>
+
+<h1 id="symbol-property-lists">Symbol property lists</h1>
+
+<p>In the context of Lisp-1 vs Lisp-2 the 1 and 2 refer to the namespaces. In Lisp-1 languages functions and variables live in the same space. Simply put, named functions are simply lambdas assigned to a variable. JavaScript works like that:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">sqr</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="p">}</span>
+<span class="c1">// is the same as</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>In Lisp-2, on the other hand, functions aren’t the same as other values. A symbol (variable) can be assigned a value and a function at the same time. The interpreter/compiler picks between the two depending on the context. Ruby works like that. Which may get confusing at times:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">f</span>
+  <span class="s2">"method"</span>
+<span class="k">end</span>
+
+<span class="n">f</span> <span class="c1"># ==&gt; "method"</span>
+<span class="n">f</span> <span class="o">=</span> <span class="s2">"variable"</span>
+<span class="n">f</span> <span class="c1"># ==&gt; "variable"</span>
+<span class="n">f</span><span class="p">()</span> <span class="c1"># ==&gt; "method"</span>
+</code></pre></div></div>
+
+<p>However, some Lisps (I’m aware of CL, Elisp, and PicoLisp) also have a 3rd plane: property lists. A symbol can have a value associated with it, a function, and a plist.</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">defun</span> <span class="nv">abc</span> <span class="p">()</span> <span class="s">"function"</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">setf</span> <span class="nv">abc</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="s">"lambda"</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">symbol-plist</span> <span class="ss">'abc</span><span class="p">)</span> <span class="c1">; ==&gt; nil</span>
+<span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">get</span> <span class="ss">'abc</span> <span class="ss">:hello</span><span class="p">)</span> <span class="s">"world"</span><span class="p">)</span>
+
+<span class="c1">;;</span>
+<span class="c1">;; symbol 'abc used in different contexts</span>
+<span class="c1">;;</span>
+<span class="p">(</span><span class="nv">abc</span><span class="p">)</span> <span class="c1">; ==&gt; "function"</span>
+<span class="p">(</span><span class="nb">funcall</span> <span class="nv">abc</span><span class="p">)</span> <span class="c1">; ==&gt; "lambda"</span>
+<span class="p">(</span><span class="nb">funcall</span> <span class="ss">'abc</span><span class="p">)</span> <span class="c1">; ==&gt; "function"</span>
+<span class="p">(</span><span class="nb">funcall</span> <span class="nf">#'</span><span class="nv">abc</span><span class="p">)</span> <span class="c1">; ==&gt; "function"</span>
+<span class="p">(</span><span class="nb">symbol-plist</span> <span class="ss">'abc</span><span class="p">)</span> <span class="c1">; ==&gt; (:hello "world")</span>
+</code></pre></div></div>
+
+<p>Looking at SBCL, it doesn’t seem property lists are used extensively. There’re about 416 symbols that have anything in their plist. In my running Sly session this number goes up to 631.</p>
+
+<p>It seems that this facility was introduced to Common Lisp to be compatible with older Lisp dialects. It feels very unnecessary as one can achieve that by using normal variables.</p>
+
+<p>The thing that winds me up the most is that this archaic feature uses the word “get” for it’s function. It makes no sense to give such generic names to niche APIs.</p>
+
+<p>Emacs Lisp gets more use out of symbol plists. It’s used for different configuration. For example, these are some properties set in my config:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; 'disabled property marks certain interactive functions as disabled</span>
+<span class="p">(</span><span class="nv">put</span> <span class="ss">'downcase-region</span> <span class="ss">'disabled</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">put</span> <span class="ss">'upcase-region</span> <span class="ss">'disabled</span> <span class="no">nil</span><span class="p">)</span>
+<span class="c1">;; configures how if macro should be indented in elisp code</span>
+<span class="p">(</span><span class="nv">put</span> <span class="ss">'if</span> <span class="ss">'lisp-indent-function</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="honourable-mentions">Honourable mentions</h1>
+
+<h2 id="dynamic-binding">Dynamic binding</h2>
+
+<p>I actually love dynamic binding. However, I only use it in CL to introduce implicit parameters, e.g. API keys. I think it’s great. But it does fit into my narrative of Common Lisp being a dumpster of a bunch of different things programmers came up with</p>
+
+<h2 id="multiple-values-return">Multiple values return</h2>
+
+<p>In a dynamically typed language, returning multiple values from functions can be achieved with a simple list (or array, or whatever your language uses). However, Common Lisp <em>also</em> has a dedicated facility to work with multiple values.</p>
+
+<p>The purpose is to be able to return multiple values without allocating extra memory (for cons cells). However, it comes at a price of having to remember special forms to deal with them.</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">defun</span> <span class="nv">f</span> <span class="p">()</span>
+  <span class="p">(</span><span class="nb">values</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">result</span> <span class="p">(</span><span class="nv">f</span><span class="p">)))</span>
+  <span class="nv">result</span><span class="p">)</span> <span class="c1">; ==&gt; 1</span>
+
+<span class="p">(</span><span class="nb">multiple-value-bind</span> <span class="p">(</span><span class="nv">one</span> <span class="nv">two</span> <span class="nv">three</span><span class="p">)</span> <span class="p">(</span><span class="nv">f</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">list</span> <span class="nv">one</span> <span class="nv">two</span> <span class="nv">three</span><span class="p">))</span> <span class="c1">; ==&gt; (1 2 3)</span>
+</code></pre></div></div>
+
+<p>Is this optimisation worth it? I don’t think so. <strong>However</strong>, <code class="language-plaintext highlighter-rouge">values</code> has a very neat feature: if you don’t handle the multiple values explicitly, the extras are simply discarded like they aren’t even there. This is useful when the extra returned values are only needed in certain scenarios.</p>
+
+<p>A good example of that is the function <code class="language-plaintext highlighter-rouge">gethash</code>. Normally, it simply returns the value of the key or <code class="language-plaintext highlighter-rouge">nil</code>. However, it also returns a second value one can check whether the key was found or not. If they were returned as a list, it’d get pretty tiresome to keep writing <code class="language-plaintext highlighter-rouge">(car (gethash key hash))</code>.</p>
+
+<p>Emacs Lisp has <code class="language-plaintext highlighter-rouge">gethash</code> too. However, it doesn’t have the <code class="language-plaintext highlighter-rouge">values</code> facility so it’s not trivial to check whether a key exists in a hash or not. For example, if <code class="language-plaintext highlighter-rouge">gethash</code> returns nil, does it mean the key didn’t exist or that it was set to <code class="language-plaintext highlighter-rouge">nil</code>? The way I do it, I use the third parameter (the fallback value) and set it to something nonsensical and then check if the nonsense was returned.</p>
+
+<p>Compare Common Lisp:</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">defun</span> <span class="nv">key-exists?</span> <span class="p">(</span><span class="nv">key</span> <span class="nv">h</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">nth-value</span> <span class="mi">1</span> <span class="p">(</span><span class="nb">gethash</span> <span class="nv">key</span> <span class="nv">h</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>With Elisp:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">defun</span> <span class="nv">key-exists?</span> <span class="p">(</span><span class="nv">k</span> <span class="nv">h</span><span class="p">)</span>
+  <span class="c1">;; HACK: simply assume nobody will ever use this value and check if gethash</span>
+  <span class="c1">;;       returns it</span>
+  <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nb">equal</span> <span class="p">(</span><span class="nb">gethash</span> <span class="nv">k</span> <span class="nv">h</span> <span class="ss">:__key-not-found</span><span class="p">)</span>
+              <span class="ss">:__key-not-found</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">h</span> <span class="p">(</span><span class="nb">make-hash-table</span><span class="p">)))</span>
+  <span class="p">(</span><span class="nv">key-exists?</span> <span class="ss">:somekey</span> <span class="nv">h</span><span class="p">)</span> <span class="c1">; ==&gt; nil</span>
+  <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">:somekey</span> <span class="nv">h</span><span class="p">)</span> <span class="mi">123</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">key-exists?</span> <span class="ss">:somekey</span> <span class="nv">h</span><span class="p">)</span> <span class="c1">; ==&gt; t</span>
+  <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">:somekey</span> <span class="nv">h</span><span class="p">)</span> <span class="ss">:__key-not-found</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">key-exists?</span> <span class="ss">:__key-not-found</span> <span class="nv">h</span><span class="p">))</span> <span class="c1">; ==&gt; nil</span>
+</code></pre></div></div>
+
+<p>So it’s a nice feature. But it does mean the language gets bigger and more complicated. I can never remember the functions and macros to process multi-value functions.</p>
+
+<h2 id="let-vs-let">let vs let*</h2>
+
+<p>This also affects <code class="language-plaintext highlighter-rouge">do/do*</code> and <code class="language-plaintext highlighter-rouge">prog/prog*</code>. In practice, the difference is that non-asterisk versions don’t guarantee any execution order and don’t allow references to other variables during assignment. In theory, the assignments can happen in parallel.</p>
+
+<p>I don’t believe there’s any practical reason to have both. And if there is, I’m sure it’s better to use the more obvious behaviour by default so <code class="language-plaintext highlighter-rouge">let</code> and <code class="language-plaintext highlighter-rouge">let*</code> should be at least swapped.</p>
+
+<h2 id="carcdr-combinations">Car/cdr combinations</h2>
+
+<p>Just a small quirk. Often we need to get second, third, etc element from a list. This leads to constructions like <code class="language-plaintext highlighter-rouge">(car (cdr (cdr lst)))</code>. It gets even more complicated with more tree-like structured cons-cells.</p>
+
+<p>That’s why there’re functions like <code class="language-plaintext highlighter-rouge">cadr</code> (second value), <code class="language-plaintext highlighter-rouge">caddr</code> (third), and <code class="language-plaintext highlighter-rouge">cddadr</code> (something like “second list in a list with the first two elements dropped”? it’s so niche I can’t even tell what it might be without context).</p>
+
+<p>It’s very simple and convenient: for some (up to 4?) combinations of <code class="language-plaintext highlighter-rouge">car</code> and <code class="language-plaintext highlighter-rouge">cdr</code> you can simply write <code class="language-plaintext highlighter-rouge">(c...r)</code> and insert a combination of <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">d</code> in between <code class="language-plaintext highlighter-rouge">c</code> and <code class="language-plaintext highlighter-rouge">r</code>. So <code class="language-plaintext highlighter-rouge">(caaadr x)</code> is the same as <code class="language-plaintext highlighter-rouge">(car (car (car (cdr x))))</code>.</p>
+
+<p>They’re pretty good functions and I use them all the time (because I prefer working only with lists). However I do find them a bit funny and somewhat low-tech haha</p>
+
+<h1 id="outro">Outro</h1>
+
+<p>I have a love-hate relationship with Common Lisp. I think that it’s too old and got a lot of baggage that’s not of any use to someone like me. It feels like the authors just glued together a bunch of different programming languages together and made it a lisp. It feels more like an experiment rather than a well designed and production-ready language. I mean, Common Lisp has a namespace (package) system and yet nobody bothered to organise standard library. Everything is just dumped in the <code class="language-plaintext highlighter-rouge">common-lisp</code> package. One could argue that it’s because the packages are for the programmers to build libraries and software but then I’d expect the stdlib to be much thinner than this. I wasn’t there and I’m not a language designer but to me it feels wrong to go out of your way in order to keep backward compatibility with a bunch of old software. Not to mention, I’m sure they still had to do a bunch of work in order to migrate from previous implementations to Common Lisp.</p>
+
+<p>On the other hand, catering to different programmers made CL incredibly flexible and unopinionated. I always loved Perl’s TMTOWTDI philosophy. I trust my own gut. I want to make decisions. I want to experiment. I want freedom. And Common Lisp delivers. Sort of.</p>
+
+</article>
+<div class="is-size-5">
+  
+  
+  
+  <a href="http://twitter.com/share?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcommon-lisp-is-a-dumpster.html&text=Common+Lisp+is+a+dumpster" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-twitter"></i></span></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcommon-lisp-is-a-dumpster.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-linkedin"></i></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnondv.wtf%2Fblog%2Fposts%2Fcommon-lisp-is-a-dumpster.html" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-facebook"></i></span></a>
+</div>
+
+
+<script src="https://cdn.fastcomments.com/js/embed-v2.min.js"></script>
+<div id="fastcomments-widget"></div>
+<script>
+  window.FastCommentsUI(document.getElementById('fastcomments-widget'), {
+    "tenantId": "yGXgdvu2fN",
+    "urlId": "common-lisp-is-a-dumpster"
+  });
+</script>
+
+
+    </div>
+
+    <footer id="footer" class="has-background-light">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        &copy; <a class="has-text-black" href="https://nondv.wtf" target="_blank" rel="noopener"><u>Dmitry Non</u></a>
+      </div>
+      <div class="column has-text-right">
+        <div>
+          <a href="https://bulma.io/" target="_blank" rel="noopener"><img src="/img/made-with-bulma.png" alt="bulma logo" width="128"/></a>
+        </div>
+        <div>
+          <a href="https://jekyllrb.com/" target="_blank" rel="noopener"><img src="/img/jekyll-logo.png" alt="jekyll logo" width="128"/></a>
+        </div>
+        <div>
+          Hosted on <a href="https://github.com" target="_blank" rel="noopener"><img id="footer-github-logo" src="/img/github-logo.png" alt="Github logo" width="128"/></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "874222a374f745b38a62ba329849c002"}'></script>
+<!-- End Cloudflare Web Analytics -->
+</body>
+</html>
