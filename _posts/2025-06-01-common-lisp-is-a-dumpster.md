@@ -409,6 +409,7 @@ It's very simple and convenient: for some (up to 4?) combinations of `car` and `
 
 They're pretty good functions and I use them all the time (because I prefer working only with lists). However I do find them a bit funny and somewhat low-tech haha
 
+**Update:** it was pointed out that I should've mentioned =first=, =second=, etc. It's nice to have those although personally I find it incredibly annoying that they only work with lists even though they have such generic names.
 
 # Outro
 
