@@ -415,3 +415,9 @@ They're pretty good functions and I use them all the time (because I prefer work
 I have a love-hate relationship with Common Lisp. I think that it's too old and got a lot of baggage that's not of any use to someone like me. It feels like the authors just glued together a bunch of different programming languages together and made it a lisp. It feels more like an experiment rather than a well designed and production-ready language. I mean, Common Lisp has a namespace (package) system and yet nobody bothered to organise standard library. Everything is just dumped in the `common-lisp` package. One could argue that it's because the packages are for the programmers to build libraries and software but then I'd expect the stdlib to be much thinner than this. I wasn't there and I'm not a language designer but to me it feels wrong to go out of your way in order to keep backward compatibility with a bunch of old software. Not to mention, I'm sure they still had to do a bunch of work in order to migrate from previous implementations to Common Lisp.
 
 On the other hand, catering to different programmers made CL incredibly flexible and unopinionated. I always loved Perl's TMTOWTDI philosophy. I trust my own gut. I want to make decisions. I want to experiment. I want freedom. And Common Lisp delivers. Sort of.
+
+# Post follow-up
+
+Alex (nytpu) wrote a response to this. It's a very nice read, check it out:
+
+https://nytpu.com/gemlog/2025-06-01
