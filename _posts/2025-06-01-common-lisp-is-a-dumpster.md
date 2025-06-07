@@ -421,4 +421,4 @@ On the other hand, catering to different programmers made CL incredibly flexible
 
 Alex (nytpu) wrote a response to this. It's a very nice read, check it out:
 
-https://nytpu.com/gemlog/2025-06-01
+[https://nytpu.com/gemlog/2025-06-01](https://nytpu.com/gemlog/2025-06-01)
