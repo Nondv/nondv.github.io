@@ -2,6 +2,7 @@
 title: Common Lisp is a dumpster
 categories: ['Functional Programming', 'Weird Programming']
 tags: ['lisp', 'common lisp', 'sbcl', 'prog']
+is_featured: true
 img: /img/posts/cl-is-a-dumpster.jpg
 img_caption: >-
   Image by @pch-vector on Freepik

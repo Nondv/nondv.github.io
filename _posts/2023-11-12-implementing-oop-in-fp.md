@@ -4,6 +4,7 @@ categories: ['Weird Programming', 'Software Engineering', 'OOP', 'Functional Pro
 tags: [programming, oop, fp, actors, clojure, elixir, erlang]
 img: /img/posts/implementing-oop-in-fp.jpg
 img_caption: Weird DALL-E 2 generation
+is_featured: true
 description: >-
   Trying to "implement" OOP in a functional language. What is OOP? Is it really
   different?

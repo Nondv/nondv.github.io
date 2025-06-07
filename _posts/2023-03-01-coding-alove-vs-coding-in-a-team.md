@@ -2,6 +2,7 @@
 title: "Coding alone vs coding in a team"
 categories: ['Weird Programming', 'Functional Programming', 'Clojure']
 tags: ['lisp', 'common lisp', 'functional programming', 'fp', 'programming', 'clojure']
+is_featured: true
 img: /img/posts/alone.jpg
 img_caption: >-
   <a href="https://www.freepik.com/free-vector/lonely-girl-suffering-from-depression_7732643.htm">Image by pch.vector</a> on Freepik

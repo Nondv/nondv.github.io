@@ -2,6 +2,7 @@
 title: Microservices aren't the problem. Incompetent people are
 categories: ['Software Engineering', 'Productivity']
 tags: [microservices, programming, architecture, incompetence]
+is_featured: true
 img: /img/posts/monkeys.jpg
 img_caption: ''
 description: >-

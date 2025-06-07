@@ -2,12 +2,27 @@
 title: Dmitry Non's personal blog
 ---
 
-<nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+<nav class="breadcrumb" aria-label="breadcrumbs">
   <ul>
     <li class="is-active"><a href="#">Blog</a></li>
     <li><a href="{% link categories.html %}">Categories</a></li>
   </ul>
 </nav>
+
+<section class="section is-size-7 mb-4">
+  <div class="title is-size-4">Featured</div>
+
+  <div class="grid is-col-min-8">
+    {%- assign featured_posts = site.posts | where: "is_featured", true -%}
+    {%- for post in featured_posts -%}
+      <div class="cell">
+        <div><a href="{{post.url}}">{{post.title}}</a></div>
+        <time class="is-size-7">{{ post.date | date: "%-d %b %Y" }}</time>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
 
 {%- for post in site.posts -%}
   {% include posts_item.html post=post %}

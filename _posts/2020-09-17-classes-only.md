@@ -4,6 +4,7 @@ author_profile_url: https://nondv.wtf
 categories: ['Weird Programming', 'OOP', 'Ruby']
 tags: [ruby, oop, classes, object-oriented programming, pure oop]
 img: /img/posts/caveman.png
+is_featured: true
 description: >-
   What we had an OOP language with NOTHING except classes and variables?
 ---
