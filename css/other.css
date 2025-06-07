@@ -1,5 +1,6 @@
-.content figure {
-  text-align: left; /* HACK: bulma centers it */
+.breadcrumb li.is-active a {
+  /* HACK: for some reason, the var for this is broken in bulma 1.0.4 */
+  color: black;
 }
 
 .has-margin-left-5 {

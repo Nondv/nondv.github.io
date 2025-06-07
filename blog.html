@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="theme-light">
   <head>
     <meta charset="utf-8">
 
@@ -18,7 +18,7 @@
 
 
     <!-- Bulma -->
-    <link rel="stylesheet" href="/css/bulma.min.css">
+    <link rel="stylesheet" href="/css/bulma.1.0.4.min.css">
     <!-- Syntax highlight  -->
     <link rel="stylesheet" href="/css/syntax-highlight/perldoc.css">
     <!-- Custom shit and hacks -->
@@ -98,12 +98,33 @@
 
 
     <div class="container px-2">
-      <nav class="breadcrumb mb-4" aria-label="breadcrumbs">
+      <nav class="breadcrumb" aria-label="breadcrumbs">
   <ul>
     <li class="is-active"><a href="#">Blog</a></li>
     <li><a href="/blog/categories">Categories</a></li>
   </ul>
-</nav><article>
+</nav>
+
+<section class="section is-size-7 mb-4">
+  <div class="title is-size-4">Featured</div>
+
+  <div class="grid is-col-min-8"><div class="cell">
+        <div><a href="/blog/posts/common-lisp-is-a-dumpster.html">Common Lisp is a dumpster</a></div>
+        <time class="is-size-7">1 Jun 2025</time>
+      </div><div class="cell">
+        <div><a href="/blog/posts/implementing-oop-in-fp.html">Implementing OOP in FP</a></div>
+        <time class="is-size-7">12 Nov 2023</time>
+      </div><div class="cell">
+        <div><a href="/blog/posts/microservices-arent-the-problem-incompetent-people-are.html">Microservices aren't the problem. Incompetent people are</a></div>
+        <time class="is-size-7">8 Nov 2023</time>
+      </div><div class="cell">
+        <div><a href="/blog/posts/coding-alove-vs-coding-in-a-team.html">Coding alone vs coding in a team</a></div>
+        <time class="is-size-7">1 Mar 2023</time>
+      </div><div class="cell">
+        <div><a href="/blog/posts/classes-only.html">Programming only with classes</a></div>
+        <time class="is-size-7">17 Sep 2020</time>
+      </div></div>
+</section><article>
   <div class="columns is-vcentered">
     <div class="column is-narrow">
       <figure class="image is-128x128"><img src="/img/posts/cl-is-a-dumpster.jpg"></figure>
